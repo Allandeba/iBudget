@@ -49,16 +49,16 @@ public class Program
         }
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionKey);
 
-        // Add MySQL connection.
+        // Add PostgreSQL connection.
         string? connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
         if (connectionString.IsNullOrEmpty())
         {
             connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
         }
         _ = builder.Services.AddDbContext<ApplicationDBContext>(
-            options =>
-                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+            options => options.UseNpgsql(connectionString)
         );
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         _ = builder.Services.AddScoped<CatalogRepository>();
         _ = builder.Services.AddScoped<CatalogBusiness>();
