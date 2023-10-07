@@ -93,7 +93,10 @@ public class Program
         _ = app.UseAuthentication();
         _ = app.UseAuthorization();
 
-        _ = app.MapControllerRoute(name: "default", pattern: "{controller=Login}/{action=Index}/{id?}");
+        _ = app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}"
+        );
 
         _ = app.InitializeDB();
 
