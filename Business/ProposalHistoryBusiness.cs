@@ -26,11 +26,12 @@ namespace getQuote.Business
         {
             ProposalHistoryModel proposalHistory = await GetByIdAsync(proposalHistoryId);
 
-            ProposalModel proposal = new()
-            {
-                Person = proposalHistory.Person,
-                ProposalContent = new List<ProposalContentModel>(),
-            };
+            ProposalModel proposal =
+                new()
+                {
+                    Person = proposalHistory.Person,
+                    ProposalContent = new List<ProposalContentModel>(),
+                };
 
             IEnumerable<ItemModel> items = await GetAllItemsAsync(proposalHistory);
             _ = proposalHistory.ProposalContentJSON.ProposalContentItems.OrderBy(p => p.ItemId);
@@ -38,14 +39,15 @@ namespace getQuote.Business
 
             for (int i = 0; i < items.Count(); i++)
             {
-                ProposalContentModel proposalContent = new()
-                {
-                    Proposal = proposal,
-                    Item = items.ElementAt(i),
-                    Quantity = int.Parse(
-                        proposalHistory.ProposalContentJSON.ProposalContentItems[i].Quantity
-                    ),
-                };
+                ProposalContentModel proposalContent =
+                    new()
+                    {
+                        Proposal = proposal,
+                        Item = items.ElementAt(i),
+                        Quantity = int.Parse(
+                            proposalHistory.ProposalContentJSON.ProposalContentItems[i].Quantity
+                        ),
+                    };
 
                 proposal.ProposalContent.Add(proposalContent);
             }

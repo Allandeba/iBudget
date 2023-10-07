@@ -116,7 +116,9 @@ namespace getQuote.Business
 
         public async Task<IEnumerable<ItemModel>> GetAllLikeAsync(string? search)
         {
-            return search == null ? await GetItems() : await _repository.FindAsync(p => p.ItemName.Contains(search));
+            return search == null
+                ? await GetItems()
+                : await _repository.FindAsync(p => p.ItemName.Contains(search));
         }
 
         public async Task IncludeImages(ItemModel item)

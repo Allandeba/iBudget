@@ -10,7 +10,10 @@ namespace getQuote.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            _ = migrationBuilder.DropForeignKey(name: "FK_Proposal_Person_PersonId", table: "Proposal");
+            _ = migrationBuilder.DropForeignKey(
+                name: "FK_Proposal_Person_PersonId",
+                table: "Proposal"
+            );
 
             _ = migrationBuilder.DropForeignKey(
                 name: "FK_ProposalContent_Item_ItemId",
@@ -77,7 +80,10 @@ namespace getQuote.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            _ = migrationBuilder.DropForeignKey(name: "FK_Proposal_Person_PersonId", table: "Proposal");
+            _ = migrationBuilder.DropForeignKey(
+                name: "FK_Proposal_Person_PersonId",
+                table: "Proposal"
+            );
 
             _ = migrationBuilder.DropForeignKey(
                 name: "FK_ProposalContent_Item_ItemId",

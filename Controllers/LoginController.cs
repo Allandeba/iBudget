@@ -58,36 +58,34 @@ namespace getQuote.Controllers
 
         private async Task StartAuthentication(LoginModel login)
         {
-            List<Claim> claims = new()
-            {
-                new Claim(ClaimTypes.Name, login.Username),
-                new Claim(ClaimTypes.Role, "User"),
-            };
+            List<Claim> claims =
+                new()
+                {
+                    new Claim(ClaimTypes.Name, login.Username),
+                    new Claim(ClaimTypes.Role, "User"),
+                };
 
-            ClaimsIdentity claimsIdentity = new(
-                claims,
-                CookieAuthenticationDefaults.AuthenticationScheme
-            );
+            ClaimsIdentity claimsIdentity =
+                new(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             ClaimsPrincipal claimsPrincipal = new(claimsIdentity);
-            AuthenticationProperties authenticationProperties = new()
-            {
-                IsPersistent = login.Remember
-            };
+            AuthenticationProperties authenticationProperties =
+                new() { IsPersistent = login.Remember };
 
             await HttpContext.SignInAsync(claimsPrincipal, authenticationProperties);
         }
 
         private LoginLogModel GetLoginLog(LoginModel login, LoginLogStatus loginLogStatus)
         {
-            LoginLogModel loginLog = new()
-            {
-                Username = login.Username,
-                Password = login.Password,
-                Hostname = Dns.GetHostEntry(HttpContext.Connection.RemoteIpAddress).HostName,
-                RemoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                DateTime = DateTime.Now,
-                Status = loginLogStatus
-            };
+            LoginLogModel loginLog =
+                new()
+                {
+                    Username = login.Username,
+                    Password = login.Password,
+                    Hostname = Dns.GetHostEntry(HttpContext.Connection.RemoteIpAddress).HostName,
+                    RemoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
+                    DateTime = DateTime.Now,
+                    Status = loginLogStatus
+                };
 
             return loginLog;
         }

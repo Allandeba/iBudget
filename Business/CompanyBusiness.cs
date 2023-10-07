@@ -22,10 +22,7 @@ namespace getQuote.Business
         public async Task<CompanyModel> GetByIdAsync(int companyId)
         {
             CompanyIncludes[] includes = new CompanyIncludes[] { CompanyIncludes.None };
-            return await _repository.GetByIdAsync(
-                companyId,
-                includes.Cast<Enum>().ToArray()
-            );
+            return await _repository.GetByIdAsync(companyId, includes.Cast<Enum>().ToArray());
         }
 
         public async Task UpdateAsync(CompanyModel company)

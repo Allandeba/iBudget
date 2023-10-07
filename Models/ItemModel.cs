@@ -45,13 +45,15 @@ public class ItemModel
             ItemImageList = new List<ItemImageModel>();
             foreach (IFormFile image in ImageFiles)
             {
-                ItemImageModel itemImage = new()
-                {
-                    FileName = image.FileName,
-                    ImageFile = ImageUtils
-                    .ResizeImage(image, Constants.MaxImageWidth, Constants.MaxImageHeight)
-                    .ToArray()
-                };
+                ItemImageModel itemImage =
+                    new()
+                    {
+                        FileName = image.FileName,
+                        ImageFile = ImageUtils
+                            .ResizeImage(image, Constants.MaxImageWidth, Constants.MaxImageHeight)
+                            .ToArray(),
+                        Item = new ItemModel()
+                    };
 
                 ItemImageList.Add(itemImage);
             }
@@ -64,7 +66,9 @@ public class ItemModel
         {
             foreach (ItemImageModel image in ItemImageList)
             {
-                image.Main = defaultImageFileName != SelectDefault.None.ToString() && image.FileName == defaultImageFileName;
+                image.Main =
+                    defaultImageFileName != SelectDefault.None.ToString()
+                    && image.FileName == defaultImageFileName;
             }
         }
     }

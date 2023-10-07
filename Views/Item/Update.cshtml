@@ -1,11 +1,13 @@
 ﻿@model ItemModel
 
+@using getQuote.Framework
+
 @{
     ViewData["Title"] = "Update - " + Model.ItemName;
 }
 
 @section Scripts
-{
+    {
     <script src="@Url.Content("~/js/uploadImageUtils.js")"></script>
     <script src="@Url.Content("~/js/deleteElementConfirmationHelper.js")"></script>
     <script src="@Url.Content("~/js/submitHelper.js")"></script>
@@ -68,9 +70,7 @@
                         <span class="col-6 col-md-4">
                             @*If changed, remember to change the creation of the span in uploadImageUtils.js*@
 
-                            <a onclick="deleteItemImage(@image.ItemImageId)"
-                               aria-label="Close"
-                               class="close
+                            <a onclick="deleteItemImage(@image.ItemImageId)" aria-label="Close" class="close
                             position-absolute
                             d-block
                             translate-middle
@@ -84,7 +84,8 @@
                                 <span aria-hidden="true">&times;</span>
                             </a>
 
-                            <img id="@(image.ItemImageId)" name="@(image.FileName)" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)" width="@(Constants.MaxImageWidth)" height="@(Constants.MaxImageHeight)" />
+                            <img id="@(image.ItemImageId)" name="@(image.FileName)" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))"
+                                alt="@(image.FileName)" width="@(Constants.MaxImageWidth)" height="@(Constants.MaxImageHeight)" />
                         </span>
                     }
                 </div>

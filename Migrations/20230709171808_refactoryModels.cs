@@ -10,9 +10,15 @@ namespace getQuote.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            _ = migrationBuilder.DropForeignKey(name: "FK_Contact_Person_PersonId", table: "Contact");
+            _ = migrationBuilder.DropForeignKey(
+                name: "FK_Contact_Person_PersonId",
+                table: "Contact"
+            );
 
-            _ = migrationBuilder.DropForeignKey(name: "FK_Document_Person_PersonId", table: "Document");
+            _ = migrationBuilder.DropForeignKey(
+                name: "FK_Document_Person_PersonId",
+                table: "Document"
+            );
 
             _ = migrationBuilder.DropForeignKey(
                 name: "FK_Proposal_Person_PersonId1",
@@ -150,11 +156,20 @@ namespace getQuote.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            _ = migrationBuilder.DropForeignKey(name: "FK_Contact_Person_PersonId", table: "Contact");
+            _ = migrationBuilder.DropForeignKey(
+                name: "FK_Contact_Person_PersonId",
+                table: "Contact"
+            );
 
-            _ = migrationBuilder.DropForeignKey(name: "FK_Document_Person_PersonId", table: "Document");
+            _ = migrationBuilder.DropForeignKey(
+                name: "FK_Document_Person_PersonId",
+                table: "Document"
+            );
 
-            _ = migrationBuilder.DropForeignKey(name: "FK_Proposal_Person_PersonId", table: "Proposal");
+            _ = migrationBuilder.DropForeignKey(
+                name: "FK_Proposal_Person_PersonId",
+                table: "Proposal"
+            );
 
             _ = migrationBuilder.DropForeignKey(
                 name: "FK_ProposalContent_Item_ItemId",
@@ -166,7 +181,10 @@ namespace getQuote.Migrations
                 table: "ProposalContent"
             );
 
-            _ = migrationBuilder.DropIndex(name: "IX_ProposalContent_ItemId", table: "ProposalContent");
+            _ = migrationBuilder.DropIndex(
+                name: "IX_ProposalContent_ItemId",
+                table: "ProposalContent"
+            );
 
             _ = migrationBuilder.DropIndex(name: "IX_Proposal_PersonId", table: "Proposal");
 

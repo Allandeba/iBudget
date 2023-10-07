@@ -1,12 +1,14 @@
 ﻿@model ProposalModel
 
+@using getQuote.Framework
+
 @{
     ViewData["Title"] = "Create";
     string itemsJson = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.ItemsFull);
 }
 
 @section Scripts
-{
+    {
     <script src="@Url.Content("~/js/proposalUtils.js")"></script>
     <script src="@Url.Content("~/js/submitHelper.js")"></script>
 }
@@ -37,7 +39,8 @@
 
                 <div class="mb-3 text-start">
                     <label asp-for="Discount" class="form-label"></label>
-                    <input id="discount" asp-for="Discount" type="number" step="0.01" onchange="calculateTotalValue()" class="form-control" placeholder="" value="0">
+                    <input id="discount" asp-for="Discount" type="number" step="0.01" onchange="calculateTotalValue()" class="form-control" placeholder=""
+                        value="0">
                     <span asp-validation-for="Discount" class="text-danger"></span>
                 </div>
 

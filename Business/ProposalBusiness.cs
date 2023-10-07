@@ -61,10 +61,7 @@ namespace getQuote.Business
                 ProposalIncludes.PersonContact,
                 ProposalIncludes.Item
             };
-            return await _repository.GetByIdAsync(
-                proposalId,
-                includes.Cast<Enum>().ToArray()
-            );
+            return await _repository.GetByIdAsync(proposalId, includes.Cast<Enum>().ToArray());
         }
 
         public async Task<ProposalModel> GetPrintByGUIDAsync(Guid GUID)
@@ -94,10 +91,7 @@ namespace getQuote.Business
                 ProposalIncludes.Person,
                 ProposalIncludes.ItemImageList
             };
-            return await _repository.GetByIdAsync(
-                proposalId,
-                includes.Cast<Enum>().ToArray()
-            );
+            return await _repository.GetByIdAsync(proposalId, includes.Cast<Enum>().ToArray());
         }
 
         public async Task UpdateAsync(ProposalModel proposal)
@@ -166,21 +160,23 @@ namespace getQuote.Business
 
         private async Task CreateProposalHistoryAsync(ProposalModel existentProposal)
         {
-            ProposalHistoryModel ProposalHistory = new()
-            {
-                ModificationDate = existentProposal.ModificationDate,
-                Person = existentProposal.Person,
-                Proposal = existentProposal
-            };
+            ProposalHistoryModel ProposalHistory =
+                new()
+                {
+                    ModificationDate = existentProposal.ModificationDate,
+                    Person = existentProposal.Person,
+                    Proposal = existentProposal
+                };
 
             ProposalContentJSON proposalContentJSON = new();
             foreach (ProposalContentModel proposalContent in existentProposal.ProposalContent)
             {
-                ProposalContentItems proposalContentItems = new()
-                {
-                    ItemId = proposalContent.ItemId.ToString(),
-                    Quantity = proposalContent.Quantity.ToString()
-                };
+                ProposalContentItems proposalContentItems =
+                    new()
+                    {
+                        ItemId = proposalContent.ItemId.ToString(),
+                        Quantity = proposalContent.Quantity.ToString()
+                    };
                 proposalContentJSON.ProposalContentItems.Add(proposalContentItems);
             }
 

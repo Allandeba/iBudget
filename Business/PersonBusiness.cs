@@ -91,8 +91,8 @@ namespace getQuote.Business
             return search == null
                 ? await GetPeople()
                 : await _repository.FindAsync(
-                p => p.FirstName.Contains(search) || p.LastName.Contains(search)
-            );
+                    p => p.FirstName.Contains(search) || p.LastName.Contains(search)
+                );
         }
     }
 }
