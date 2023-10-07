@@ -1,0 +1,118 @@
+﻿@model ProposalModel
+
+@{
+    ViewData["Title"] = "Update - " + Model.ProposalId;
+    string itemsJson = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.ItemsFull);
+}
+
+@section Scripts
+{
+    <script src="@Url.Content("~/js/proposalUtils.js")"></script>
+    <script src="@Url.Content("~/js/deleteElementConfirmationHelper.js")"></script>
+    <script src="@Url.Content("~/js/submitHelper.js")"></script>
+}
+
+<script>
+    let items = @Html.Raw(itemsJson);
+    let selectPersonId = @ViewBag.ProposalPerson.PersonId;
+</script>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h4 class="mb-3">Proposal detail</h4>
+            @using (Html.BeginForm("Update", "Proposal", FormMethod.Post, new { @class = "needs-validation" }))
+            {
+                @Html.HiddenFor(m => m.ProposalId)
+                @Html.HiddenFor(m => m.ModificationDate)
+
+                <div class="mb-3 text-start">
+                    <label asp-for="PersonId" class="form-label"></label>
+                    <select asp-for="PersonId" class="form-select" asp-items="@ViewBag.People"></select>
+                    <span asp-validation-for="PersonId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label for="ItemList" class="form-label">Items</label>
+                    <select id="ItemList" class="form-select" asp-items="@ViewBag.Items" onchange="javascript:selectionChange(this)">
+                        <option value="@((int)SelectDefault.None)">@(SelectDefault.None.ToString())</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label asp-for="Discount" class="form-label"></label>
+                    <input id="discount" asp-for="Discount" type="number" step="0.01" onchange="calculateTotalValue()" class="form-control" placeholder="">
+                    <span asp-validation-for="Discount" class="text-danger"></span>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="table-responsive mb-4">
+                    <table id="proposalContentTable" class="table table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">Proposal Content ID</th>
+                                <th class="text-center">Item ID</th>
+                                <th class="text-center">Item Name</th>
+                                <th class="text-center">Value</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-rows">
+                            @{
+                                double totalValue = 0;
+                            }
+
+                            @for (int i = 0; i < ViewBag.ProposalContent.Count; i++)
+                            {
+                                var proposalContent = ViewBag.ProposalContent[i];
+
+                                <tr id="proposalContentRow_@proposalContent.ProposalContentId">
+                                    <td class="text-center">
+                                        <input type="hidden" name="ProposalContent[@i].ProposalContentId" value="@proposalContent.ProposalContentId" />
+                                        <input type="hidden" name="ProposalContent[@i].ItemId" value="@proposalContent.Item.ItemId" />
+                                        <span>@proposalContent.ProposalContentId</span>
+                                    </td>
+                                    <td name="ProposalContent[@i].Item.ItemId" class="text-center">@proposalContent.Item.ItemId</td>
+                                    <td class="text-center" name="ProposalContent[@i].Item.ItemName">@proposalContent.Item.ItemName</td>
+                                    <td id="item-value" name="ProposalContent[@i].Item.Value" class="text-center">R$ @proposalContent.Item.Value</td>
+                                    <td class="text-center">
+                                        <input id=item-quantity name="ProposalContent[@i].Quantity" class="text-center" onchange="onChangeItemQuantity(this)" value="@(proposalContent.Quantity)" type="number" step="0.01" />
+                                        <span asp-validation-for="ProposalContent[@i].Quantity" class="text-danger"></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="delete-icon" onclick="deleteItem(@proposalContent.ProposalContentId, @proposalContent.Item.ItemId)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                                                <style>
+                                                    svg {
+                                                        fill: #e60a0a
+                                                    }
+                                                </style>
+                                                <path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z" />
+                                            </svg>
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                totalValue += proposalContent.Item.Value;
+                            }
+
+                            <tr>
+                                <td colspan="3" class="text-end fw-bold">Total:</td>
+                                <td id="total-value-cell" class="text-center fw-bold">R$ @((totalValue - Model.Discount).ToString())</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <hr class="my-4">
+
+                <div id="submit" class="text-end mb-4">
+                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
+                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancel</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

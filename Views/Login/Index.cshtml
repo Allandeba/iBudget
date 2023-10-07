@@ -1,0 +1,41 @@
+﻿@model LoginModel
+
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "needs-validation" }))
+            {
+                <object class="svg svg-person mb-4" width="72" height="72" alt="Person"></object>
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+                <div class="mb-3 text-start">
+                    <label asp-for="Username" class="form-label"></label>
+                    <input asp-for="Username" class="form-control" placeholder="" autofocus="">
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" placeholder="">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-check text-start my-3">
+                    <label asp-for="Remember" class="form-check-label">
+                        <input asp-for="Remember" class="form-check-input" type="checkbox">
+                        Remember me
+                    </label>
+                </div>
+
+                <div id="submit" class="text-end mb-4">
+                    <button class="btn btn-primary btn-lg" type="submit">Sing in</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

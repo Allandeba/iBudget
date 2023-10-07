@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ProposalModel>
+
+@{
+    ViewData["Title"] = "Proposal Page";
+}
+
+<section class="py-5 text-center">
+    <div class="container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Proposal</h1>
+                <p class="lead text-muted">For more information, click on the proposals below.</p>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 mx-auto mt-4 mt-md-0 d-flex justify-content-end">
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Add</button>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            @using (Html.BeginForm("Search", "Proposal"))
+            {
+                <div class="d-flex py-5">
+                    <input id="search-box" type="text" class="form-control" placeholder="Search..." name="search" value="@TempData[@Constants.SearchBoxData]" />
+                    @*value="@ViewBag.Search"*@
+                    <button class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            }
+
+            <ul class="list-group">
+                @foreach (var proposal in Model)
+                {
+                    <li class="list-group-item list-group-item-action d-flex gap-3 py-3">
+                        <a asp-controller="Proposal" asp-action="Delete" asp-route-id="@proposal.ProposalId" class="close position-absolute top-0 start-0 translate-middle badge rounded-circle bg-danger p-2 opacity-75" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+
+                        <a asp-controller="Proposal" asp-action="Update" asp-route-id="@proposal.ProposalId" class="d-flex align-items-center w-100">
+                            <object class="svg svg-proposal" alt="proposal icon" width="32" height="32" class="rounded-circle flex-shrink-0"></object>
+
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">@proposal.ProposalId - @proposal.Person.PersonName</h6>
+                                <p class="mb-0 opacity-75">Modified @proposal.ModificationDate.ToString("dd/MM/yyyy")</p>
+                            </div>
+                        </a>
+
+                        <div class="d-flex flex-column flex-sm-row">
+                            <div class="mb-3 mb-sm-0 me-sm-3">
+                                <a asp-controller="Proposal" asp-action="SendWhatsApp" asp-route-id="@proposal.GUID" target="_blank">
+                                    <object class="svg svg-whatsapp" alt="whatsapp icon" width="16" height="16" class="rounded-circle flex-shrink-0"></object>
+                                </a>
+                            </div>
+
+                            <div class="mb-3 mb-sm-0 me-sm-3">
+                                <a asp-controller="Proposal" asp-action="ExportToPDF" asp-route-id="@proposal.GUID" target="_blank">
+                                    <object class="svg svg-printer" alt="print icon" width="16" height="16" class="rounded-circle flex-shrink-0"></object>
+                                </a>
+                            </div>
+
+                            @if (proposal.ProposalHistory != null && proposal.ProposalHistory.Count > 0)
+                            {
+                                <div class="dropdown mb-3 mb-sm-0 me-sm-3">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <object class="svg svg-proposal-history" alt="history icon" width="16" height="16" class="rounded-circle flex-shrink-0"></object>
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        @foreach (var proposalHistory in proposal.ProposalHistory.OrderByDescending(x => x.ProposalHistoryId))
+                                        {
+                                            <li>
+                                                <a asp-controller="ProposalHistory" asp-action="ExportToPDF" asp-route-id="@proposalHistory.ProposalHistoryId" class="dropdown-item d-flex align-items-center" target="_blank">
+                                                    <span class="text-muted">@($"{proposalHistory.ProposalHistoryId} - Modified {proposalHistory.ModificationDate.ToString("dd/MM/yyyy")}")</span>
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        </div>
+
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

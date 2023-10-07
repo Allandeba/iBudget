@@ -1,0 +1,65 @@
+﻿@model PersonModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section Scripts
+{
+    <script src="@Url.Content("~/js/submitHelper.js")"></script>
+    <script src="@Url.Content("~/js/formatHelper.js")"></script>
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            @using (Html.BeginForm("Create", "Person", FormMethod.Post, new { @class = "needs-validation" }))
+            {
+                <div class="mb-3 text-start">
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <input asp-for="FirstName" class="form-control" placeholder="">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label asp-for="LastName" class="form-label"></label>
+                    <input asp-for="LastName" class="form-control" placeholder="">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label asp-for="Contact.Email" class="form-label"></label>
+                    <input asp-for="Contact.Email" class="form-control" placeholder="you@example.com" requried>
+                    <span asp-validation-for="Contact.Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label asp-for="Contact.Phone" class="form-label"></label>
+                    <input asp-for="Contact.Phone" class="form-control" placeholder="+55 (49) 9 xxxx-xxxx">
+                    <span asp-validation-for="Contact.Phone" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label asp-for="Document.DocumentType"></label>
+                    <select asp-for="Document.DocumentType" asp-items="@Html.GetEnumSelectList<DocumentTypes>()" class="form-select">
+                        <option>--Choose--</option>
+                    </select>
+                    <span asp-validation-for="Document.DocumentType" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label asp-for="Document.Document" class="form-label"></label>
+                    <input asp-for="Document.Document" class="form-control" placeholder="">
+                    <span asp-validation-for="Document.Document" class="text-danger"></span>
+                </div>
+
+                <hr class="my-4">
+                <div id="submit" class="text-end mb-4">
+                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
+                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancel</a>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>

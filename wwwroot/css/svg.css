@@ -1,0 +1,49 @@
+.theme-dark object {
+  filter: invert(90%);
+}
+
+.svg {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+}
+
+.svg-person {
+  background-image: url(../img/person.svg);
+}
+
+.svg-item {
+  background-image: url(../img/item.svg);
+}
+
+.svg-proposal {
+  background-image: url(../img/proposal.svg);
+}
+
+.svg-proposal-history {
+  background-image: url(../img/proposalHistory.svg);
+}
+
+.svg-catalog {
+  background-image: url(../img/catalog.svg);
+}
+
+.svg-configuration {
+  background-image: url(../img/configuration.svg);
+}
+
+.svg-whatsapp {
+  background-image: url(../img/whatsapp.svg);
+}
+
+.svg-printer {
+  background-image: url(../img/printer.svg);
+}
+
+.svg-sun {
+  background-image: url(../img/sun.svg);
+}
+.svg-moon {
+  background-image: url(../img/moon.svg);
+}

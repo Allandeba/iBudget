@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ItemModel>
+
+@{
+    ViewData["Title"] = "Item Page";
+}
+
+<section class="py-5 text-center">
+    <div class="container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Items</h1>
+                <p class="lead text-muted">For more information, click on the proposals below.</p>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-8 mx-auto mt-4 mt-md-0 d-flex justify-content-end">
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Add</button>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+
+            @using (Html.BeginForm("Search", "Item"))
+            {
+                <div class="d-flex py-5">
+                    <input id="search-box" type="text" class="form-control" placeholder="Search..." name="search"
+                        value="@TempData[@Constants.SearchBoxData]" />
+                    @*value="@ViewBag.Search"*@
+                    <button class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            }
+
+            <div class="list-group">
+                @foreach (var item in Model)
+                {
+                    <div class="list-group-item list-group-item-action d-flex gap-3 py-3">
+                        <a asp-controller="Item" asp-action="Delete" asp-route-id="@item.ItemId"
+                            class="close position-absolute top-0 start-0 translate-middle badge rounded-circle bg-danger p-2 opacity-75"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+
+                        <a asp-controller="Item" asp-action="Update" asp-route-id="@item.ItemId" class="d-flex align-items-center w-100">
+                            <object class="svg svg-item" alt="user icon" width="32" height="32" class="rounded-circle flex-shrink-0"></object>
+
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">@item.ItemName</h6>
+                                <p class="mb-0 opacity-75">@item.Description</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

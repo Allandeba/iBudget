@@ -1,0 +1,90 @@
+﻿@model ProposalModel
+
+@{
+    Layout = "_LayoutBase";
+    ViewData["Title"] = "Print - " + Model.ProposalId;
+}
+
+<div class="container-fluid">
+    <header class="header-img bg-dark py-5 mb-4">
+        <img src="data:image/*;base64,@(Convert.ToBase64String(ViewBag.Company.ImageFile))" />
+    </header>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive mb-4">
+                <table id="proposalContentTable" class="table table-striped">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center">Item ID</th>
+                            <th class="text-center">Item Name</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Description</th>
+                            <th class="text-center">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            double totalValue = 0;
+                        }
+
+                        @foreach (var proposalContent in Model.ProposalContent)
+                        {
+                            <tr id="proposalContentRow_@proposalContent.ProposalContentId">
+                                <td class="text-center">@proposalContent.Item.ItemId</td>
+                                <td class="text-center">@proposalContent.Item.ItemName</td>
+                                <td class="text-center">@proposalContent.Quantity</td>
+                                <td class="text-center">@proposalContent.Item.Description</td>
+                                <td class="text-center">R$ @proposalContent.Item.Value</td>
+                            </tr>
+
+                            totalValue += proposalContent.Item.Value * proposalContent.Quantity;
+                        }
+
+                        <tr>
+                            <td colspan="4" class="text-end fw-bold">Total:</td>
+                            <td class="text-center fw-bold">R$ @string.Format("{0:#.00}", (totalValue - Model.Discount))</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-3 offset-md-8 mb-3 justify-content-end">
+            <hr />
+            <div class="text-center md-0">
+                Signature
+                <br />
+                CNPJ @ViewBag.Company.CNPJ
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-dark py-2">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Catalog</h1>
+        </div>
+    </div>
+
+    <div class="row justify-content-center py-2">
+        @foreach (var ProposalContent in Model.ProposalContent)
+        {
+            ItemImageModel image = ProposalContent.Item.GetMainImage();
+            <div class="col-6 col-md-4 col-lg-3">
+
+                @if (image != null)
+                {
+                    <img id="@(image.ItemImageId)" name="@(image.FileName)" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)" class="img-fluid" />
+                }
+                else
+                {
+                    image = ProposalContent.Item?.ItemImageList.FirstOrDefault();
+                    if (image != null)
+                    {
+                        <img id="@(image.ItemImageId)" name="@(image.FileName)" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)" class="img-fluid" />
+                    }
+                }
+            </div>
+        }
+    </div>
+</div>
