@@ -5,8 +5,10 @@ using getQuote.Models;
 using getQuote.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace getQuote;
@@ -80,7 +82,27 @@ public class Program
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
         {
-            _ = app.UseExceptionHandler("/Home/Error");
+            _ = app.UseExceptionHandler(CustomErrorViewModel =>
+            {
+                CustomErrorViewModel.Run(async context =>
+                {
+                    context.Response.StatusCode = 500;
+                    context.Response.ContentType = "application/json";
+
+                    var error = context.Features.Get<IExceptionHandlerFeature>();
+                    if (error != null)
+                    {
+                        await context.Response.WriteAsync(
+                            new CustomErrorViewModel()
+                            {
+                                Code = 500,
+                                ErrorMessage = error.Error.Message
+                            }.ToString(),
+                            Encoding.UTF8
+                        );
+                    }
+                });
+            });
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             _ = app.UseHsts();
         }
