@@ -1,5 +1,6 @@
 using getQuote.DAO;
 using getQuote.Framework;
+using Microsoft.EntityFrameworkCore;
 
 namespace getQuote.Models
 {
@@ -12,6 +13,7 @@ namespace getQuote.Models
                 scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
             try
             {
+                context.Database.Migrate();
                 _ = context.Database.EnsureCreated();
 
                 LoginModel? login = context.Login.FirstOrDefault();
