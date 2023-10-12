@@ -1,15 +1,23 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
-WORKDIR /App
+ARG ARCH=amd64
+ARG VERSION=7.0
+ARG TAG=$VERSION-bullseye-slim-$ARCH
+FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
+WORKDIR /app
 
-# Copy everything
-COPY . ./
-# Restore as distinct layers
+# copy csproj and restore as distinct layers
+# COPY *.sln .
+COPY *.csproj .
 RUN dotnet restore
-# Build and publish a release
-RUN dotnet publish -c Release -o out
 
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+# copy everything else and build app
+COPY . .
+WORKDIR /app
+RUN dotnet publish -c release -o out --no-restore
+
+# final stage/image
+FROM mcr.microsoft.com/dotnet/aspnet:$TAG
+WORKDIR /app
+
 # Syncfusion
 RUN apt-get update && \
 apt-get install -yq --no-install-recommends \ 
@@ -19,9 +27,5 @@ libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 \
 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \ 
 libnss3 libgbm1
 
-WORKDIR /App
-COPY --from=build-env /App/out .
-# ENTRYPOINT ["dotnet", "getQuote.dll"]
-ENTRYPOINT ["dotnet", "getQuote.dll", "--environment=Development"]
-
-# CMD [“/bin/bash”, “-c”, “dotnet restore && dotnet run”]
+COPY --from=build /app/out .
+ENTRYPOINT ["dotnet", "getQuote.dll"]
