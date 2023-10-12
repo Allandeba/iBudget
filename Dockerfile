@@ -5,7 +5,6 @@ FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
-# COPY *.sln .
 COPY *.csproj .
 RUN dotnet restore
 
