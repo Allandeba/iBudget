@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace getQuote;
 
@@ -20,6 +21,12 @@ public class Program
         _ = DotNetEnv.Env.Load();
 
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders =
+                ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        });
 
         // Add services to the container.
         _ = builder.Services.AddControllersWithViews();
@@ -78,6 +85,8 @@ public class Program
         _ = builder.Services.AddScoped<LoginRepository>();
 
         WebApplication app = builder.Build();
+
+        app.UseForwardedHeaders();
 
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
