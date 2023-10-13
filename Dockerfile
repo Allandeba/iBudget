@@ -27,4 +27,4 @@ libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss
 libnss3 libgbm1
 
 COPY --from=build /app/out .
-ENTRYPOINT ["dotnet", "getQuote.dll"]
+ENTRYPOINT ["dotnet", "iBudget.dll"]

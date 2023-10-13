@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace getQuote.Controllers;
+namespace iBudget.Controllers;
 
 public class HomeController : BaseController
 {

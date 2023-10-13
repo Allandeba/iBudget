@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace getQuote.Models;
+namespace iBudget.Models;
 
 public class CustomErrorViewModel
 {

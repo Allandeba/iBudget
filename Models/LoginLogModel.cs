@@ -1,8 +1,8 @@
-﻿using getQuote.Framework;
+﻿using iBudget.Framework;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace getQuote.Models;
+namespace iBudget.Models;
 
 public class LoginLogModel
 {

@@ -2,7 +2,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace getQuote.Framework
+namespace iBudget.Framework
 {
     public class Cryptography
     {

@@ -1,8 +1,8 @@
-using getQuote.DAO;
-using getQuote.Framework;
+using iBudget.DAO;
+using iBudget.Framework;
 using Microsoft.EntityFrameworkCore;
 
-namespace getQuote.Models
+namespace iBudget.Models
 {
     public static class DatabaseInitialize
     {

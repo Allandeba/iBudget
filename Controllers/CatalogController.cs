@@ -1,8 +1,8 @@
-﻿using getQuote.Business;
-using getQuote.Models;
+﻿using iBudget.Business;
+using iBudget.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace getQuote.Controllers
+namespace iBudget.Controllers
 {
     public class CatalogController : BaseController
     {

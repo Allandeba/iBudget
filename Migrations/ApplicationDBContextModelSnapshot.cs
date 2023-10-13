@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using getQuote.DAO;
+using iBudget.DAO;
 
 #nullable disable
 
-namespace getQuote.Migrations
+namespace iBudget.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
     partial class ApplicationDBContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace getQuote.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("getQuote.Models.CompanyModel", b =>
+            modelBuilder.Entity("iBudget.Models.CompanyModel", b =>
                 {
                     b.Property<int>("CompanyId")
                         .ValueGeneratedOnAdd()
@@ -63,7 +63,7 @@ namespace getQuote.Migrations
                     b.ToTable("Company");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ContactModel", b =>
+            modelBuilder.Entity("iBudget.Models.ContactModel", b =>
                 {
                     b.Property<int>("ContactId")
                         .ValueGeneratedOnAdd()
@@ -92,7 +92,7 @@ namespace getQuote.Migrations
                     b.ToTable("Contact");
                 });
 
-            modelBuilder.Entity("getQuote.Models.DocumentModel", b =>
+            modelBuilder.Entity("iBudget.Models.DocumentModel", b =>
                 {
                     b.Property<int>("DocumentId")
                         .ValueGeneratedOnAdd()
@@ -119,7 +119,7 @@ namespace getQuote.Migrations
                     b.ToTable("Document");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ItemImageModel", b =>
+            modelBuilder.Entity("iBudget.Models.ItemImageModel", b =>
                 {
                     b.Property<int>("ItemImageId")
                         .ValueGeneratedOnAdd()
@@ -149,7 +149,7 @@ namespace getQuote.Migrations
                     b.ToTable("ItemImage");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ItemModel", b =>
+            modelBuilder.Entity("iBudget.Models.ItemModel", b =>
                 {
                     b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
@@ -179,7 +179,7 @@ namespace getQuote.Migrations
                     b.ToTable("Item");
                 });
 
-            modelBuilder.Entity("getQuote.Models.LoginLogModel", b =>
+            modelBuilder.Entity("iBudget.Models.LoginLogModel", b =>
                 {
                     b.Property<int>("LoginLogId")
                         .ValueGeneratedOnAdd()
@@ -215,7 +215,7 @@ namespace getQuote.Migrations
                     b.ToTable("LoginLog");
                 });
 
-            modelBuilder.Entity("getQuote.Models.LoginModel", b =>
+            modelBuilder.Entity("iBudget.Models.LoginModel", b =>
                 {
                     b.Property<int>("LoginId")
                         .ValueGeneratedOnAdd()
@@ -241,7 +241,7 @@ namespace getQuote.Migrations
                     b.ToTable("Login");
                 });
 
-            modelBuilder.Entity("getQuote.Models.PersonModel", b =>
+            modelBuilder.Entity("iBudget.Models.PersonModel", b =>
                 {
                     b.Property<int>("PersonId")
                         .ValueGeneratedOnAdd()
@@ -269,7 +269,7 @@ namespace getQuote.Migrations
                     b.ToTable("Person");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ProposalContentModel", b =>
+            modelBuilder.Entity("iBudget.Models.ProposalContentModel", b =>
                 {
                     b.Property<int>("ProposalContentId")
                         .ValueGeneratedOnAdd()
@@ -295,7 +295,7 @@ namespace getQuote.Migrations
                     b.ToTable("ProposalContent");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ProposalHistoryModel", b =>
+            modelBuilder.Entity("iBudget.Models.ProposalHistoryModel", b =>
                 {
                     b.Property<int>("ProposalHistoryId")
                         .ValueGeneratedOnAdd()
@@ -325,7 +325,7 @@ namespace getQuote.Migrations
                     b.ToTable("ProposalHistory");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ProposalModel", b =>
+            modelBuilder.Entity("iBudget.Models.ProposalModel", b =>
                 {
                     b.Property<int>("ProposalId")
                         .ValueGeneratedOnAdd()
@@ -358,31 +358,31 @@ namespace getQuote.Migrations
                     b.ToTable("Proposal");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ContactModel", b =>
+            modelBuilder.Entity("iBudget.Models.ContactModel", b =>
                 {
-                    b.HasOne("getQuote.Models.PersonModel", "Person")
+                    b.HasOne("iBudget.Models.PersonModel", "Person")
                         .WithOne("Contact")
-                        .HasForeignKey("getQuote.Models.ContactModel", "PersonId")
+                        .HasForeignKey("iBudget.Models.ContactModel", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("getQuote.Models.DocumentModel", b =>
+            modelBuilder.Entity("iBudget.Models.DocumentModel", b =>
                 {
-                    b.HasOne("getQuote.Models.PersonModel", "Person")
+                    b.HasOne("iBudget.Models.PersonModel", "Person")
                         .WithOne("Document")
-                        .HasForeignKey("getQuote.Models.DocumentModel", "PersonId")
+                        .HasForeignKey("iBudget.Models.DocumentModel", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ItemImageModel", b =>
+            modelBuilder.Entity("iBudget.Models.ItemImageModel", b =>
                 {
-                    b.HasOne("getQuote.Models.ItemModel", "Item")
+                    b.HasOne("iBudget.Models.ItemModel", "Item")
                         .WithMany("ItemImageList")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -391,15 +391,15 @@ namespace getQuote.Migrations
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ProposalContentModel", b =>
+            modelBuilder.Entity("iBudget.Models.ProposalContentModel", b =>
                 {
-                    b.HasOne("getQuote.Models.ItemModel", "Item")
+                    b.HasOne("iBudget.Models.ItemModel", "Item")
                         .WithMany("ProposalContent")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("getQuote.Models.ProposalModel", "Proposal")
+                    b.HasOne("iBudget.Models.ProposalModel", "Proposal")
                         .WithMany("ProposalContent")
                         .HasForeignKey("ProposalId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -410,21 +410,21 @@ namespace getQuote.Migrations
                     b.Navigation("Proposal");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ProposalHistoryModel", b =>
+            modelBuilder.Entity("iBudget.Models.ProposalHistoryModel", b =>
                 {
-                    b.HasOne("getQuote.Models.PersonModel", "Person")
+                    b.HasOne("iBudget.Models.PersonModel", "Person")
                         .WithMany()
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("getQuote.Models.ProposalModel", "Proposal")
+                    b.HasOne("iBudget.Models.ProposalModel", "Proposal")
                         .WithMany("ProposalHistory")
                         .HasForeignKey("ProposalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.OwnsOne("getQuote.Models.ProposalContentJSON", "ProposalContentJSON", b1 =>
+                    b.OwnsOne("iBudget.Models.ProposalContentJSON", "ProposalContentJSON", b1 =>
                         {
                             b1.Property<int>("ProposalHistoryModelProposalHistoryId")
                                 .HasColumnType("integer");
@@ -449,9 +449,9 @@ namespace getQuote.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("getQuote.Models.ProposalModel", b =>
+            modelBuilder.Entity("iBudget.Models.ProposalModel", b =>
                 {
-                    b.HasOne("getQuote.Models.PersonModel", "Person")
+                    b.HasOne("iBudget.Models.PersonModel", "Person")
                         .WithMany("Proposal")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -460,14 +460,14 @@ namespace getQuote.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ItemModel", b =>
+            modelBuilder.Entity("iBudget.Models.ItemModel", b =>
                 {
                     b.Navigation("ItemImageList");
 
                     b.Navigation("ProposalContent");
                 });
 
-            modelBuilder.Entity("getQuote.Models.PersonModel", b =>
+            modelBuilder.Entity("iBudget.Models.PersonModel", b =>
                 {
                     b.Navigation("Contact")
                         .IsRequired();
@@ -478,7 +478,7 @@ namespace getQuote.Migrations
                     b.Navigation("Proposal");
                 });
 
-            modelBuilder.Entity("getQuote.Models.ProposalModel", b =>
+            modelBuilder.Entity("iBudget.Models.ProposalModel", b =>
                 {
                     b.Navigation("ProposalContent");
 

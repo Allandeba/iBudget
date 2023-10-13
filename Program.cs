@@ -1,8 +1,8 @@
-﻿using getQuote.Business;
-using getQuote.Controllers;
-using getQuote.DAO;
-using getQuote.Models;
-using getQuote.Repository;
+﻿using iBudget.Business;
+using iBudget.Controllers;
+using iBudget.DAO;
+using iBudget.Models;
+using iBudget.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.HttpOverrides;
 
-namespace getQuote;
+namespace iBudget;
 
 public class Program
 {

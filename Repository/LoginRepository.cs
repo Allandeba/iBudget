@@ -1,8 +1,8 @@
-﻿using getQuote.DAO;
-using getQuote.Models;
+﻿using iBudget.DAO;
+using iBudget.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace getQuote.Repository
+namespace iBudget.Repository
 {
     public class LoginRepository
     {

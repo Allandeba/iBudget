@@ -1,9 +1,9 @@
-﻿using getQuote.Framework;
-using getQuote.Models;
-using getQuote.Repository;
+﻿using iBudget.Framework;
+using iBudget.Models;
+using iBudget.Repository;
 using System.Linq.Expressions;
 
-namespace getQuote.Business
+namespace iBudget.Business
 {
     public class CompanyBusiness
     {

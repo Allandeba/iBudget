@@ -1,9 +1,9 @@
-﻿using getQuote.Business;
-using getQuote.Models;
+﻿using iBudget.Business;
+using iBudget.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 
-namespace getQuote.Controllers
+namespace iBudget.Controllers
 {
     public class ProposalController : BaseController
     {

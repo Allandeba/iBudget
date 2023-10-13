@@ -1,4 +1,4 @@
-﻿namespace getQuote.Models;
+﻿namespace iBudget.Models;
 
 public class ErrorViewModel
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace getQuote.Models;
+namespace iBudget.Models;
 
 public class LoginModel
 {

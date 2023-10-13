@@ -1,7 +1,7 @@
-﻿using getQuote.Models;
-using getQuote.Repository;
+﻿using iBudget.Models;
+using iBudget.Repository;
 
-namespace getQuote.Business
+namespace iBudget.Business
 {
     public class CatalogBusiness
     {

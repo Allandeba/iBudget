@@ -1,10 +1,10 @@
-﻿using getQuote.DAO;
-using getQuote.Framework;
-using getQuote.Models;
+﻿using iBudget.DAO;
+using iBudget.Framework;
+using iBudget.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace getQuote.Repository
+namespace iBudget.Repository
 {
     public class ProposalHistoryRepository : IRepository<ProposalHistoryModel>
     {

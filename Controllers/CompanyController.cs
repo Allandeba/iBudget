@@ -1,6 +1,6 @@
-﻿using getQuote.Business;
-using getQuote.Controllers;
-using getQuote.Models;
+﻿using iBudget.Business;
+using iBudget.Controllers;
+using iBudget.Models;
 using Microsoft.AspNetCore.Mvc;
 
 public class CompanyController : BaseController

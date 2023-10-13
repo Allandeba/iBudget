@@ -1,6 +1,6 @@
-﻿using getQuote.Business;
-using getQuote.Framework;
-using getQuote.Models;
+﻿using iBudget.Business;
+using iBudget.Framework;
+using iBudget.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
 
-namespace getQuote.Controllers
+namespace iBudget.Controllers
 {
     public class LoginController : BaseController
     {

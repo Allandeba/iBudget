@@ -1,4 +1,4 @@
-﻿namespace getQuote.Framework
+﻿namespace iBudget.Framework
 {
     public enum DocumentTypes : int
     {

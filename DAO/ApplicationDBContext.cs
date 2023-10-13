@@ -1,9 +1,9 @@
-﻿using getQuote.Framework;
-using getQuote.Models;
+﻿using iBudget.Framework;
+using iBudget.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace getQuote.DAO
+namespace iBudget.DAO
 {
     public class ApplicationDBContext : DbContext
     {

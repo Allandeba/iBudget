@@ -1,8 +1,8 @@
-﻿using getQuote.Models;
+﻿using iBudget.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace getQuote.Controllers
+namespace iBudget.Controllers
 {
     public class BaseController : Controller
     {

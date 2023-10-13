@@ -1,7 +1,7 @@
 ﻿using Syncfusion.HtmlConverter;
 using Syncfusion.Pdf;
 
-namespace getQuote.Models;
+namespace iBudget.Models;
 
 public class ExportToPDFModel
 {

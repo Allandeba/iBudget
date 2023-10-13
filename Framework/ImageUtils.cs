@@ -1,7 +1,7 @@
 ﻿using SixLabors.ImageSharp.Formats.Png;
 using Image = SixLabors.ImageSharp.Image;
 
-namespace getQuote.Framework;
+namespace iBudget.Framework;
 
 public class ImageUtils
 {
