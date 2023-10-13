@@ -11,4 +11,8 @@
     public const string DateFormat = "dd/MM/yyyy";
 
     public const string WhatsAppURL = "https://api.whatsapp.com/send?phone=";
+
+    public const string ThrowException = "Exception";
+
+    public const string CustomErrorView = "CustomError";
 }

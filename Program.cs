@@ -3,6 +3,7 @@ using iBudget.Controllers;
 using iBudget.DAO;
 using iBudget.Models;
 using iBudget.Repository;
+using iBudget.Framework;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
@@ -29,7 +30,9 @@ public class Program
         });
 
         // Add services to the container.
-        _ = builder.Services.AddControllersWithViews();
+        _ = builder.Services.AddControllersWithViews(
+            config => config.Filters.Add(typeof(CustomExceptionFilter))
+        );
         _ = builder.Services
             .AddControllers()
             .AddJsonOptions(
@@ -86,36 +89,14 @@ public class Program
 
         WebApplication app = builder.Build();
 
-        app.UseForwardedHeaders();
-
         // Configure the HTTP request pipeline.
         if (!app.Environment.IsDevelopment())
         {
-            _ = app.UseExceptionHandler(CustomErrorViewModel =>
-            {
-                CustomErrorViewModel.Run(async context =>
-                {
-                    context.Response.StatusCode = 500;
-                    context.Response.ContentType = "application/json";
-
-                    var error = context.Features.Get<IExceptionHandlerFeature>();
-                    if (error != null)
-                    {
-                        await context.Response.WriteAsync(
-                            new CustomErrorViewModel()
-                            {
-                                Code = 500,
-                                ErrorMessage = error.Error.Message
-                            }.ToString(),
-                            Encoding.UTF8
-                        );
-                    }
-                });
-            });
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             _ = app.UseHsts();
         }
 
+        app.UseForwardedHeaders();
         _ = app.UseHttpsRedirection();
         _ = app.UseStaticFiles();
 
