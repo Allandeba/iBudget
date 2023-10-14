@@ -2,6 +2,10 @@
   filter: invert(90%);
 }
 
+.theme-dark a {
+  color: white;
+}
+
 .svg {
   background-size: contain;
   background-repeat: no-repeat;

@@ -4,11 +4,11 @@
     ViewData["Title"] = "Catalog";
 }
 
-<header class="bg-dark py-5">
+<header class=" py-5">
     <div class="container px-4 px-lg-5 my-5">
-        <div class="text-center text-white">
+        <div class="text-center ">
             <h1 class="display-4 fw-bolder">Catalog</h1>
-            <p class="lead fw-normal text-white-50 mb-0">Some information</p>
+            <p class="lead fw-normal -50 mb-0">Some information</p>
         </div>
     </div>
 </header>
@@ -23,7 +23,8 @@
                     <div class="card h-100">
                         @if (item.GetMainImage() != null)
                         {
-                            <img class="card-img-top" src="data:image/*;base64,@(Convert.ToBase64String(item.GetMainImage().ImageFile))" alt="@(item.GetMainImage().FileName)" />
+                            <img class="card-img-top" src="data:image/*;base64,@(Convert.ToBase64String(item.GetMainImage().ImageFile))"
+                                alt="@(item.GetMainImage().FileName)" />
                         }
                         @if (item.ItemImageList.FindAll(a => a.Main == false) != null)
                         {
@@ -31,7 +32,8 @@
                                 @foreach (var image in item.ItemImageList.FindAll(a => a.Main == false))
                                 {
                                     <div class="card">
-                                        <img class="img-fluid" style="width: 150px;" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)" />
+                                        <img class="img-fluid" style="width: 150px;" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))"
+                                            alt="@(image.FileName)" />
                                     </div>
                                 }
                             </div>
@@ -39,7 +41,7 @@
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">@item.ItemName</h5>
-                                <p class="fw-light">@item.Description</p>
+                                <p class="">@item.Description</p>
                                 <p class="fw-bold">R$ @item.Value</p>
                             </div>
                         </div>
