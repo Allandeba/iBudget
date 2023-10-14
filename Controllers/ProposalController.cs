@@ -2,6 +2,7 @@
 using iBudget.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
+using Microsoft.AspNetCore.Authorization;
 
 namespace iBudget.Controllers
 {
@@ -73,6 +74,7 @@ namespace iBudget.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Print(Guid id)
         {
             ViewBag.Company = await _business.GetCompany();
@@ -80,6 +82,7 @@ namespace iBudget.Controllers
             return View(proposal);
         }
 
+        [AllowAnonymous]
         public IActionResult ExportToPDF(Guid id)
         {
             string url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
