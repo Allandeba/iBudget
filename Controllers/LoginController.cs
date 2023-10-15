@@ -22,7 +22,12 @@ namespace iBudget.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         [HttpPost]
@@ -54,6 +59,31 @@ namespace iBudget.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(Index));
+        }
+
+        [AllowAnonymous]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register(LoginModel login)
+        {
+            if (login == null)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(login);
+            }
+
+            await _business.AddAsync(login);
+            await StartAuthentication(login);
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         private async Task StartAuthentication(LoginModel login)

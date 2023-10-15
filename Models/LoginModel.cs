@@ -17,6 +17,10 @@ public class LoginModel
     [DataType(DataType.Password)]
     [Display(Name = "Password")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
+    [RegularExpression(
+        @Constants.PasswordValidationRegex,
+        ErrorMessage = Messages.PasswordValidation
+    )]
     public string Password { get; set; } = string.Empty;
 
     [NotMapped]

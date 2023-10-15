@@ -34,5 +34,20 @@ namespace iBudget.Business
             loginLog.Password = cryptography.GetHash(loginLog.Password);
             await _repository.SaveLoginLog(loginLog);
         }
+
+        public async Task AddAsync(LoginModel login)
+        {
+            IEnumerable<LoginModel> loginModelList = await _repository.GetAllAsync(
+                Array.Empty<Enum>()
+            );
+            if (loginModelList.Count() > 1)
+            {
+                throw new Exception("It is not allowed to add a new user");
+            }
+
+            Cryptography cryptography = new();
+            login.Password = cryptography.GetHash(login.Password);
+            await _repository.AddAsync(login);
+        }
     }
 }

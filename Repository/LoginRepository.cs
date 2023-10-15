@@ -1,10 +1,11 @@
 ﻿using iBudget.DAO;
 using iBudget.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace iBudget.Repository
 {
-    public class LoginRepository
+    public class LoginRepository : IRepository<LoginModel>
     {
         private readonly ApplicationDBContext _context;
 
@@ -22,6 +23,37 @@ namespace iBudget.Repository
         {
             _ = await _context.LoginLog.AddAsync(loginLog);
             _ = await _context.SaveChangesAsync();
+        }
+
+        public async Task AddAsync(LoginModel login)
+        {
+            _ = await _context.Login.AddAsync(login);
+            _ = await _context.SaveChangesAsync();
+        }
+
+        public Task<LoginModel> GetByIdAsync(int id, Enum[] includes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<LoginModel>> GetAllAsync(Enum[] includes)
+        {
+            return await _context.Login.ToListAsync();
+        }
+
+        public Task<IEnumerable<LoginModel>> FindAsync(Expression<Func<LoginModel, bool>> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UpdateAsync(LoginModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAsync(LoginModel entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

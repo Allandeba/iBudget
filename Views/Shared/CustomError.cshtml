@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "CustomError";
-    Exception exception = ViewData["Exception"] as Exception;
+    Exception? exception = ViewData["Exception"] as Exception ?? null;
+    String dBException = ViewData["DBException"] as String ?? "";
 }
 
 <div class="container my-5">
@@ -8,7 +9,14 @@
         <div class="col-12 col-md-8">
             <div class="text-center ">
                 <h1 class="fw-bolder">An Error has Occurred</h1>
-                <p class="lead text-muted">@exception.Message</p>
+                @if (exception != null)
+                {
+                    <p class="lead text-muted">@exception.Message</p>
+                }
+                @if (dBException.Trim() != "")
+                {
+                    <p class="lead text-muted">@dBException</p>
+                }
                 <form asp-area="" asp-controller="Home" asp-action="Index">
                     <button type="submit" class="btn btn-primary">Click here to go back to Home</button>
                 </form>
