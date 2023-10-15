@@ -83,10 +83,17 @@ namespace iBudget.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult ExportToPDF(Guid id)
+        public async Task<IActionResult> ExportToPDF(Guid id)
         {
             string url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
             url = $"{url}/{ControllerContext.RouteData.Values["controller"]}/{nameof(Print)}/{id}";
+
+            CompanyModel? company = await _business.GetCompany();
+            if (company == null)
+            {
+                return NotFound();
+            }
+            ;
 
             ExportToPDFModel exportPDF = new();
             return File(
@@ -105,7 +112,7 @@ namespace iBudget.Controllers
             }
             ;
 
-            CompanyModel company = await _business.GetCompany();
+            CompanyModel? company = await _business.GetCompany();
             if (company == null)
             {
                 return NotFound();
