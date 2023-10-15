@@ -4,6 +4,8 @@ ARG TAG=$VERSION-bullseye-slim-$ARCH
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app
 
+EXPOSE 80 443
+
 # copy csproj and restore as distinct layers
 COPY *.csproj .
 RUN dotnet restore
