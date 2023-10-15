@@ -10,6 +10,5 @@
     public const string ThrowException = "Exception";
     public const string ThrowDBException = "DBException";
     public const string CustomErrorView = "CustomError";
-    public const string PasswordValidationRegex =
-        @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$!%*?&])[A-Za-z\d@#$!%*?&]{8,}$";
+    public const string PasswordValidationRegex = @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$!%*?&;]).{8,}$";
 }
