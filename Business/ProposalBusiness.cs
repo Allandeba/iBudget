@@ -269,7 +269,7 @@ namespace iBudget.Business
             CompanyModel companyModel = await _companyBusiness?.GetAllAsync();
             if (companyModel == null)
             {
-                throw new Exception("You must configure the company first");
+                throw new Exception("Você precisa configurar uma empresa primeiro");
             }
 
             return companyModel;

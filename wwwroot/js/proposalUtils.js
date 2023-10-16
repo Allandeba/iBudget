@@ -170,8 +170,8 @@ function calculateTotalValue() {
 
 function deleteItem(proposalContentId, itemId) {
   openModal({
-    title: 'Deleting proposal content!',
-    message: 'Are you sure that you would like to delete Proposal Contetn ID: ' + proposalContentId + ', Item ID: ' + itemId + '?',
+    title: 'Deletando um item do orçamento!',
+    message: 'Você tem certeza que deseja deletar o Item ID: ' + itemId + '?',
   })
     .then((result) => {
       if (result) {

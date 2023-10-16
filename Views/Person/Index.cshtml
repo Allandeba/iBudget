@@ -1,20 +1,20 @@
 ﻿@model IEnumerable<PersonModel>
 
 @{
-    ViewData["Title"] = "Person Page";
+    ViewData["Title"] = "Pessoas";
 }
 
 <section class="py-5 text-center">
     <div class="container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="">People</h1>
-                <p class="lead text-muted">For more information, click on the proposals below.</p>
+                <h1 class="">Pessoas</h1>
+                <p class="lead text-muted">Para mais informações, selecione uma pessoa logo a baixo.</p>
             </div>
         </div>
 
         <div class="col-lg-6 col-md-8 mx-auto mt-4 mt-md-0 d-flex justify-content-end">
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Add</button>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Novo</button>
         </div>
     </div>
 </section>
@@ -25,44 +25,44 @@
 
             @using (Html.BeginForm("Search", "Person"))
             {
-                    <div class="d-flex py-5">
-                        <input id="search-box" type="text" class="form-control" placeholder="Search..." name="search"
-                            value="@TempData[@Constants.SearchBoxData]" />
+                <div class="d-flex py-5">
+                    <input id="search-box" type="text" class="form-control" placeholder="Pesquisar..." name="search"
+                        value="@TempData[@Constants.SearchBoxData]" />
                     @*value="@ViewBag.Search"*@
-                        <button class="btn btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
-                                </path>
-                            </svg>
-                        </button>
-                    </div>
+                    <button class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
             }
 
             <div class="list-group">
                 @foreach (var item in Model)
                 {
-                        <div class="list-group-item list-group-item-action d-flex gap-3 py-3">
-                            <a asp-controller="Person" asp-action="Delete" asp-route-id="@item.PersonId"
-                                class="close position-absolute top-0 start-0 translate-middle badge rounded-circle bg-danger p-2 opacity-75"
-                                aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </a>
+                    <div class="list-group-item list-group-item-action d-flex gap-3 py-3">
+                        <a asp-controller="Person" asp-action="Delete" asp-route-id="@item.PersonId"
+                            class="close position-absolute top-0 start-0 translate-middle badge rounded-circle bg-danger p-2 opacity-75"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
 
-                            <a asp-controller="Person" asp-action="Update" asp-route-id="@item.PersonId" class="d-flex align-items-center w-100">
-                                <object class="svg svg-person" alt="user icon" width="32" height="32" class="rounded-circle flex-shrink-0"></object>
+                        <a asp-controller="Person" asp-action="Update" asp-route-id="@item.PersonId" class="d-flex align-items-center w-100">
+                            <object class="svg svg-person" alt="user icon" width="32" height="32" class="rounded-circle flex-shrink-0"></object>
 
-                                <div class="flex-grow-1 ms-3">
-                                    <h6 class="mb-0">@item.PersonName</h6>
-                                    <p class="mb-0 opacity-75">Some useful information.</p>
-                                </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0">@item.PersonName</h6>
+                                @* <p class="mb-0 opacity-75">Some useful information.</p> *@
+                            </div>
 
-                                <div class="d-flex flex-column align-items-end">
-                                    <span class="text-muted">Created</span>
-                                    <small class="opacity-50 text-nowrap">@item.CreationDate.ToString("dd/MM/yyyy")</small>
-                                </div>
-                            </a>
-                        </div>
+                            <div class="d-flex flex-column align-items-end">
+                                <span class="text-muted">Registrado</span>
+                                <small class="opacity-50 text-nowrap">@item.CreationDate.ToString("dd/MM/yyyy")</small>
+                            </div>
+                        </a>
+                    </div>
                 }
             </div>
         </div>

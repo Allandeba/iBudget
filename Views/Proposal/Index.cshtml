@@ -1,20 +1,20 @@
 ﻿@model IEnumerable<ProposalModel>
 
 @{
-    ViewData["Title"] = "Proposal Page";
+    ViewData["Title"] = "Orçamentos";
 }
 
 <section class="py-5 text-center">
     <div class="container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="">Proposal</h1>
-                <p class="lead text-muted">For more information, click on the proposals below.</p>
+                <h1 class="">Orçamento</h1>
+                <p class="lead text-muted">Para mais informações, selecione um orçamento logo a baixo.</p>
             </div>
         </div>
 
         <div class="col-lg-6 col-md-8 mx-auto mt-4 mt-md-0 d-flex justify-content-end">
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Add</button>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Novo</button>
         </div>
     </div>
 </section>
@@ -25,7 +25,7 @@
             @using (Html.BeginForm("Search", "Proposal"))
             {
                 <div class="d-flex py-5">
-                    <input id="search-box" type="text" class="form-control" placeholder="Search..." name="search" value="@TempData[@Constants.SearchBoxData]" />
+                    <input id="search-box" type="text" class="form-control" placeholder="Pesquisar..." name="search" value="@TempData[@Constants.SearchBoxData]" />
                     @*value="@ViewBag.Search"*@
                     <button class="btn btn-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -48,7 +48,7 @@
 
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="mb-0">@proposal.ProposalId - @proposal.Person.PersonName</h6>
-                                <p class="mb-0 opacity-75">Modified @proposal.ModificationDate.ToString("dd/MM/yyyy")</p>
+                                <p class="mb-0 opacity-75">Modificado @proposal.ModificationDate.ToString("dd/MM/yyyy")</p>
                             </div>
                         </a>
 
@@ -77,7 +77,7 @@
                                         {
                                             <li>
                                                 <a asp-controller="ProposalHistory" asp-action="ExportToPDF" asp-route-id="@proposalHistory.ProposalHistoryId" class="dropdown-item d-flex align-items-center" target="_blank">
-                                                    <span class="text-muted">@($"{proposalHistory.ProposalHistoryId} - Modified {proposalHistory.ModificationDate.ToString("dd/MM/yyyy")}")</span>
+                                                    <span class="text-muted">@($"{proposalHistory.ProposalHistoryId} - Modificado {proposalHistory.ModificationDate.ToString("dd/MM/yyyy")}")</span>
                                                 </a>
                                             </li>
                                         }

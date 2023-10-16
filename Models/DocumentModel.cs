@@ -10,10 +10,11 @@ public class DocumentModel
     public int DocumentId { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
-    [Display(Name = "Document type")]
+    [Display(Name = "Tipo de documento")]
     public DocumentTypes DocumentType { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
+    [Display(Name = "Documento")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
     public string Document { get; set; } = string.Empty;
 

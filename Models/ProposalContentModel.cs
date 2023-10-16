@@ -9,6 +9,7 @@ public class ProposalContentModel
     public int ProposalContentId { get; set; }
 
     [Range(1, int.MaxValue, ErrorMessage = Messages.MinValueValidation)]
+    [Display(Name = "Quantidade")]
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [DisplayFormat(DataFormatString = "{0:#.##}")]
     public double Quantity { get; set; } = 1;

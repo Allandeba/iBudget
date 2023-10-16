@@ -37,6 +37,7 @@ public class ProposalHistoryModel
     public DateTime ModificationDate { get; set; } = DateTime.MinValue;
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
+    [Display(Name = "Desconto")]
     [DataType(DataType.Currency, ErrorMessage = Messages.InvalidFormatValidation)]
     [Precision(18, 2)]
     public decimal Discount { get; set; } = 0;

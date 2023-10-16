@@ -3,7 +3,7 @@
 @using iBudget.Framework
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastro de orçamento";
     string itemsJson = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.ItemsFull);
 }
 
@@ -25,15 +25,15 @@
                 <div class="mb-3 text-start">
                     <label asp-for="PersonId" class="form-label"></label>
                     <select asp-for="PersonId" class="form-select" asp-items="@ViewBag.People">
-                        <option value="@(SelectDefault.None)">@(SelectDefault.None.ToString())</option>
+                        <option value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
                     </select>
                     <span asp-validation-for="PersonId" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3 text-start">
-                    <label for="ItemList" class="form-label">Items</label>
+                    <label for="ItemList" class="form-label">Item</label>
                     <select id="ItemList" class="form-select" asp-items="@ViewBag.Items" onchange="javascript:selectionChange(this)">
-                        <option value="@((int)SelectDefault.None)">@(SelectDefault.None.ToString())</option>
+                        <option value="@((int)SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
                     </select>
                 </div>
 
@@ -50,12 +50,12 @@
                     <table id="proposalContentTable" class="table table-striped">
                         <thead class="">
                             <tr>
-                                <th class="text-center">Proposal Content ID</th>
-                                <th class="text-center">Item ID</th>
-                                <th class="text-center">Item Name</th>
-                                <th class="text-center">Value</th>
-                                <th class="text-center">Quantity</th>
-                                <th class="text-center">Actions</th>
+                                <th class="text-center">ID Orçamento</th>
+                                <th class="text-center">ID Item</th>
+                                <th class="text-center">Item</th>
+                                <th class="text-center">Valor</th>
+                                <th class="text-center">Quantidade</th>
+                                <th class="text-center">Ações</th>
                             </tr>
                         </thead>
                         <tbody id="table-rows">
@@ -71,8 +71,8 @@
                 <hr class="my-4">
 
                 <div id="submit" class="text-end mb-4">
-                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
-                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancel</a>
+                    <button class="btn btn-primary btn-lg" type="submit">Salvar</button>
+                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancelar</a>
                 </div>
             }
         </div>

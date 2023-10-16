@@ -1,7 +1,7 @@
 ﻿@model CompanyModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Empresa - " + @Model.CompanyName;
 }
 
 @section Scripts
@@ -70,8 +70,8 @@
                 <hr class="my-4">
 
                 <div id="submit" class="text-end mb-4">
-                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
-                    <a class="btn btn-secondary btn-lg" asp-controller="Home" asp-action="index">Cancel</a>
+                    <button class="btn btn-primary btn-lg" type="submit">Salvar</button>
+                    <a class="btn btn-secondary btn-lg" asp-controller="Home" asp-action="index">Cancelar</a>
                 </div>
             }
         </div>

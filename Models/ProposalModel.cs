@@ -10,9 +10,11 @@ public class ProposalModel
     public int ProposalId { get; set; }
 
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = Constants.DateFormat)]
+    [Display(Name = "Data da modificação")]
     public DateTime ModificationDate { get; set; } = DateTime.MinValue;
 
     [DataType(DataType.Currency, ErrorMessage = Messages.InvalidFormatValidation)]
+    [Display(Name = "Desconto")]
     [Range(0, int.MaxValue, ErrorMessage = Messages.MinValueValidation)]
     [Precision(18, 2)]
     [DisplayFormat(DataFormatString = "{0:#.##}")]
@@ -20,7 +22,7 @@ public class ProposalModel
 
     public Guid GUID { get; set; } = Guid.NewGuid();
 
-    [Display(Name = "Person")]
+    [Display(Name = "Pessoa")]
     public int PersonId { get; set; } = 0;
     public virtual required PersonModel? Person { get; set; }
 

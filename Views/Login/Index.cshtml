@@ -1,7 +1,7 @@
 ﻿@model LoginModel
 
 @{
-    ViewData["Title"] = "Login Page";
+    ViewData["Title"] = "Login";
 }
 
 <div class="container">
@@ -11,7 +11,7 @@
             @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "needs-validation" }))
             {
                 <object class="svg svg-person mb-4" width="72" height="72" alt="Person"></object>
-                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <h1 class="h3 mb-3 font-weight-normal">Por gentileza faça o login</h1>
 
                 <div class="mb-3 text-start">
                     <label asp-for="Username" class="form-label"></label>
@@ -28,12 +28,12 @@
                 <div class="form-check text-start my-3">
                     <label asp-for="Remember" class="form-check-label">
                         <input asp-for="Remember" class="form-check-input" type="checkbox">
-                        Remember me
+                        Lembrar-me
                     </label>
                 </div>
 
                 <div id="submit" class="text-end mb-4">
-                    <button class="btn btn-primary btn-lg" type="submit">Sing in</button>
+                    <button class="btn btn-primary btn-lg" type="submit">Entrar</button>
                 </div>
             }
         </div>

@@ -182,10 +182,10 @@ function createInputForDeletingImages(itemImageId) {
 }
 
 function deleteItemImage(itemImageId) {
-  const title = 'Deleting image!';
+  const title = 'Deletar imagem!';
 
   if (itemImageId == 0) {
-    openModal({ title: title, message: 'Are you sure that you would like to delete ALL recently uploaded images?' })
+    openModal({ title: title, message: 'Você tem certeza que deseja remover TODAS as imagens adicionadas até o momento?' })
       .then((result) => {
         if (result) {
           clearUploadImage(itemImageId);
@@ -198,14 +198,14 @@ function deleteItemImage(itemImageId) {
         console.error('Error:', error);
       });
   } else {
-    openModal({ title: title, message: 'Are you sure that you would like to delete the Item Image from ID: ' + itemImageId + ' ?' })
+    openModal({ title: title, message: 'Você tem certeza que deseja deletar a imagem de ID: ' + itemImageId + ' ?' })
       .then((result) => {
         if (result) {
           createInputForDeletingImages(itemImageId);
           deleteClientItemImage(itemImageId);
           deleteNotExistentDefaultImage();
         } else {
-          console.log('User clicked "No"');
+          console.info('User clicked "No"');
         }
       })
       .catch((error) => {

@@ -3,7 +3,7 @@
 @using iBudget.Framework
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Cadastro de usuário";
 }
 
 @section Scripts
@@ -18,7 +18,7 @@
             @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @class = "needs-validation" }))
             {
                 <object class="svg svg-person mb-4" width="72" height="72" alt="Person"></object>
-                <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+                <h1 class="h3 mb-3 font-weight-normal">Criar um novo usuário</h1>
 
                 <div class="mb-3 text-start">
                     <label asp-for="Username" class="form-label"></label>
@@ -33,7 +33,7 @@
                 </div>
 
                 <div id="submit" class="text-end mb-4">
-                    <button class="btn btn-primary btn-lg" type="submit">Register</button>
+                    <button class="btn btn-primary btn-lg" type="submit">Criar</button>
                 </div>
             }
         </div>

@@ -1,12 +1,12 @@
 ﻿public class Messages
 {
-    public const string EmptyTextValidation = "{0} must not be empty";
-    public const string InvalidFormatValidation = "Invalid {0} format";
-    public const string MaxLengthValidation = "{0} must have less than {1} characters";
-    public const string RangeValidation = "{0} must be between {1} and {2}";
-    public const string MinValueValidation = "{0} must be more than {1}";
+    public const string EmptyTextValidation = "{0} não pode ser vazio";
+    public const string InvalidFormatValidation = "Formato inválido {0}";
+    public const string MaxLengthValidation = "{0} precisa ter menos de {1} caracteres";
+    public const string RangeValidation = "{0} precisa ser entre {1} e {2}";
+    public const string MinValueValidation = "{0} precisa ser mais que {1}";
     public const string WhatsAppMessage =
-        "Hello, this is an automatic message from {0}.\nYou can download your proposal form this link below:\n{1}";
+        "Olá, essa é uma mensagem automática de {0}.\nVocê pode fazer o download do seu orçamento através desse link a seguir:\n{1}";
     public const string PasswordValidation =
         "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial. Ela também deve ter pelo menos 8 caracteres.";
     public const string UniqueDBMessage = "Já existe um registro com esse valor";

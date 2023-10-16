@@ -3,7 +3,7 @@
 @using iBudget.Framework
 
 @{
-    ViewData["Title"] = "Update - " + Model.ItemName;
+    ViewData["Title"] = "Atualizar - " + Model.ItemName;
 }
 
 @section Scripts
@@ -16,7 +16,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
-            <h4 class="mb-3">Item detail</h4>
+            <h4 class="mb-3">Detalhes do item</h4>
             @using (Html.BeginForm("Update", "Item", FormMethod.Post, new { @class = "needs-validation", enctype = "multipart/form-data" }))
             {
                 @Html.HiddenFor(m => m.ItemId)
@@ -42,7 +42,7 @@
                 <div class="mb-3 text-start">
                     <label asp-for="DefaultImage" class="form-label"></label>
                     <select asp-for="DefaultImage" class="form-select" id="defaultImageSelect">
-                        <option value="@(SelectDefault.None)">@(SelectDefault.None.ToString())</option>
+                        <option value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
 
                         @foreach (ItemImageModel image in Model.ItemImageList)
                         {
@@ -93,8 +93,8 @@
                 <hr class="my-4">
 
                 <div id="submit" class="text-end mb-4">
-                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
-                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancel</a>
+                    <button class="btn btn-primary btn-lg" type="submit">Salvar</button>
+                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancelar</a>
                 </div>
             }
         </div>

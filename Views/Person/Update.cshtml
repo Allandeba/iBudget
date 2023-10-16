@@ -3,7 +3,7 @@
 @using iBudget.Framework
 
 @{
-    ViewData["Title"] = "Update - " + Model.PersonName;
+    ViewData["Title"] = "Atualizar - " + Model.PersonName;
 }
 
 @section Scripts
@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
-            <h4 class="mb-3">Person detail</h4>
+            <h4 class="mb-3">Detalhe da pessoa</h4>
             @using (Html.BeginForm("Update", "Person", FormMethod.Post, new { @class = "needs-validation" }))
             {
                 @Html.HiddenFor(m => m.PersonId)
@@ -48,7 +48,7 @@
                 <div class="mb-3 text-start">
                     <label asp-for="Document.DocumentType"></label>
                     <select asp-for="Document.DocumentType" asp-items="@Html.GetEnumSelectList<DocumentTypes>()" class="form-select">
-                        <option>--Choose--</option>
+                        <option>--Selecione--</option>
                     </select>
                     <span asp-validation-for="Document.DocumentType" class="text-danger"></span>
                 </div>
@@ -62,8 +62,8 @@
                 <hr class="my-4">
 
                 <div id="submit" class="text-end mb-4">
-                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
-                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancel</a>
+                    <button class="btn btn-primary btn-lg" type="submit">Salvar</button>
+                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancelar</a>
                 </div>
             }
         </div>

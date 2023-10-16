@@ -9,7 +9,7 @@
 
     public enum SelectDefault
     {
-        None
+        Nenhum
     }
 
     public enum ProposalIncludes

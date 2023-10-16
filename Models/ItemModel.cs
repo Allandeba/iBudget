@@ -11,11 +11,12 @@ public class ItemModel
     public int ItemId { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
-    [Display(Name = "Item name")]
+    [Display(Name = "Item")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
     public string ItemName { get; set; } = string.Empty;
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
+    [Display(Name = "Valor")]
     [Range(0, int.MaxValue, ErrorMessage = Messages.MinValueValidation)]
     [DataType(DataType.Currency, ErrorMessage = Messages.InvalidFormatValidation)]
     [Precision(18, 2)]
@@ -23,16 +24,17 @@ public class ItemModel
     public double Value { get; set; } = 0;
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
+    [Display(Name = "Descrição")]
     [MaxLength(250, ErrorMessage = Messages.MaxLengthValidation)]
     public string Description { get; set; } = string.Empty;
 
     [NotMapped]
-    [Display(Name = "Upload Image")]
+    [Display(Name = "Imagens")]
     [DataType(DataType.Upload, ErrorMessage = Messages.InvalidFormatValidation)]
     public List<IFormFile> ImageFiles { get; set; } = new();
 
     [NotMapped]
-    [Display(Name = "Default image")]
+    [Display(Name = "Imagem principal")]
     public string DefaultImage { get; set; } = string.Empty;
 
     [NotMapped]
@@ -67,7 +69,7 @@ public class ItemModel
             foreach (ItemImageModel image in ItemImageList)
             {
                 image.Main =
-                    defaultImageFileName != SelectDefault.None.ToString()
+                    defaultImageFileName != SelectDefault.Nenhum.ToString()
                     && image.FileName == defaultImageFileName;
             }
         }

@@ -1,4 +1,4 @@
-﻿function openModal({ title = 'Are you sure?', message = 'Body message' }) {
+﻿function openModal({ title = 'Você tem certeza?', message = 'Body message' }) {
   return new Promise((resolve, reject) => {
     const modalContainer = createModalContainer(title, message);
 
@@ -52,10 +52,10 @@ function createModalBody(message) {
 function createModalFooter() {
   const modalFooter = createElement('div', ['modal-footer', 'flex-center']);
   const yesButton = createElement('a', ['btn', 'btn-outline-danger']);
-  yesButton.textContent = 'Yes';
+  yesButton.textContent = 'Sim';
   const noButton = createElement('a', ['btn', 'btn-danger', 'waves-effect']);
   noButton.setAttribute('data-dismiss', 'modal');
-  noButton.textContent = 'No';
+  noButton.textContent = 'Não';
   appendChildren(modalFooter, [yesButton, noButton]);
   return modalFooter;
 }

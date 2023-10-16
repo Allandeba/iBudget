@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ItemModel>
 
 @{
-    ViewData["Title"] = "Item Page";
+    ViewData["Title"] = "Itens";
 }
 
 <section class="py-5 text-center">
@@ -9,12 +9,12 @@
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="">Items</h1>
-                <p class="lead text-muted">For more information, click on the proposals below.</p>
+                <p class="lead text-muted">Para mais informações, selecione um orçamento logo a baixo.</p>
             </div>
         </div>
 
         <div class="col-lg-6 col-md-8 mx-auto mt-4 mt-md-0 d-flex justify-content-end">
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Add</button>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Novo</button>
         </div>
     </div>
 </section>
@@ -26,7 +26,7 @@
             @using (Html.BeginForm("Search", "Item"))
             {
                 <div class="d-flex py-5">
-                    <input id="search-box" type="text" class="form-control" placeholder="Search..." name="search"
+                    <input id="search-box" type="text" class="form-control" placeholder="Pesquisar..." name="search"
                         value="@TempData[@Constants.SearchBoxData]" />
                     @*value="@ViewBag.Search"*@
                     <button class="btn btn-primary">

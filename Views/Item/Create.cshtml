@@ -3,7 +3,7 @@
 @using iBudget.Framework
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Cadastro de item";
 }
 
 @section Scripts
@@ -38,7 +38,7 @@
                 <div class="mb-3 text-start">
                     <label asp-for="DefaultImage" class="form-label"></label>
                     <select asp-for="DefaultImage" class="form-select" id="defaultImageSelect">
-                        <option value="@(SelectDefault.None)">@(SelectDefault.None.ToString())</option>
+                        <option value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
                     </select>
                 </div>
 
@@ -53,8 +53,8 @@
                 <hr class="my-4">
 
                 <div id="submit" class="text-end mb-4">
-                    <button class="btn btn-primary btn-lg" type="submit">Save</button>
-                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancel</a>
+                    <button class="btn btn-primary btn-lg" type="submit">Salvar</button>
+                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancelar</a>
                 </div>
             }
         </div>

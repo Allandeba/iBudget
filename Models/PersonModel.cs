@@ -9,16 +9,17 @@ public class PersonModel
     public int PersonId { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
-    [Display(Name = "First name")]
+    [Display(Name = "Primeiro nome")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
     public string FirstName { get; set; } = string.Empty;
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
-    [Display(Name = "Last name")]
+    [Display(Name = "Segundo nome")]
     [MaxLength(100, ErrorMessage = Messages.MaxLengthValidation)]
     public string LastName { get; set; } = string.Empty;
 
     [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = Constants.DateFormat)]
+    [Display(Name = "Data da criação")]
     [DataType(DataType.DateTime, ErrorMessage = Messages.InvalidFormatValidation)]
     public DateTime CreationDate { get; set; } = DateTime.MinValue;
 

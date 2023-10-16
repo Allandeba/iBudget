@@ -9,13 +9,13 @@ public class LoginModel
     public int LoginId { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
-    [Display(Name = "Username")]
+    [Display(Name = "Usuário")]
     [MaxLength(25, ErrorMessage = Messages.MaxLengthValidation)]
     public string Username { get; set; } = string.Empty;
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [DataType(DataType.Password)]
-    [Display(Name = "Password")]
+    [Display(Name = "Senha")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
     [RegularExpression(
         @Constants.PasswordValidationRegex,
@@ -24,6 +24,6 @@ public class LoginModel
     public string Password { get; set; } = string.Empty;
 
     [NotMapped]
-    [Display(Name = "Remember me")]
+    [Display(Name = "Lembrar-me")]
     public bool Remember { get; set; } = false;
 }
