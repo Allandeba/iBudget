@@ -87,6 +87,12 @@ namespace iBudget.Business
             IEnumerable<CompanyModel> companies = await _repository.GetAllAsync(
                 includes.Cast<Enum>().ToArray()
             );
+
+            if (companies == null || companies.Count() == 0)
+            {
+                throw new Exception(Messages.CompanyNotFoundMessage);
+            }
+
             return companies?.FirstOrDefault();
         }
     }

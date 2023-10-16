@@ -20,7 +20,7 @@ namespace iBudget.Controllers
             return View(proposal);
         }
 
-        public async Task<IActionResult> ExportToPDFAsync(int id)
+        public async Task<IActionResult> ExportToPDF(int id)
         {
             string url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
             url = $"{url}/{ControllerContext.RouteData.Values["controller"]}/{nameof(Print)}/{id}";

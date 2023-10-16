@@ -12,4 +12,5 @@
     public const string UniqueDBMessage = "Já existe um registro com esse valor";
     public const string GenericDBExceptionMessage =
         "Ocorreu um erro no banco de dados, por favor entre em contato com o administrador e informe a rotina que causou a inconsistência";
+    public const string CompanyNotFoundMessage = "Você precisa configurar uma empresa antes";
 }

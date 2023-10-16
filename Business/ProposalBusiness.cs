@@ -266,13 +266,7 @@ namespace iBudget.Business
 
         public async Task<CompanyModel>? GetCompany()
         {
-            CompanyModel companyModel = await _companyBusiness?.GetAllAsync();
-            if (companyModel == null)
-            {
-                throw new Exception("Você precisa configurar uma empresa primeiro");
-            }
-
-            return companyModel;
+            return await _companyBusiness?.GetAllAsync();
         }
 
         public async Task<IEnumerable<ProposalModel>> GetAllLikeAsync(string? search)
