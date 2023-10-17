@@ -1,6 +1,7 @@
 using iBudget.DAO;
 using iBudget.Framework;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace iBudget.Models
 {
@@ -20,13 +21,18 @@ namespace iBudget.Models
                 if (login == null)
                 {
                     Cryptography cryptography = new();
+                    string password = Environment.GetEnvironmentVariable("USER_PASSWORD") ?? "";
+                    if (password.IsNullOrEmpty())
+                    {
+                        throw new Exception(
+                            "Não foi possível encontrar variaveis de sistema para DatabaseInitialize"
+                        );
+                    }
                     context.Login.AddRange(
                         new LoginModel
                         {
                             Username = "admin",
-                            Password = cryptography.GetHash(
-                                Environment.GetEnvironmentVariable("USER_PASSWORD")
-                            )
+                            Password = cryptography.GetHash(password)
                         }
                     );
 

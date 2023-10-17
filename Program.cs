@@ -57,7 +57,8 @@ public class Program
         string? syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
         if (syncfusionKey.IsNullOrEmpty())
         {
-            syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
+            throw new Exception("Não foi possível encontrar variaveis de sistema para Syncfusion");
+            // syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
         }
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionKey);
 
@@ -65,7 +66,8 @@ public class Program
         string? connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
         if (connectionString.IsNullOrEmpty())
         {
-            connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
+            throw new Exception("Não foi possível encontrar variaveis de sistema para PostgreSQL");
+            // connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
         }
         _ = builder.Services.AddDbContext<ApplicationDBContext>(
             options => options.UseNpgsql(connectionString)
