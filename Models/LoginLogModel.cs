@@ -10,7 +10,6 @@ public class LoginLogModel
     public int LoginLogId { get; set; }
     public string Username { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
-    public string Hostname { get; set; } = string.Empty;
     public string RemoteIpAddress { get; set; } = string.Empty;
     public DateTime DateTime { get; set; } = DateTime.Now;
     public LoginLogStatus Status { get; set; } = LoginLogStatus.None;

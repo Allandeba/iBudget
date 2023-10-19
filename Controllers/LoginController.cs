@@ -111,7 +111,6 @@ namespace iBudget.Controllers
                 {
                     Username = login.Username,
                     Password = login.Password,
-                    Hostname = Dns.GetHostEntry(HttpContext.Connection.RemoteIpAddress).HostName,
                     RemoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
                     DateTime = DateTime.Now,
                     Status = loginLogStatus
