@@ -90,7 +90,7 @@ namespace iBudget.Business
 
             if (companies == null || companies.Count() == 0)
             {
-                throw new Exception(Messages.CompanyNotFoundMessage);
+                throw new ECompanyBusinessException(Messages.CompanyNotFoundMessage);
             }
 
             return companies?.FirstOrDefault();

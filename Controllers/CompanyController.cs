@@ -14,10 +14,24 @@ public class CompanyController : BaseController
 
     public async Task<IActionResult> Manipulate()
     {
-        CompanyModel? existentCompany = await _business.GetAllAsync();
-        return existentCompany != null
-            ? RedirectToAction(nameof(Update), new { id = existentCompany.CompanyId })
-            : (IActionResult)RedirectToAction(nameof(Create));
+        try
+        {
+            CompanyModel? existentCompany = await _business.GetAllAsync();
+            return existentCompany != null
+                ? RedirectToAction(nameof(Update), new { id = existentCompany.CompanyId })
+                : (IActionResult)RedirectToAction(nameof(Create));
+        }
+        catch (Exception exception)
+        {
+            if (exception is ECompanyBusinessException companyException)
+            {
+                return RedirectToAction(nameof(Create));
+            }
+            else
+            {
+                throw;
+            }
+        }
     }
 
     public IActionResult Create()

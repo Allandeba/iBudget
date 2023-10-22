@@ -4,6 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace iBudget.Models;
 
+public class ECompanyBusinessException : Exception
+{
+    public ECompanyBusinessException(string message)
+        : base(message) { }
+}
+
 public class CompanyModel
 {
     [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
