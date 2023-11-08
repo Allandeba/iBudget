@@ -13,7 +13,7 @@ RUN dotnet restore
 # copy everything else and build app
 COPY . .
 WORKDIR /app
-RUN dotnet publish -c release -o out --no-restore
+RUN dotnet publish -c release -o out --no-restore --no-cache /restore
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:$TAG
