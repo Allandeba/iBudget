@@ -21,7 +21,17 @@ namespace iBudget.Models
                 if (login == null)
                 {
                     Cryptography cryptography = new();
-                    string password = Environment.GetEnvironmentVariable("USER_PASSWORD") ?? "";
+
+                    string password = "";
+                    if (app.Environment.IsProduction())
+                    {
+                        password = Environment.GetEnvironmentVariable("USER_PASSWORD");
+                    }
+                    else
+                    {
+                        password = app.Configuration.GetConnectionString("USER_PASSWORD");
+                    }
+
                     if (password.IsNullOrEmpty())
                     {
                         throw new Exception(

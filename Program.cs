@@ -53,23 +53,40 @@ public class Program
                 .Build();
         });
 
-        // Add SyncfusionKey
-        string? syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
-        if (syncfusionKey.IsNullOrEmpty())
+        string? syncfusionKey = "";
+        string? connectionString = "";
+        var environment = builder.Configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+        switch (environment)
         {
-            throw new Exception("Não foi possível encontrar variaveis de sistema para Syncfusion");
-            // syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
-        }
-        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionKey);
+            case Constants.EnvironmentDevelopment:
+                syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
+                connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
+                SystemManager.IsDevelopment = true;
+                break;
+                
+            case Constants.EnvironmentProduction:
+                syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
+                if (syncfusionKey.IsNullOrEmpty())
+                {
+                    throw new Exception(
+                        "Chave Syncfusion não encontrada - " + environment.ToString()
+                    );
+                }
+                connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+                if (connectionString.IsNullOrEmpty())
+                {
+                    throw new Exception(
+                        "Configuração de banco de dados não encontrada - " + environment.ToString()
+                    );
+                }
+                break;
 
-        // Add PostgreSQL connection.
-        string? connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
-        if (connectionString.IsNullOrEmpty())
-        {
-            throw new Exception("Não foi possível encontrar variaveis de sistema para PostgreSQL");
-            // connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
+            default:
+                throw new Exception("Environment não implementado para inicializar o sistema");
         }
-        _ = builder.Services.AddDbContext<ApplicationDBContext>(
+
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionKey);
+        builder.Services.AddDbContext<ApplicationDBContext>(
             options => options.UseNpgsql(connectionString)
         );
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

@@ -12,4 +12,6 @@
     public const string CustomErrorView = "CustomError";
     public const string PasswordValidationRegex =
         @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$!%*?&;]).{8,}$";
+    public const string EnvironmentDevelopment = "Development";
+    public const string EnvironmentProduction = "Production";
 }

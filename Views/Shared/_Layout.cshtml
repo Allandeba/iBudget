@@ -5,8 +5,14 @@
 @section Header
 {
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm   border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
+                @if (SystemManager.IsDevelopment)
+                {
+                    <div class="navbar justify-content-center align-items-center bg-danger mx-2">
+                        <span class="badge badge-light p-2">DESENVOLVIMENTO</span>
+                    </div>
+                }
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">iBudget</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +38,7 @@
                                 <a class="nav-link " asp-area="" asp-controller="Company" asp-action="Manipulate">Empresa</a>
                             </li>
                         </ul>
+
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link " asp-area="" asp-controller="Login" asp-action="Logout">Sair</a>
