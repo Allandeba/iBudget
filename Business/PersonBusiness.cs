@@ -91,7 +91,9 @@ namespace iBudget.Business
             return search == null
                 ? await GetPeople()
                 : await _repository.FindAsync(
-                    p => p.FirstName.Contains(search) || p.LastName.Contains(search)
+                    p =>
+                        p.FirstName.ToLower().Contains(search.ToLower())
+                        || p.LastName.ToLower().Contains(search.ToLower())
                 );
         }
     }

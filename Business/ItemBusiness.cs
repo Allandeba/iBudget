@@ -118,7 +118,7 @@ namespace iBudget.Business
         {
             return search == null
                 ? await GetItems()
-                : await _repository.FindAsync(p => p.ItemName.Contains(search));
+                : await _repository.FindAsync(p => p.ItemName.ToLower().Contains(search.ToLower()));
         }
 
         public async Task IncludeImages(ItemModel item)

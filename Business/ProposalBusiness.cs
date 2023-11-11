@@ -278,7 +278,9 @@ namespace iBudget.Business
 
             ProposalIncludes[] includes = new ProposalIncludes[] { ProposalIncludes.Person };
             return await _repository.FindAsync(
-                p => p.Person.FirstName.Contains(search) || p.Person.LastName.Contains(search),
+                p =>
+                    p.Person.FirstName.ToLower().Contains(search.ToLower())
+                    || p.Person.LastName.ToLower().Contains(search.ToLower()),
                 includes.Cast<Enum>().ToArray()
             );
         }
