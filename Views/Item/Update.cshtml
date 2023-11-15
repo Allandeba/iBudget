@@ -42,7 +42,7 @@
                 <div class="mb-3 text-start">
                     <label asp-for="DefaultImage" class="form-label"></label>
                     <select asp-for="DefaultImage" class="form-select" id="defaultImageSelect">
-                        <option value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
+                        <option disabled selected value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
 
                         @foreach (ItemImageModel image in Model.ItemImageList)
                         {

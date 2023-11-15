@@ -26,7 +26,7 @@
                 <div class="mb-3 text-start">
                     <label asp-for="PersonId" class="form-label"></label>
                     <select asp-for="PersonId" class="form-select" asp-items="@ViewBag.People">
-                        <option value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
+                        <option disabled selected value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
                     </select>
                     <span asp-validation-for="PersonId" class="text-danger"></span>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="mb-3 text-start">
                     <label for="ItemList" class="form-label">Item</label>
                     <select id="ItemList" class="form-select" asp-items="@ViewBag.Items" onchange="javascript:selectionChange(this)">
-                        <option value="@((int)SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
+                        <option disabled selected value="@((int)SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
                     </select>
                 </div>
 

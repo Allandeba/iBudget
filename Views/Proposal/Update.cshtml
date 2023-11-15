@@ -37,7 +37,7 @@
                 <div class="mb-3 text-start">
                     <label for="ItemList" class="form-label">Itens</label>
                     <select id="ItemList" class="form-select" asp-items="@ViewBag.Items" onchange="javascript:selectionChange(this)">
-                        <option value="@((int)SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
+                        <option disabled selected value="@((int)SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
                     </select>
                 </div>
 
