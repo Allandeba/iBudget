@@ -79,10 +79,10 @@ public class ItemController : BaseController
         return RedirectToAction(nameof(Index));
     }
 
-    public async Task<IActionResult> Search(string? search)
+    public async Task<IActionResult> Search(string search)
     {
         TempData[Constants.SearchBoxData] = search ?? "";
-        IEnumerable<ItemModel>? items = await _business.GetAllLikeAsync(search);
+        IEnumerable<ItemModel> items = await _business.GetAllLikeAsync(search);
         return View(nameof(Index), items);
     }
 }

@@ -17,7 +17,7 @@ namespace iBudget.Models
                 context.Database.Migrate();
                 _ = context.Database.EnsureCreated();
 
-                LoginModel? login = context.Login.FirstOrDefault();
+                LoginModel login = context.Login.FirstOrDefault();
                 if (login == null)
                 {
                     Cryptography cryptography = new();

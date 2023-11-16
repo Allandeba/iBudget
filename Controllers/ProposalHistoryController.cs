@@ -25,7 +25,7 @@ namespace iBudget.Controllers
             string url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
             url = $"{url}/{ControllerContext.RouteData.Values["controller"]}/{nameof(Print)}/{id}";
 
-            CompanyModel? company = await _business.GetCompany();
+            CompanyModel company = await _business.GetCompany();
             if (company == null)
             {
                 return NotFound();

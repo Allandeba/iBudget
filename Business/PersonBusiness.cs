@@ -44,7 +44,7 @@ namespace iBudget.Business
                 PersonIncludes.Contact,
                 PersonIncludes.Document
             };
-            PersonModel? existentPerson = await _repository.GetByIdAsync(
+            PersonModel existentPerson = await _repository.GetByIdAsync(
                 person.PersonId,
                 includes.Cast<Enum>().ToArray()
             );
@@ -73,7 +73,7 @@ namespace iBudget.Business
                 PersonIncludes.Contact,
                 PersonIncludes.Document
             };
-            PersonModel? person = await _repository.GetByIdAsync(
+            PersonModel person = await _repository.GetByIdAsync(
                 personId,
                 includes.Cast<Enum>().ToArray()
             );
@@ -86,7 +86,7 @@ namespace iBudget.Business
             await _repository.RemoveAsync(person);
         }
 
-        public async Task<IEnumerable<PersonModel>> GetAllLikeAsync(string? search)
+        public async Task<IEnumerable<PersonModel>> GetAllLikeAsync(string search)
         {
             return search == null
                 ? await GetPeople()

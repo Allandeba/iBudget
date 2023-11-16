@@ -29,7 +29,7 @@ public class PersonModel
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     public virtual required ContactModel Contact { get; set; }
 
-    public virtual List<ProposalModel>? Proposal { get; set; }
+    public virtual List<ProposalModel> Proposal { get; set; }
 
     public string PersonName => FirstName + ' ' + LastName;
 }

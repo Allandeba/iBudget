@@ -13,7 +13,7 @@ namespace iBudget.Controllers
             _business = business;
         }
 
-        public async Task<IActionResult> Index(IEnumerable<PersonModel>? people)
+        public async Task<IActionResult> Index(IEnumerable<PersonModel> people)
         {
             return people == null || people.Count() == 0 ? await Search(null) : View(people);
         }
@@ -64,10 +64,10 @@ namespace iBudget.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Search(string? search)
+        public async Task<IActionResult> Search(string search)
         {
             TempData[Constants.SearchBoxData] = search ?? "";
-            IEnumerable<PersonModel>? people = await _business.GetAllLikeAsync(search);
+            IEnumerable<PersonModel> people = await _business.GetAllLikeAsync(search);
             return View(nameof(Index), people);
         }
     }

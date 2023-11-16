@@ -16,7 +16,7 @@ public class CompanyController : BaseController
     {
         try
         {
-            CompanyModel? existentCompany = await _business.GetAllAsync();
+            CompanyModel existentCompany = await _business.GetAllAsync();
             return existentCompany != null
                 ? RedirectToAction(nameof(Update), new { id = existentCompany.CompanyId })
                 : (IActionResult)RedirectToAction(nameof(Create));

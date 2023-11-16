@@ -42,7 +42,7 @@ namespace iBudget.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
-            ProposalModel? proposal = await _business.GetByIdAsync(id);
+            ProposalModel proposal = await _business.GetByIdAsync(id);
             if (proposal == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace iBudget.Controllers
             string url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
             url = $"{url}/{ControllerContext.RouteData.Values["controller"]}/{nameof(Print)}/{id}";
 
-            CompanyModel? company = await _business.GetCompany();
+            CompanyModel company = await _business.GetCompany();
             if (company == null)
             {
                 return NotFound();
@@ -105,14 +105,14 @@ namespace iBudget.Controllers
 
         public async Task<IActionResult> SendWhatsApp(Guid id)
         {
-            ProposalModel? proposal = await _business.GetByGUIDAsync(id);
+            ProposalModel proposal = await _business.GetByGUIDAsync(id);
             if (proposal == null)
             {
                 return NotFound();
             }
             ;
 
-            CompanyModel? company = await _business.GetCompany();
+            CompanyModel company = await _business.GetCompany();
             if (company == null)
             {
                 return NotFound();
@@ -123,7 +123,7 @@ namespace iBudget.Controllers
             url =
                 $"{url}/{ControllerContext.RouteData.Values["controller"]}/{nameof(ExportToPDF)}/{id}";
 
-            string? number = proposal.Person?.Contact.Phone;
+            string number = proposal.Person?.Contact.Phone;
             string msg = string.Format(Messages.WhatsAppMessage, company.CompanyName, url);
 
             string encodedMessage =
@@ -135,10 +135,10 @@ namespace iBudget.Controllers
             return Redirect(encodedMessage);
         }
 
-        public async Task<IActionResult> Search(string? search)
+        public async Task<IActionResult> Search(string search)
         {
             TempData[Constants.SearchBoxData] = search ?? "";
-            IEnumerable<ProposalModel>? proposals = await _business.GetAllLikeAsync(search);
+            IEnumerable<ProposalModel> proposals = await _business.GetAllLikeAsync(search);
             return View(nameof(Index), proposals);
         }
 

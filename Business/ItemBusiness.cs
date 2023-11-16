@@ -74,7 +74,7 @@ namespace iBudget.Business
         {
             foreach (int idItemImage in idImagesToDelete)
             {
-                ItemImageModel? itemImage = existentItem.ItemImageList?.Find(
+                ItemImageModel itemImage = existentItem.ItemImageList?.Find(
                     im => im.ItemImageId == idItemImage
                 );
                 if (itemImage != null)
@@ -114,7 +114,7 @@ namespace iBudget.Business
             return await _repository.FindAsync(where, includes.Cast<Enum>().ToArray());
         }
 
-        public async Task<IEnumerable<ItemModel>> GetAllLikeAsync(string? search)
+        public async Task<IEnumerable<ItemModel>> GetAllLikeAsync(string search)
         {
             return search == null
                 ? await GetItems()

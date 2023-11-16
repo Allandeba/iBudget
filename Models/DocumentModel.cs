@@ -19,5 +19,5 @@ public class DocumentModel
     public string Document { get; set; } = string.Empty;
 
     public int PersonId { get; set; }
-    public virtual PersonModel? Person { get; set; }
+    public virtual PersonModel Person { get; set; }
 }

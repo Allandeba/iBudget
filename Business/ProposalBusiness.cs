@@ -108,7 +108,7 @@ namespace iBudget.Business
                 ProposalIncludes.Person,
                 ProposalIncludes.ItemImageList
             };
-            ProposalModel? existentProposal = await _repository.GetByIdAsync(
+            ProposalModel existentProposal = await _repository.GetByIdAsync(
                 proposal.ProposalId,
                 includes.Cast<Enum>().ToArray()
             );
@@ -131,7 +131,7 @@ namespace iBudget.Business
                 ProposalIncludes.Person,
                 ProposalIncludes.ItemImageList
             };
-            ProposalModel? proposal = await _repository.GetByIdAsync(
+            ProposalModel proposal = await _repository.GetByIdAsync(
                 proposalId,
                 includes.Cast<Enum>().ToArray()
             );
@@ -264,12 +264,12 @@ namespace iBudget.Business
                 .ToList<dynamic>();
         }
 
-        public async Task<CompanyModel>? GetCompany()
+        public async Task<CompanyModel> GetCompany()
         {
             return await _companyBusiness?.GetAllAsync();
         }
 
-        public async Task<IEnumerable<ProposalModel>> GetAllLikeAsync(string? search)
+        public async Task<IEnumerable<ProposalModel>> GetAllLikeAsync(string search)
         {
             if (search == null)
             {

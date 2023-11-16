@@ -15,8 +15,8 @@ public class ProposalContentModel
     public double Quantity { get; set; } = 1;
 
     public int ProposalId { get; set; }
-    public virtual required ProposalModel? Proposal { get; set; }
+    public virtual required ProposalModel Proposal { get; set; }
 
     public int ItemId { get; set; }
-    public virtual required ItemModel? Item { get; set; }
+    public virtual required ItemModel Item { get; set; }
 }

@@ -41,12 +41,12 @@ public class CompanyModel
     [DataType(DataType.PhoneNumber, ErrorMessage = Messages.InvalidFormatValidation)]
     public string Phone { get; set; } = string.Empty;
 
-    public byte[]? ImageFile { get; set; } = null!;
+    public byte[] ImageFile { get; set; } = null!;
 
     [NotMapped]
     [Display(Name = "Logomarca")]
     [DataType(DataType.Upload, ErrorMessage = Messages.InvalidFormatValidation)]
-    public IFormFile? FormImageFile { get; set; }
+    public IFormFile FormImageFile { get; set; }
 
     public void SetNewImage()
     {

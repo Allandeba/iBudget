@@ -81,7 +81,7 @@ namespace iBudget.Business
             return await _repository.FindAsync(where, includes.Cast<Enum>().ToArray());
         }
 
-        public async Task<CompanyModel?> GetAllAsync()
+        public async Task<CompanyModel> GetAllAsync()
         {
             CompanyIncludes[] includes = new CompanyIncludes[] { CompanyIncludes.None };
             IEnumerable<CompanyModel> companies = await _repository.GetAllAsync(

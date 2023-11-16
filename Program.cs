@@ -53,8 +53,8 @@ public class Program
                 .Build();
         });
 
-        string? syncfusionKey = "";
-        string? connectionString = "";
+        string syncfusionKey = "";
+        string connectionString = "";
         var environment = builder.Configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
         switch (environment)
         {

@@ -87,7 +87,7 @@ namespace iBudget.Business
             );
         }
 
-        public async Task<CompanyModel>? GetCompany()
+        public async Task<CompanyModel> GetCompany()
         {
             return await _companyBusiness?.GetAllAsync();
         }

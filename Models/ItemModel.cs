@@ -38,7 +38,7 @@ public class ItemModel
     public string DefaultImage { get; set; } = string.Empty;
 
     [NotMapped]
-    public List<int>? IdImagesToDelete { get; set; } = new();
+    public List<int> IdImagesToDelete { get; set; } = new();
 
     public void SetItemImageList()
     {
@@ -75,12 +75,12 @@ public class ItemModel
         }
     }
 
-    public virtual List<ItemImageModel>? ItemImageList { get; set; }
-    public virtual List<ProposalContentModel>? ProposalContent { get; set; }
+    public virtual List<ItemImageModel> ItemImageList { get; set; }
+    public virtual List<ProposalContentModel> ProposalContent { get; set; }
 
     public ItemImageModel GetMainImage()
     {
-        ItemImageModel? itemImageModel = ItemImageList.FirstOrDefault(a => a.Main);
+        ItemImageModel itemImageModel = ItemImageList.FirstOrDefault(a => a.Main);
         return itemImageModel;
     }
 }
