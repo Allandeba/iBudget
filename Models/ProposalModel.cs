@@ -27,7 +27,7 @@ public class ProposalModel
     [Display(Name = "Pessoa")]
     public int PersonId { get; set; }
     public virtual required PersonModel Person { get; set; }
-    
+
     [Required(ErrorMessage = "Você deve adicionar um ou mais produtos para criar um orçamento")]
     public virtual required List<ProposalContentModel> ProposalContent { get; set; }
     public virtual List<ProposalHistoryModel> ProposalHistory { get; set; }

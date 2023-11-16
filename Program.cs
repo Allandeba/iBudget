@@ -63,7 +63,7 @@ public class Program
                 connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
                 SystemManager.IsDevelopment = true;
                 break;
-                
+
             case Constants.EnvironmentProduction:
                 syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
                 if (syncfusionKey.IsNullOrEmpty())
