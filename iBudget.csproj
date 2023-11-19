@@ -9,7 +9,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguratio/n)' == 'http' " />
   <ItemGroup>
-    <PackageReference Include="OpenIddict" Version="4.8.0" />
+    <PackageReference Include="OpenIddict" Version="4.10.0" />
     <PackageReference Include="DotNetEnv" Version="2.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,8 +21,8 @@
     </PackageReference>
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Linux" Version="23.1.39" />
-    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Mac" Version="23.1.39" />
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Linux" Version="23.1.44" />
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Mac" Version="23.1.44" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
   </ItemGroup>
