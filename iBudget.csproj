@@ -5,9 +5,12 @@
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>6490a58b-9341-4167-9250-3385676d9147</UserSecretsId>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(RunConfiguratio/n)' == 'http' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <PackageReference Include="OpenIddict" Version="4.10.0" />
     <PackageReference Include="DotNetEnv" Version="2.5.0" />
@@ -21,8 +24,8 @@
     </PackageReference>
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Linux" Version="23.1.44" />
-    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Mac" Version="23.1.44" />
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Linux" Version="23.2.4" />
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Mac" Version="23.2.4" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
     <PackageReference Include="xunit" Version="2.6.2" />
@@ -30,6 +33,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.14" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="DAO\" />
@@ -54,5 +58,9 @@
     <Folder Include="Framework\" />
     <Folder Include="Views\Company\" />
     <Folder Include="Views\Configuration\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\MvcTestingAppManifest.json" />
+    <Content Remove="iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\MvcTestingAppManifest.json" />
   </ItemGroup>
 </Project>
