@@ -44,13 +44,13 @@ namespace iBudget.Business
 
             if (existentItem != null)
             {
-                updateExistentItemInformation(existentItem, item);
+                UpdateExistentItemInformation(existentItem, item);
             }
 
             await _repository.UpdateAsync(existentItem);
         }
 
-        private void updateExistentItemInformation(ItemModel existentItem, ItemModel itemToUpdate)
+        private void UpdateExistentItemInformation(ItemModel existentItem, ItemModel itemToUpdate)
         {
             existentItem.ItemName = itemToUpdate.ItemName;
             existentItem.Value = itemToUpdate.Value;
@@ -65,12 +65,12 @@ namespace iBudget.Business
 
             if (itemToUpdate.IdImagesToDelete?.Count > 0)
             {
-                deleteItemImage(existentItem, itemToUpdate.IdImagesToDelete);
+                DeleteItemImage(existentItem, itemToUpdate.IdImagesToDelete);
             }
             ;
         }
 
-        private void deleteItemImage(ItemModel existentItem, List<int> idImagesToDelete)
+        private void DeleteItemImage(ItemModel existentItem, List<int> idImagesToDelete)
         {
             foreach (int idItemImage in idImagesToDelete)
             {
