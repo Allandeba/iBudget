@@ -18,7 +18,7 @@ namespace iBudget.Framework
 
         public void OnException(ExceptionContext context)
         {
-            var result = new ViewResult { ViewName = Constants.CustomErrorView };
+            ViewResult result = new() { ViewName = Constants.CustomErrorView };
             result.ViewData = new ViewDataDictionary(_modelMetadataProvider, context.ModelState);
 
             if (context.Exception is DbUpdateException dbUpdateException)
