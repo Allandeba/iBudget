@@ -14,7 +14,13 @@ namespace iBudget.UnitTest.Models
             Image image = new Image<Rgba32>(100, 100);
             MemoryStream memoryStream = new();
             image.Save(memoryStream, new PngEncoder());
-            FormFile formFile = new FormFile(memoryStream, 0, memoryStream.Length, nomeItem, nomeArquivo)
+            FormFile formFile = new FormFile(
+                memoryStream,
+                0,
+                memoryStream.Length,
+                nomeItem,
+                nomeArquivo
+            )
             {
                 Headers = new HeaderDictionary(),
                 ContentType = "image/png"
@@ -72,7 +78,7 @@ namespace iBudget.UnitTest.Models
             item.SetDefaultImage(item.ImageFiles.First().FileName);
 
             ItemImageModel itemImage = item.GetMainImage();
-            Assert.Equal(itemImage.FileName, item.ImageFiles.First().FileName);
+            Assert.Equal(item.ImageFiles.First().FileName, itemImage.FileName);
         }
     }
 }

@@ -7,15 +7,16 @@ namespace iBudget.UnitTest.Models
         [Fact]
         public void ShouldSetLastAddedImageAsMainImage()
         {
-            PersonModel person = new()
-            {
-                Document = new(),
-                Contact = new(),
-                FirstName = "Primeiro",
-                LastName = "Segundo"
-            };
+            PersonModel person =
+                new()
+                {
+                    Document = new(),
+                    Contact = new(),
+                    FirstName = "Primeiro",
+                    LastName = "Segundo"
+                };
 
-            Assert.Equal(person.PersonName, "Primeiro Segundo");
+            Assert.Equal("Primeiro Segundo", person.PersonName);
         }
     }
 }
