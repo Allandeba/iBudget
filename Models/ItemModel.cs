@@ -20,8 +20,8 @@ public class ItemModel
     [Range(0, int.MaxValue, ErrorMessage = Messages.MinValueValidation)]
     [DataType(DataType.Currency, ErrorMessage = Messages.InvalidFormatValidation)]
     [Precision(18, 2)]
-    [DisplayFormat(DataFormatString = "{0:#.##}")]
-    public double Value { get; set; } = 0;
+    [DisplayFormat(DataFormatString = "{0:C}")]
+    public decimal Value { get; set; } = 0;
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Descrição")]

@@ -26,7 +26,7 @@
                     </thead>
                     <tbody>
                         @{
-                            double totalValue = 0;
+                            decimal totalValue = 0;
                         }
 
                         @foreach (var proposalContent in Model.ProposalContent)
@@ -36,7 +36,7 @@
                                 <td class="text-center">@proposalContent.Item.ItemName</td>
                                 <td class="text-center">@proposalContent.Quantity</td>
                                 <td class="text-center">@proposalContent.Item.Description</td>
-                                <td class="text-center">R$ @proposalContent.Item.Value</td>
+                                <td class="text-center">@proposalContent.Item.Value</td>
                             </tr>
 
                             totalValue += proposalContent.Item.Value * proposalContent.Quantity;
@@ -44,7 +44,7 @@
 
                         <tr>
                             <td colspan="4" class="text-end fw-bold">Total:</td>
-                            <td class="text-center fw-bold">R$ @string.Format("{0:#.00}", (totalValue - Model.Discount))</td>
+                            <td class="text-center fw-bold">@((totalValue - Model.Discount).ToString("C"))</td>
                         </tr>
                     </tbody>
                 </table>

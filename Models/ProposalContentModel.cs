@@ -11,8 +11,7 @@ public class ProposalContentModel
     [Range(1, int.MaxValue, ErrorMessage = Messages.MinValueValidation)]
     [Display(Name = "Quantidade")]
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
-    [DisplayFormat(DataFormatString = "{0:#.##}")]
-    public double Quantity { get; set; } = 1;
+    public int Quantity { get; set; } = 1;
 
     public int ProposalId { get; set; }
     public virtual required ProposalModel Proposal { get; set; }

@@ -1,6 +1,7 @@
 ﻿const NEW_PROPOSAL_CONTENT_ID = 0;
 const NEW_PROPOSAL_CONTENT_NAME = 'proposalContentRow_';
-const FULL_ID_NEW_PROPOSAL_CONTENT_ROW = NEW_PROPOSAL_CONTENT_NAME + NEW_PROPOSAL_CONTENT_ID;
+const FULL_ID_NEW_PROPOSAL_CONTENT_ROW =
+  NEW_PROPOSAL_CONTENT_NAME + NEW_PROPOSAL_CONTENT_ID;
 
 const itemList = document.getElementById('ItemList');
 const proposalContentTable = document.getElementById('proposalContentTable');
@@ -22,8 +23,17 @@ function addProposalContentCellClasses(cell) {
 
 function setProposalContentIdContent(proposalContentIdCell) {
   let inputProposalContentId =
-    '<input type="hidden" name="ProposalContent[' + getActualRow() + '].ProposalContentId" value="' + NEW_PROPOSAL_CONTENT_ID + '" />';
-  let inputITemId = '<input type="hidden" name="ProposalContent[' + getActualRow() + '].ItemId" value="' + itemList.value + '" />';
+    '<input type="hidden" name="ProposalContent[' +
+    getActualRow() +
+    '].ProposalContentId" value="' +
+    NEW_PROPOSAL_CONTENT_ID +
+    '" />';
+  let inputITemId =
+    '<input type="hidden" name="ProposalContent[' +
+    getActualRow() +
+    '].ItemId" value="' +
+    itemList.value +
+    '" />';
 
   let span = '<span>' + NEW_PROPOSAL_CONTENT_ID + '</span>';
 
@@ -43,7 +53,7 @@ function setProposalContentValueContent(valueCell) {
   let item = items.find((i) => i.ItemId == itemId);
 
   if (item) {
-    valueCell.textContent = 'R$ ' + parseFloat(item.Value).toFixed(2);
+    valueCell.textContent = item.Value.toFixed(2);
   } else {
     valueCell.textContent = 'error';
   }
@@ -153,19 +163,28 @@ function calculateTotalValue() {
     let itemValueCell = row.querySelector('#item-value');
 
     if (itemValueCell) {
-      let itemValue = parseFloat(itemValueCell.textContent.replace('R$ ', ''));
+      let itemValue = parseToFloat(itemValueCell.textContent);
+
       let itemQuantityCell = row.querySelector('#item-quantity');
+      let isValidQuantity = !isNaN(parseFloat(itemQuantityCell?.value));
 
-      if (itemQuantityCell) {
-        itemValue *= itemQuantityCell.value;
+      if (itemQuantityCell && isValidQuantity) {
+        totalValue += itemValue * parseFloat(itemQuantityCell.value);
       }
-
-      totalValue += itemValue;
     }
   }
 
-  totalValue -= parseFloat(discountElement.value);
-  totalValueCell.textContent = 'R$ ' + totalValue.toFixed(2);
+  const isValidDiscount = !isNaN(parseFloat(discountElement.value));
+  if (isValidDiscount) {
+    totalValue -= parseFloat(discountElement.value);
+  }
+
+  totalValueCell.textContent = totalValue.toFixed(2);
+  setCultureInfo(totalValueCell);
+}
+
+function parseToFloat(textContent) {
+  return parseFloat(textContent.replace(/[^\d.,]/g, ''));
 }
 
 function deleteItem(proposalContentId, itemId) {
@@ -175,7 +194,9 @@ function deleteItem(proposalContentId, itemId) {
   })
     .then((result) => {
       if (result) {
-        let row = document.getElementById(NEW_PROPOSAL_CONTENT_NAME + proposalContentId);
+        let row = document.getElementById(
+          NEW_PROPOSAL_CONTENT_NAME + proposalContentId
+        );
         if (row) {
           row.remove();
           calculateTotalValue();
@@ -262,4 +283,13 @@ function applyIndexForInputElements(element, index) {
   Array.from(inputElements).forEach((inputElement) => {
     updateProposalContentIndex(inputElement, index);
   });
+}
+
+function setCultureInfo(cell) {
+  if (!symbol) {
+    console.error('Symbol not specified');
+    return;
+  }
+
+  cell.textContent = symbol + ' ' + cell.textContent;
 }

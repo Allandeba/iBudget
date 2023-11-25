@@ -6,10 +6,8 @@ using iBudget.Repository;
 using iBudget.Framework;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.HttpOverrides;
 
@@ -19,6 +17,8 @@ public class Program
 {
     public static void Main(string[] args)
     {
+        System.Globalization.CultureInfo.DefaultThreadCurrentCulture =
+            new System.Globalization.CultureInfo("pt-br");
         _ = DotNetEnv.Env.Load();
 
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

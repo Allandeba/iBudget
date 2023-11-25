@@ -17,8 +17,8 @@ public class ProposalModel
     [Display(Name = "Desconto")]
     [Range(0, int.MaxValue, ErrorMessage = Messages.MinValueValidation)]
     [Precision(18, 2)]
-    [DisplayFormat(DataFormatString = "{0:#.##}")]
-    public double Discount { get; set; } = 0;
+    [DisplayFormat(DataFormatString = "{0:C}")]
+    public decimal Discount { get; set; } = 0;
 
     public Guid GUID { get; set; } = Guid.NewGuid();
 

@@ -1,6 +1,7 @@
 ﻿@model ProposalModel
 
 @using iBudget.Framework
+@using System.Globalization
 
 @{
     ViewData["Title"] = "Atualizar - " + Model.ProposalId;
@@ -15,8 +16,9 @@
 }
 
 <script>
-    let items = @Html.Raw(itemsJson);
+    const items = @Html.Raw(itemsJson);
     let selectPersonId = @ViewBag.ProposalPerson.PersonId;
+    const symbol = "@(new CultureInfo("pt-br").NumberFormat.CurrencySymbol)";
 </script>
 
 <div class="container">
@@ -64,7 +66,7 @@
                         </thead>
                         <tbody id="table-rows">
                             @{
-                                double totalValue = 0;
+                                decimal totalValue = 0;
                             }
 
                             @for (int i = 0; i < ViewBag.ProposalContent.Count; i++)
@@ -79,7 +81,7 @@
                                     </td>
                                     <td name="ProposalContent[@i].Item.ItemId" class="text-center">@proposalContent.Item.ItemId</td>
                                     <td class="text-center" name="ProposalContent[@i].Item.ItemName">@proposalContent.Item.ItemName</td>
-                                    <td id="item-value" name="ProposalContent[@i].Item.Value" class="text-center">R$ @proposalContent.Item.Value</td>
+                                    <td id="item-value" name="ProposalContent[@i].Item.Value" class="text-center">@proposalContent.Item.Value</td>
                                     <td class="text-center">
                                         <input id=item-quantity name="ProposalContent[@i].Quantity" class="text-center" onchange="onChangeItemQuantity(this)"
                                             value="@(proposalContent.Quantity)" type="number" step="0.01" />
@@ -105,7 +107,7 @@
 
                             <tr>
                                 <td colspan="3" class="text-end fw-bold">Total:</td>
-                                <td id="total-value-cell" class="text-center fw-bold">R$ @((totalValue - Model.Discount).ToString())</td>
+                                <td id="total-value-cell" class="text-center fw-bold">@((totalValue - Model.Discount).ToString("C"))</td>
                             </tr>
                         </tbody>
                     </table>
