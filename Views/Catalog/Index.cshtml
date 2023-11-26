@@ -8,7 +8,6 @@
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center ">
             <h1 class="display-4 fw-bolder">Catálogo</h1>
-            @* <p class="lead fw-normal -50 mb-0">Some information</p> *@
         </div>
     </div>
 </header>
@@ -21,23 +20,27 @@
             {
                 <div class="col mb-4">
                     <div class="card h-100">
-                        @if (item.GetMainImage() != null)
-                        {
-                            <img class="card-img-top" src="data:image/*;base64,@(Convert.ToBase64String(item.GetMainImage().ImageFile))"
-                                alt="@(item.GetMainImage().FileName)" />
+                        @{
+                            ItemImageModel defaultImage = item.GetMainImage();
+                            if (defaultImage != null)
+                            {
+                                <img class="card-img-top" src="data:image/*;base64,@(Convert.ToBase64String(defaultImage.ImageFile))" alt="@(defaultImage.FileName)" />
+                            }
+
+                            IEnumerable<ItemImageModel> otherImages = item.ItemImageList.Where(item => !item.Main).ToList();
+                            if (otherImages != null)
+                            {
+                                <div class="card-group">
+                                    @foreach (var image in otherImages)
+                                    {
+                                        <div class="card">
+                                            <img class="img-fluid" style="width: 150px;" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)" />
+                                        </div>
+                                    }
+                                </div>
+                            }
                         }
-                        @if (item.ItemImageList.FindAll(a => a.Main == false) != null)
-                        {
-                            <div class="card-group">
-                                @foreach (var image in item.ItemImageList.FindAll(a => a.Main == false))
-                                {
-                                    <div class="card">
-                                        <img class="img-fluid" style="width: 150px;" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))"
-                                            alt="@(image.FileName)" />
-                                    </div>
-                                }
-                            </div>
-                        }
+
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">@item.ItemName</h5>
