@@ -3,74 +3,80 @@ const documentValue = document.getElementById('Document_Document');
 const phone = document.getElementById('Contact_Phone');
 
 function applyFormatCPF() {
-    if (!documentValue) return;
+  if (!documentValue) return;
 
-    documentValue.value =
-        documentValue.value.replace(/\D/g, "")
-            .replace(/(\d{3})(\d)/, "$1.$2")
-            .replace(/(\d{3})(\d)/, "$1.$2")
-            .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-};
+  documentValue.value = documentValue.value
+    .replace(/\D/g, '')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+}
 
 function applyFormatCNPJ() {
-    if (!documentValue) return;
+  if (!documentValue) return;
 
-    documentValue.value =
-        documentValue.value
-            .replace(/\D/g, "")
-            .replace(/^(\d{2})(\d)/, "$1.$2")
-            .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
-            .replace(/\.(\d{3})(\d)/, ".$1/$2")
-            .replace(/(\d{4})(\d)/, "$1-$2");
-    return;
-};
+  documentValue.value = documentValue.value
+    .replace(/\D/g, '')
+    .replace(/^(\d{2})(\d)/, '$1.$2')
+    .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+    .replace(/\.(\d{3})(\d)/, '.$1/$2')
+    .replace(/(\d{4})(\d)/, '$1-$2');
+  return;
+}
 
 function applyFormatRG() {
-    if (!documentValue) return;
+  if (!documentValue) return;
 
-    documentValue.value =
-        documentValue.value.replace(/\D/g, "")
-            .replace(/(\d{1})(\d)/, "$1.$2")
-            .replace(/(\d{3})(\d)/, "$1.$2")
-            .replace(/(\d{3})(\d)/, "$1.$2");
-    return;
-};
+  documentValue.value = documentValue.value
+    .replace(/\D/g, '')
+    .replace(/(\d{1})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2');
+  return;
+}
 
 function applyFormatPhone() {
-    if (!phone) return;
+  if (!phone) return;
 
-    phone.value =
-        phone.value.replace(/\D/g, "")
-            .replace(/(\d{2})(\d)/, "+$1 $2")
-            .replace(/(\d{2})(\d)/, "($1) $2")
-            .replace(/(\d)(\d{4})$/, "$1-$2");
-    return;
-};
+  phone.value = phone.value
+    .replace(/\D/g, '')
+    .replace(/(\d{2})(\d)/, '+$1 $2')
+    .replace(/(\d{2})(\d)/, '($1) $2')
+    .replace(/(\d)(\d{4})$/, '$1-$2');
+  return;
+}
 
 function applyDocumentFormat() {
-    if (documentType) {
-        switch (parseInt(documentType.options[documentType.selectedIndex].value)) {
-            case 0:
-                applyFormatCPF();
-                break;
+  if (documentType) {
+    switch (parseInt(documentType.options[documentType.selectedIndex].value)) {
+      case 0:
+        applyFormatCPF();
+        break;
 
-            case 1:
-                applyFormatRG();
-                break;
+      case 1:
+        applyFormatRG();
+        break;
 
-            case 2:
-                applyFormatCNPJ();
-                break;
-        }
-    };
+      case 2:
+        applyFormatCNPJ();
+        break;
+    }
+  }
 
-    return;
-};
+  return;
+}
 
-
-documentValue.addEventListener('input', function () { applyDocumentFormat() });
-phone.addEventListener('input', function () { applyFormatPhone() });
-window.addEventListener('DOMContentLoaded', function () {
+if (documentValue)
+  documentValue.addEventListener('input', function () {
     applyDocumentFormat();
+  });
+
+if (phone)
+  phone.addEventListener('input', function () {
     applyFormatPhone();
+  });
+
+window.addEventListener('DOMContentLoaded', function () {
+  applyDocumentFormat();
+  applyFormatPhone();
 });
