@@ -6,6 +6,8 @@
 @{
     ViewData["Title"] = "Atualizar - " + Model.ProposalId;
     string itemsJson = Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.ItemsFull);
+    
+    decimal totalValue = 0;
 }
 
 @section Scripts
@@ -27,48 +29,17 @@
             <h4 class="mb-3">Detalhe do orçamento</h4>
             @using (Html.BeginForm("Update", "Proposal", FormMethod.Post, new { @class = "needs-validation" }))
             {
-                @Html.HiddenFor(m => m.ProposalId)
-                @Html.HiddenFor(m => m.ModificationDate)
+                @Html.HiddenFor(m => m.ProposalId);
+                @Html.HiddenFor(m => m.ModificationDate);
 
-                <div class="mb-3 text-start">
-                    <label asp-for="PersonId" class="form-label"></label>
-                    <select asp-for="PersonId" class="form-select" asp-items="@ViewBag.People"></select>
-                    <span asp-validation-for="PersonId" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3 text-start">
-                    <label for="ItemList" class="form-label">Itens</label>
-                    <select id="ItemList" class="form-select" asp-items="@ViewBag.Items" onchange="javascript:selectionChange(this)">
-                        <option disabled selected value="@((int)SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
-                    </select>
-                </div>
-
-                <div class="mb-3 text-start">
-                    <label asp-for="Discount" class="form-label"></label>
-                    <input id="discount" asp-for="Discount" type="number" step="0.01" onchange="calculateTotalValue()" class="form-control"
-                        placeholder="">
-                    <span asp-validation-for="Discount" class="text-danger"></span>
-                </div>
-
-                <hr class="my-4">
+                <partial name="Partials/_EditProposal" />
 
                 <div class="table-responsive mb-4">
                     <table id="proposalContentTable" class="table table-striped">
-                        <thead class="">
-                            <tr>
-                                <th class="text-center">ID Orçamento</th>
-                                <th class="text-center">ID Item</th>
-                                <th class="text-center">Item</th>
-                                <th class="text-center">Valor</th>
-                                <th class="text-center">Quantidade</th>
-                                <th class="text-center">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-rows">
-                            @{
-                                decimal totalValue = 0;
-                            }
+                        
+                        <partial name="Partials/_THeadProposal" />
 
+                        <tbody id="table-rows">
                             @for (int i = 0; i < ViewBag.ProposalContent.Count; i++)
                             {
                                 var proposalContent = ViewBag.ProposalContent[i];

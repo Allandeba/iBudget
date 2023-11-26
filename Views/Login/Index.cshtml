@@ -2,13 +2,6 @@
 
 @{
     ViewData["Title"] = "Login";
-    string username = "";
-    string password = "";
-    if (SystemManager.IsDevelopment)
-    {
-        username = "admin";
-        password = "@dministrat0R.";
-    }
 }
 
 <div class="container">
@@ -18,19 +11,9 @@
             @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "needs-validation" }))
             {
                 <object class="svg svg-person mb-4" width="72" height="72" alt="Person"></object>
-                <h1 class="h3 mb-3 font-weight-normal">Por gentileza faça o login</h1>
+                <h1 class="h3 mb-3 font-weight-normal">Entrar</h1>
 
-                <div class="mb-3 text-start">
-                    <label asp-for="Username" class="form-label"></label>
-                    <input asp-for="Username" class="form-control" placeholder="" autofocus="" value="@username">
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3 text-start">
-                    <label asp-for="Password" class="form-label"></label>
-                    <input asp-for="Password" class="form-control" placeholder="" value="@password">
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
+                <partial name="Partials/_EditLogin" />
 
                 <div class="form-check text-start my-3">
                     <label asp-for="Remember" class="form-check-label">

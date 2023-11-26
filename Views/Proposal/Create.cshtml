@@ -1,6 +1,5 @@
 ﻿@model ProposalModel
 
-@using iBudget.Framework
 @using System.Globalization
 
 @{
@@ -25,42 +24,13 @@
         <div class="col-md-8 text-center">
             @using (Html.BeginForm("Create", "Proposal", FormMethod.Post, new { @class = "needs-validation" }))
             {
-                <div class="mb-3 text-start">
-                    <label asp-for="PersonId" class="form-label"></label>
-                    <select asp-for="PersonId" class="form-select" asp-items="@ViewBag.People">
-                        <option disabled selected value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
-                    </select>
-                    <span asp-validation-for="PersonId" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3 text-start">
-                    <label for="ItemList" class="form-label">Item</label>
-                    <select id="ItemList" class="form-select" asp-items="@ViewBag.Items" onchange="javascript:selectionChange(this)">
-                        <option disabled selected value="@((int)SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
-                    </select>
-                </div>
-
-                <div class="mb-3 text-start">
-                    <label asp-for="Discount" class="form-label"></label>
-                    <input id="discount" asp-for="Discount" type="number" step="0.01" onchange="calculateTotalValue()" class="form-control" placeholder=""
-                        value="0">
-                    <span asp-validation-for="Discount" class="text-danger"></span>
-                </div>
-
-                <hr class="my-4">
+                <partial name="Partials/_EditProposal" />
 
                 <div class="table-responsive mb-4">
                     <table id="proposalContentTable" class="table table-striped">
-                        <thead class="">
-                            <tr>
-                                <th class="text-center">ID Orçamento</th>
-                                <th class="text-center">ID Item</th>
-                                <th class="text-center">Item</th>
-                                <th class="text-center">Valor</th>
-                                <th class="text-center">Quantidade</th>
-                                <th class="text-center">Ações</th>
-                            </tr>
-                        </thead>
+
+                        <partial name="Partials/_THeadProposal" />
+
                         <tbody id="table-rows">
                             @*dinamically*@
                             <tr>
