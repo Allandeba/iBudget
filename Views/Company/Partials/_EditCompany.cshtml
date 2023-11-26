@@ -1,0 +1,41 @@
+@model CompanyModel
+
+<div class="mb-3 text-start">
+    @Html.LabelFor(model => model.CompanyName, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control", placeholder = ""} } )
+    @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" } )
+</div>
+
+<div class="mb-3 text-start">
+    @Html.LabelFor(model => model.Email, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "your@email.com" } } )
+    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" } )
+</div>
+
+<div class="mb-3 text-start">
+    @Html.LabelFor(model => model.Phone, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", placeholder = "+55 (49) 9 xxxx-xxxx" } } )
+    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" } )
+</div>
+
+<div class="mb-3 text-start">
+    <select id="Document_DocumentType" hidden>
+        <option value="2" selected>CNPJ</option>
+    </select>
+
+    @Html.LabelFor(model => model.CNPJ, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.CNPJ, new { htmlAttributes = new { @class = "form-control", placeholder = "" } } )
+    @Html.ValidationMessageFor(model => model.CNPJ, "", new { @class = "text-danger" } )
+</div>
+
+<div class="mb-3 text-start">
+    @Html.LabelFor(model => model.Address, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "" } } )
+    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" } )
+</div>
+
+<div class="mb-3 text-start">
+    @Html.LabelFor(model => model.FormImageFile, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.FormImageFile, new { htmlAttributes = new { @id = "upload", @class = "form-control", placeholder = "", type = "file", accept = "image/*" } } )
+    @Html.ValidationMessageFor(model => model.FormImageFile, "", new { @class = "text-danger" } )
+</div>
