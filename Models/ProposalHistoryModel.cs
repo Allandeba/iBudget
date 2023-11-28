@@ -40,7 +40,7 @@ public class ProposalHistoryModel
     [Display(Name = "Desconto")]
     [DataType(DataType.Currency, ErrorMessage = Messages.InvalidFormatValidation)]
     [Precision(18, 2)]
-    public decimal Discount { get; set; } = 0;
+    public decimal Discount { get; set; } = 0.0m;
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     public virtual required ProposalModel Proposal { get; set; }

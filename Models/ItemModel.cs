@@ -21,7 +21,7 @@ public class ItemModel
     [DataType(DataType.Currency, ErrorMessage = Messages.InvalidFormatValidation)]
     [Precision(18, 2)]
     [DisplayFormat(DataFormatString = "{0:C}")]
-    public decimal Value { get; set; } = 0;
+    public decimal Value { get; set; } = 0.0m;
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Descrição")]
