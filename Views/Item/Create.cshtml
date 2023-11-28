@@ -20,16 +20,16 @@
                 <partial name="Partials/_EditItem" />
 
                 <div class="mb-3 text-start">
-                    <label asp-for="DefaultImage" class="form-label"></label>
+                    @Html.LabelFor(model => model.DefaultImage, new { @class = "form-label"} )
                     <select asp-for="DefaultImage" class="form-select" id="defaultImageSelect">
                         <option disabled selected value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
                     </select>
                 </div>
 
                 <div class="mb-3 text-start">
-                    <label asp-for="ImageFiles" class="form-label"></label>
-                    <input id="upload" asp-for="ImageFiles" accept="image/*" placeholder="">
-                    <span asp-validation-for="ImageFiles" class="text-danger"></span>
+                    @Html.LabelFor(model => model.ImageFiles, new { @class = "form-label"} )
+                    @Html.EditorFor(model => model.ImageFiles, new { htmlAttributes = new { @id = "upload", @class = "form-control", placeholder = "", type = "file", accept = "image/*" } } )
+                    @Html.ValidationMessageFor(model => model.ImageFiles, "", new { @class = "text-danger" } )
                 </div>
 
                 <div class="row g-3" id="images__client"></div>
