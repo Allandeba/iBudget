@@ -3,11 +3,9 @@
 @using iBudget.Framework
 
 <div class="mb-3 text-start">
-    <label asp-for="PersonId" class="form-label"></label>
-    <select asp-for="PersonId" class="form-select" asp-items="@ViewBag.People">
-        <option disabled selected value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
-    </select>
-    <span asp-validation-for="PersonId" class="text-danger"></span>
+    @Html.LabelFor(model => model.PersonId, new { @class = "form-label"} )
+    @Html.DropDownListFor(model => model.PersonId, (IEnumerable<SelectListItem>)ViewBag.People, "--Selecione--", new { @class = "form-select" })
+    @Html.ValidationMessageFor(model => model.PersonId, "", new { @class = "text-danger" } )
 </div>
 
 <div class="mb-3 text-start">
@@ -18,10 +16,9 @@
 </div>
 
 <div class="mb-3 text-start">
-    <label asp-for="Discount" class="form-label"></label>
-    <input id="discount" asp-for="Discount" type="number" step="0.01" onchange="calculateTotalValue()" class="form-control" placeholder=""
-        value="0">
-    <span asp-validation-for="Discount" class="text-danger"></span>
+    @Html.LabelFor(model => model.Discount, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @id = "discount", @class = "form-control", placeholder = "", step="0.01", @onchange = "calculateTotalValue()" } } )
+    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" } )
 </div>
 
 <hr class="my-4">

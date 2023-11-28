@@ -3,41 +3,42 @@
 @using iBudget.Framework
 
 <div class="mb-3 text-start">
-    <label asp-for="FirstName" class="form-label"></label>
-    <input asp-for="FirstName" class="form-control" placeholder="">
-    <span asp-validation-for="FirstName" class="text-danger"></span>
+    @Html.LabelFor(model => model.FirstName, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "" } } )
+    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" } )
 </div>
 
 <div class="mb-3 text-start">
-    <label asp-for="LastName" class="form-label"></label>
-    <input asp-for="LastName" class="form-control" placeholder="">
-    <span asp-validation-for="LastName" class="text-danger"></span>
+    @Html.LabelFor(model => model.LastName, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "" } } )
+    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" } )
 </div>
 
 <div class="mb-3 text-start">
-    <label asp-for="Contact.Email" class="form-label"></label>
-    <input asp-for="Contact.Email" class="form-control" placeholder="you@example.com" requried>
-    <span asp-validation-for="Contact.Email" class="text-danger"></span>
+    @Html.LabelFor(model => model.Contact.Email, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.Contact.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "your@email.com" } } )
+    @Html.ValidationMessageFor(model => model.Contact.Email, "", new { @class = "text-danger" } )
 </div>
 
 <div class="mb-3 text-start">
-    <label asp-for="Contact.Phone" class="form-label"></label>
-    <input asp-for="Contact.Phone" class="form-control" placeholder="+55 (49) 9 xxxx-xxxx">
-    <span asp-validation-for="Contact.Phone" class="text-danger"></span>
+    @Html.LabelFor(model => model.Contact.Phone, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.Contact.Phone, new { htmlAttributes = new { @class = "form-control", placeholder = "+55 (49) 9 xxxx-xxxx" } } )
+    @Html.ValidationMessageFor(model => model.Contact.Phone, "", new { @class = "text-danger" } )
 </div>
 
 <div class="mb-3 text-start">
-    <label asp-for="Document.DocumentType"></label>
-    <select asp-for="Document.DocumentType" asp-items="@Html.GetEnumSelectList<DocumentTypes>()" class="form-select">
-        <option>--Selecione--</option>
-    </select>
+    @Html.LabelFor(model => model.Document.DocumentType, new { @class = "form-label"} )
+    @* <select asp-for="Document.DocumentType" asp-items="@Html.GetEnumSelectList<DocumentTypes>()" class="form-select">
+        <option disabled selected>--Selecione--</option>
+    </select> *@
+    @Html.DropDownListFor(model => model.Document.DocumentType, Html.GetEnumSelectList<DocumentTypes>(), "--Selecione--", new { @class = "form-select" })
     <span asp-validation-for="Document.DocumentType" class="text-danger"></span>
 </div>
 
 <div class="mb-3 text-start">
-    <label asp-for="Document.Document" class="form-label"></label>
-    <input asp-for="Document.Document" class="form-control" placeholder="">
-    <span asp-validation-for="Document.Document" class="text-danger"></span>
+    @Html.LabelFor(model => model.Document.Document, new { @class = "form-label"} )
+    @Html.EditorFor(model => model.Document.Document, new { htmlAttributes = new { @class = "form-control", placeholder = "" } } )
+    @Html.ValidationMessageFor(model => model.Document.Document, "", new { @class = "text-danger" } )
 </div>
 
 <hr class="my-4">
