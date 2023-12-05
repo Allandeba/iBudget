@@ -166,17 +166,17 @@ function calculateTotalValue() {
       let itemValue = parseToFloat(itemValueCell.textContent);
 
       let itemQuantityCell = row.querySelector('#item-quantity');
-      let isValidQuantity = !isNaN(parseFloat(itemQuantityCell?.value));
+      let isValidQuantity = !isNaN(parseToFloat(itemQuantityCell?.value));
 
       if (itemQuantityCell && isValidQuantity) {
-        totalValue += itemValue * parseFloat(itemQuantityCell.value);
+        totalValue += itemValue * parseToFloat(itemQuantityCell.value);
       }
     }
   }
 
-  const isValidDiscount = !isNaN(parseFloat(discountElement.value));
+  const isValidDiscount = !isNaN(parseToFloat(discountElement.value));
   if (isValidDiscount) {
-    totalValue -= parseFloat(discountElement.value);
+    totalValue -= parseToFloat(discountElement.value);
   }
 
   totalValueCell.textContent = totalValue.toFixed(2);
@@ -184,7 +184,9 @@ function calculateTotalValue() {
 }
 
 function parseToFloat(textContent) {
-  return parseFloat(textContent.replace(/[^\d.,]/g, ''));
+  let textValue = textContent.replace(/[^\d.,]/g, '');
+  textValue = textValue.replace(',', '.');
+  return parseFloat(textValue);
 }
 
 function deleteItem(proposalContentId, itemId) {
