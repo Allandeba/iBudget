@@ -10,7 +10,7 @@
 
 <div class="mb-3 text-start">
     @Html.LabelFor(model => model.Value, new { @class = "form-label"} )
-    @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control", placeholder = "", type = "number", step = "0.01" } } )
+    @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control", placeholder = "", step = "0.01" } } )
     @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" } )
 </div>
 

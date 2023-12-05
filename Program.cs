@@ -17,8 +17,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        System.Globalization.CultureInfo.DefaultThreadCurrentCulture =
-            new System.Globalization.CultureInfo("pt-br");
         _ = DotNetEnv.Env.Load();
 
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

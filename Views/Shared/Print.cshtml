@@ -43,7 +43,7 @@
 
                         <tr>
                             <td colspan="4" class="text-end fw-bold">Total:</td>
-                            <td class="text-center fw-bold">@((totalValue - Model.Discount).ToString("C"))</td>
+                            <td class="text-center fw-bold">@((totalValue - Model.Discount).ToString("C", new CultureInfo("pt-br")))</td>
                         </tr>
                     </tbody>
                 </table>
