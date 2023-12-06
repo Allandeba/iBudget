@@ -23,7 +23,7 @@ namespace iBudget.Controllers
         public IActionResult Index()
         {
             if (!User.Identity.IsAuthenticated)
-                return View();
+                return View(new LoginModel());
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
@@ -61,7 +61,7 @@ namespace iBudget.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
-            return View();
+            return View(new LoginModel());
         }
 
         [HttpPost]

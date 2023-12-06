@@ -24,7 +24,7 @@ namespace iBudget.Controllers
         public async Task<IActionResult> Create()
         {
             await PopulateViewBagDefault();
-            return View();
+            return View(new ProposalModel());
         }
 
         [HttpPost]

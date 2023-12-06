@@ -20,7 +20,7 @@ namespace iBudget.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            return View(new PersonModel());
         }
 
         [HttpPost]

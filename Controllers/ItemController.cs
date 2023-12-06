@@ -20,7 +20,7 @@ public class ItemController : BaseController
 
     public IActionResult Create()
     {
-        return View();
+        return View(new ItemModel());
     }
 
     [HttpPost]

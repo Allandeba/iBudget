@@ -32,7 +32,7 @@ public class CompanyController : BaseController
 
     public IActionResult Create()
     {
-        return View();
+        return View(new CompanyModel());
     }
 
     [HttpPost]
