@@ -14,7 +14,7 @@
 
 <div class="mb-3 text-start">
     @Html.LabelFor(model => model.Phone, new { @class = "form-label"} )
-    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", placeholder = "+55 (49) 9 xxxx-xxxx" } } )
+    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @id ="Contact_Phone", @class = "form-control", placeholder = "+55 (49) 9 xxxx-xxxx" } } )
     @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" } )
 </div>
 
@@ -24,7 +24,7 @@
     </select>
 
     @Html.LabelFor(model => model.CNPJ, new { @class = "form-label"} )
-    @Html.EditorFor(model => model.CNPJ, new { htmlAttributes = new { @class = "form-control", placeholder = "" } } )
+    @Html.EditorFor(model => model.CNPJ, new { htmlAttributes = new { @id = "Document_Document", @class = "form-control", placeholder = "" } } )
     @Html.ValidationMessageFor(model => model.CNPJ, "", new { @class = "text-danger" } )
 </div>
 
