@@ -24,20 +24,15 @@ namespace iBudget.Models
 
                     string password = "";
                     if (app.Environment.IsProduction())
-                    {
                         password = Environment.GetEnvironmentVariable("USER_PASSWORD");
-                    }
                     else
-                    {
                         password = app.Configuration.GetConnectionString("USER_PASSWORD");
-                    }
 
                     if (password.IsNullOrEmpty())
-                    {
                         throw new Exception(
                             "Não foi possível encontrar variaveis de sistema para DatabaseInitialize"
                         );
-                    }
+
                     context.Login.AddRange(
                         new LoginModel
                         {
