@@ -16,8 +16,9 @@ public class DocumentModel
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Documento")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
-    public string Document { get; set; } = string.Empty;
+    public string Document { get; set; }
 
+    [ForeignKey("Person")]
     public int PersonId { get; set; }
-    public virtual PersonModel Person { get; set; }
+    public PersonModel Person { get; set; }
 }

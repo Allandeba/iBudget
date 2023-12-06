@@ -7,38 +7,45 @@ namespace iBudget.Models;
 
 public class ItemModel
 {
+    public ItemModel()
+    {
+        Value = 0.0m;
+        ImageFiles = new List<IFormFile>();
+        IdImagesToDelete = new List<int>();
+    }
+
     [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
     public int ItemId { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Item")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
-    public string ItemName { get; set; } = string.Empty;
+    public string ItemName { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Valor")]
     [Range(0, int.MaxValue, ErrorMessage = Messages.MinValueValidation)]
     [DataType(DataType.Currency, ErrorMessage = Messages.InvalidFormatValidation)]
     [Precision(18, 2)]
-    [DisplayFormat(DataFormatString = "{0:C}")]
-    public decimal Value { get; set; } = 0.0m;
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C}")]
+    public decimal Value { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Descrição")]
     [MaxLength(250, ErrorMessage = Messages.MaxLengthValidation)]
-    public string Description { get; set; } = string.Empty;
+    public string Description { get; set; }
 
     [NotMapped]
     [Display(Name = "Imagens")]
     [DataType(DataType.Upload, ErrorMessage = Messages.InvalidFormatValidation)]
-    public List<IFormFile> ImageFiles { get; set; } = new();
+    public List<IFormFile> ImageFiles { get; set; }
 
     [NotMapped]
     [Display(Name = "Imagem principal")]
-    public string DefaultImage { get; set; } = string.Empty;
+    public string DefaultImage { get; set; }
 
     [NotMapped]
-    public List<int> IdImagesToDelete { get; set; } = new();
+    public List<int> IdImagesToDelete { get; set; }
 
     public void SetItemImageList()
     {
@@ -75,8 +82,10 @@ public class ItemModel
         }
     }
 
-    public virtual List<ItemImageModel> ItemImageList { get; set; }
-    public virtual List<ProposalContentModel> ProposalContent { get; set; }
+    [ForeignKey("ItemImageId")]
+    public List<ItemImageModel> ItemImageList { get; set; }
+    [ForeignKey("ProposalContentId")]
+    public List<ProposalContentModel> ProposalContent { get; set; }
 
     public ItemImageModel GetMainImage()
     {

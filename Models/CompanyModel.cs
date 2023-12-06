@@ -18,30 +18,30 @@ public class CompanyModel
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Nome da empresa")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
-    public string CompanyName { get; set; } = string.Empty;
+    public string CompanyName { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [MaxLength(20, ErrorMessage = Messages.MaxLengthValidation)]
-    public string CNPJ { get; set; } = string.Empty;
+    public string CNPJ { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Endereço")]
     [MaxLength(150, ErrorMessage = Messages.MaxLengthValidation)]
-    public string Address { get; set; } = string.Empty;
+    public string Address { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "E-mail")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
     [DataType(DataType.EmailAddress, ErrorMessage = Messages.InvalidFormatValidation)]
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Celular")]
     [MaxLength(25, ErrorMessage = Messages.MaxLengthValidation)]
     [DataType(DataType.PhoneNumber, ErrorMessage = Messages.InvalidFormatValidation)]
-    public string Phone { get; set; } = string.Empty;
+    public string Phone { get; set; }
 
-    public byte[] ImageFile { get; set; } = null!;
+    public byte[] ImageFile { get; set; }
 
     [NotMapped]
     [Display(Name = "Logomarca")]

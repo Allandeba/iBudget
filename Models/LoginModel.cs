@@ -11,7 +11,7 @@ public class LoginModel
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Usuário")]
     [MaxLength(25, ErrorMessage = Messages.MaxLengthValidation)]
-    public string Username { get; set; } = string.Empty;
+    public string Username { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [DataType(DataType.Password)]
@@ -21,9 +21,9 @@ public class LoginModel
         @Constants.PasswordValidationRegex,
         ErrorMessage = Messages.PasswordValidation
     )]
-    public string Password { get; set; } = string.Empty;
+    public string Password { get; set; }
 
     [NotMapped]
     [Display(Name = "Lembrar-me")]
-    public bool Remember { get; set; } = false;
+    public bool Remember { get; set; }
 }

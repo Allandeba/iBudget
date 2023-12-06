@@ -5,21 +5,27 @@ namespace iBudget.Models;
 
 public class ItemImageModel
 {
+    public ItemImageModel()
+    {
+        ImageFile = Array.Empty<byte>();
+    }
+
     [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
     public int ItemImageId { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Principal")]
-    public bool Main { get; set; } = false;
+    public bool Main { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Nome do arquivo")]
     [MaxLength(100, ErrorMessage = Messages.MaxLengthValidation)]
-    public string FileName { get; set; } = string.Empty;
+    public string FileName { get; set; }
 
     [Display(Name = "Imagens")]
-    public byte[] ImageFile { get; set; } = Array.Empty<byte>();
+    public byte[] ImageFile { get; set; }
 
+    [Required]
     public int ItemId { get; set; }
-    public virtual required ItemModel Item { get; set; }
+    public ItemModel Item { get; set; }
 }

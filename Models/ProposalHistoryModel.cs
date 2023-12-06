@@ -14,7 +14,12 @@ public class ProposalContentItems
 [Owned]
 public class ProposalContentJSON
 {
-    public List<ProposalContentItems> ProposalContentItems { get; set; } = new();
+    public ProposalContentJSON()
+    {
+        ProposalContentItems = new();
+    }
+    
+    public List<ProposalContentItems> ProposalContentItems { get; set; }
 
     public List<int> GetItemIds()
     {
@@ -30,25 +35,32 @@ public class ProposalContentJSON
 
 public class ProposalHistoryModel
 {
+    public ProposalHistoryModel()
+    {
+        ModificationDate = DateTime.MinValue;
+        Discount = 0.0m;
+        ProposalContentJSON = new();
+    }
+
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int ProposalHistoryId { get; set; }
 
-    public DateTime ModificationDate { get; set; } = DateTime.MinValue;
+    public DateTime ModificationDate { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Desconto")]
     [DataType(DataType.Currency, ErrorMessage = Messages.InvalidFormatValidation)]
     [Precision(18, 2)]
-    public decimal Discount { get; set; } = 0.0m;
+    public decimal Discount { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
-    public virtual required ProposalModel Proposal { get; set; }
+    public ProposalModel Proposal { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
-    public virtual required PersonModel Person { get; set; }
+    public PersonModel Person { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Column(TypeName = "jsonb")]
-    public ProposalContentJSON ProposalContentJSON { get; set; } = new();
+    public ProposalContentJSON ProposalContentJSON { get; set; }
 }
