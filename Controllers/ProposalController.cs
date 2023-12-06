@@ -82,6 +82,9 @@ namespace iBudget.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ExportToPDF(Guid id)
         {
+            if (SystemManager.IsDevelopment)
+                return RedirectToAction(nameof(Print), new { id = id });
+
             string url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
             url = $"{url}/{ControllerContext.RouteData.Values["controller"]}/{nameof(Print)}/{id}";
 
