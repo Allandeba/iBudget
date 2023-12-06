@@ -28,9 +28,6 @@
 
 <div class="mb-3 text-start">
     @Html.LabelFor(model => model.Document.DocumentType, new { @class = "form-label"} )
-    @* <select asp-for="Document.DocumentType" asp-items="@Html.GetEnumSelectList<DocumentTypes>()" class="form-select">
-        <option disabled selected>--Selecione--</option>
-    </select> *@
     @Html.DropDownListFor(model => model.Document.DocumentType, Html.GetEnumSelectList<DocumentTypes>(), "--Selecione--", new { @class = "form-select" })
     <span asp-validation-for="Document.DocumentType" class="text-danger"></span>
 </div>
