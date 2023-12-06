@@ -65,18 +65,15 @@ public class Program
             case Constants.EnvironmentProduction:
                 syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
                 if (syncfusionKey.IsNullOrEmpty())
-                {
                     throw new Exception(
                         "Chave Syncfusion não encontrada - " + environment.ToString()
                     );
-                }
+
                 connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
                 if (connectionString.IsNullOrEmpty())
-                {
                     throw new Exception(
                         "Configuração de banco de dados não encontrada - " + environment.ToString()
                     );
-                }
                 break;
 
             default:
