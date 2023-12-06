@@ -37,9 +37,7 @@ public class ItemController : BaseController
         item.SetDefaultImage(item.DefaultImage);
 
         if (!ModelState.IsValid)
-        {
             return View(item);
-        }
 
         await _business.AddAsync(item);
         return RedirectToAction(nameof(Index));
@@ -57,9 +55,7 @@ public class ItemController : BaseController
     public async Task<IActionResult> Update(ItemModel item)
     {
         if (item == null)
-        {
             return BadRequest(ModelState);
-        }
 
         item.SetItemImageList();
 

@@ -44,10 +44,7 @@ namespace iBudget.Controllers
         {
             ProposalModel proposal = await _business.GetByIdAsync(id);
             if (proposal == null)
-            {
                 return NotFound();
-            }
-            ;
 
             await PopulateViewBagUpdate(proposal);
             return View(proposal);
@@ -90,10 +87,7 @@ namespace iBudget.Controllers
 
             CompanyModel company = await _business.GetCompany();
             if (company == null)
-            {
                 return NotFound();
-            }
-            ;
 
             ExportToPDFModel exportPDF = new();
             return File(
@@ -107,17 +101,11 @@ namespace iBudget.Controllers
         {
             ProposalModel proposal = await _business.GetByGUIDAsync(id);
             if (proposal == null)
-            {
                 return NotFound();
-            }
-            ;
 
             CompanyModel company = await _business.GetCompany();
             if (company == null)
-            {
                 return NotFound();
-            }
-            ;
 
             string url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
             url =

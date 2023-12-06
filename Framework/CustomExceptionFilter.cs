@@ -24,9 +24,7 @@ namespace iBudget.Framework
             if (context.Exception is DbUpdateException dbUpdateException)
             {
                 if (IsUniqueConstraintViolationException(dbUpdateException))
-                {
                     result.ViewData.Add(Constants.ThrowDBException, Messages.UniqueDBMessage);
-                }
                 else
                 {
                     result.ViewData.Add(
@@ -36,9 +34,7 @@ namespace iBudget.Framework
                 }
             }
             else
-            {
                 result.ViewData.Add(Constants.ThrowException, context.Exception);
-            }
 
             context.ExceptionHandled = true;
             context.Result = result;

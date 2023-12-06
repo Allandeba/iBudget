@@ -27,9 +27,7 @@ namespace iBudget.Controllers
         public async Task<IActionResult> Create(PersonModel person)
         {
             if (!ModelState.IsValid)
-            {
                 return View(person);
-            }
 
             await _business.AddAsync(person);
             return RedirectToAction(nameof(Index));
@@ -45,14 +43,10 @@ namespace iBudget.Controllers
         public async Task<IActionResult> Update(PersonModel person)
         {
             if (person == null)
-            {
                 return BadRequest(ModelState);
-            }
 
             if (!ModelState.IsValid)
-            {
                 return View(person);
-            }
 
             await _business.UpdateAsync(person);
             return RedirectToAction(nameof(Index));

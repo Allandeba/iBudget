@@ -88,10 +88,8 @@ namespace iBudget.Business
                 includes.Cast<Enum>().ToArray()
             );
 
-            if (companies == null || companies.Count() == 0)
-            {
+            if (companies.IsNullOrEmpty())
                 throw new ECompanyBusinessException(Messages.CompanyNotFoundMessage);
-            }
 
             return companies?.FirstOrDefault();
         }

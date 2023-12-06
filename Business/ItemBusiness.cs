@@ -43,9 +43,7 @@ namespace iBudget.Business
             );
 
             if (existentItem != null)
-            {
                 UpdateExistentItemInformation(existentItem, item);
-            }
 
             await _repository.UpdateAsync(existentItem);
         }
@@ -64,10 +62,7 @@ namespace iBudget.Business
             existentItem.SetDefaultImage(itemToUpdate.DefaultImage);
 
             if (itemToUpdate.IdImagesToDelete?.Count > 0)
-            {
                 DeleteItemImage(existentItem, itemToUpdate.IdImagesToDelete);
-            }
-            ;
         }
 
         private void DeleteItemImage(ItemModel existentItem, List<int> idImagesToDelete)
@@ -78,10 +73,7 @@ namespace iBudget.Business
                     im => im.ItemImageId == idItemImage
                 );
                 if (itemImage != null)
-                {
                     _ = (existentItem.ItemImageList?.Remove(itemImage));
-                }
-                ;
             }
         }
 
@@ -93,10 +85,7 @@ namespace iBudget.Business
                 includes.Cast<Enum>().ToArray()
             );
             if (item == null)
-            {
                 return;
-            }
-            ;
 
             await _repository.RemoveAsync(item);
         }

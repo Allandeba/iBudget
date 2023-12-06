@@ -24,13 +24,9 @@ public class CompanyController : BaseController
         catch (Exception exception)
         {
             if (exception is ECompanyBusinessException companyException)
-            {
                 return RedirectToAction(nameof(Create));
-            }
             else
-            {
                 throw;
-            }
         }
     }
 
@@ -45,19 +41,13 @@ public class CompanyController : BaseController
     public async Task<IActionResult> Create(CompanyModel company)
     {
         if (company == null)
-        {
             return BadRequest(ModelState);
-        }
 
         if (company.FormImageFile != null)
-        {
             company.SetNewImage();
-        }
 
         if (!ModelState.IsValid)
-        {
             return View(company);
-        }
 
         await _business.AddAsync(company);
         return Redirect("/");
@@ -75,19 +65,13 @@ public class CompanyController : BaseController
     public async Task<IActionResult> Update(CompanyModel company)
     {
         if (company == null)
-        {
             return BadRequest(ModelState);
-        }
 
         if (company.FormImageFile != null)
-        {
             company.SetNewImage();
-        }
 
         if (!ModelState.IsValid)
-        {
             return View(company);
-        }
 
         await _business.UpdateAsync(company);
         return Redirect("/");

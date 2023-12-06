@@ -27,10 +27,7 @@ namespace iBudget.Controllers
 
             CompanyModel company = await _business.GetCompany();
             if (company == null)
-            {
                 return NotFound();
-            }
-            ;
 
             ExportToPDFModel exportPDF = new();
             return File(

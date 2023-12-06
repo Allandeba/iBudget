@@ -50,9 +50,7 @@ namespace iBudget.Business
             );
 
             if (existentPerson == null)
-            {
                 return;
-            }
 
             existentPerson.Contact.Email = person.Contact.Email;
             existentPerson.Contact.Phone = person.Contact.Phone;
@@ -78,10 +76,7 @@ namespace iBudget.Business
                 includes.Cast<Enum>().ToArray()
             );
             if (person == null)
-            {
                 return;
-            }
-            ;
 
             await _repository.RemoveAsync(person);
         }

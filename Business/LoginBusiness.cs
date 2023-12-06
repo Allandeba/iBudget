@@ -17,15 +17,11 @@ namespace iBudget.Business
         {
             LoginModel user = await _repository.GetByUsernameAsync(login.Username);
             if (user == null)
-            {
                 throw new Exception("Usuário não é válido!");
-            }
 
             Cryptography Cryptography = new();
             if (!user.Password.Equals(Cryptography.GetHash(login.Password)))
-            {
                 throw new Exception("Senha incorreta!");
-            }
         }
 
         public async Task SaveLoginLog(LoginLogModel loginLog)
@@ -41,9 +37,7 @@ namespace iBudget.Business
                 Array.Empty<Enum>()
             );
             if (loginModelList.Count() > 1)
-            {
                 throw new Exception("Não é permitido adicionar um novo usuário");
-            }
 
             Cryptography cryptography = new();
             login.Password = cryptography.GetHash(login.Password);

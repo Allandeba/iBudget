@@ -9,9 +9,7 @@ namespace iBudget.Framework
         public string GetHash(string text)
         {
             if (text.IsNullOrEmpty())
-            {
                 throw new Exception("Cryptography.GetHash() must not be null or empty");
-            }
 
             SHA256 sha256 = SHA256.Create();
             byte[] base64 = Encoding.Default.GetBytes(text);

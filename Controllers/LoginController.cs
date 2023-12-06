@@ -23,9 +23,7 @@ namespace iBudget.Controllers
         public IActionResult Index()
         {
             if (!User.Identity.IsAuthenticated)
-            {
                 return View();
-            }
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
@@ -35,9 +33,8 @@ namespace iBudget.Controllers
         public async Task<IActionResult> Login(LoginModel login)
         {
             if (!ModelState.IsValid)
-            {
                 return View(nameof(Index));
-            }
+
             try
             {
                 await _business.Login(login);
@@ -72,14 +69,10 @@ namespace iBudget.Controllers
         public async Task<IActionResult> Register(LoginModel login)
         {
             if (login == null)
-            {
                 return BadRequest(ModelState);
-            }
 
             if (!ModelState.IsValid)
-            {
                 return View(login);
-            }
 
             await _business.AddAsync(login);
             await StartAuthentication(login);

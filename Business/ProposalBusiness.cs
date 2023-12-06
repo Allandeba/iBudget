@@ -136,10 +136,7 @@ namespace iBudget.Business
                 includes.Cast<Enum>().ToArray()
             );
             if (proposal == null)
-            {
                 return;
-            }
-            ;
 
             foreach (ProposalContentModel proposalContent in proposal.ProposalContent)
             {
@@ -202,9 +199,7 @@ namespace iBudget.Business
                     a => a.Item.ItemId == proposalContent.Item.ItemId
                 );
                 if (updateProposalContent == null)
-                {
                     existentProposal.ProposalContent.Add(proposalContent);
-                }
                 else
                 {
                     updateProposalContent.Item = proposalContent.Item;
