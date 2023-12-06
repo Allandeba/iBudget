@@ -51,12 +51,16 @@ namespace iBudget.Repository
         public async Task<IEnumerable<ItemModel>> GetAllAsync(Enum[] includes)
         {
             IQueryable<ItemModel> query = GetQuery(includes);
-            return await query.ToListAsync();
+            return await query
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<ItemModel>> FindAsync(Expression<Func<ItemModel, bool>> where)
         {
-            return await _context.Item.Where(where).ToListAsync();
+            return await _context.Item.Where(where)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<ItemModel>> FindAsync(
@@ -65,7 +69,9 @@ namespace iBudget.Repository
         )
         {
             IQueryable<ItemModel> query = GetQuery(includes);
-            return await query.Where(where).ToListAsync();
+            return await query.Where(where)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task AddAsync(ItemModel item)

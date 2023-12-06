@@ -38,7 +38,9 @@ namespace iBudget.Repository
 
         public async Task<IEnumerable<LoginModel>> GetAllAsync(Enum[] includes)
         {
-            return await _context.Login.ToListAsync();
+            return await _context.Login
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public Task<IEnumerable<LoginModel>> FindAsync(Expression<Func<LoginModel, bool>> predicate)

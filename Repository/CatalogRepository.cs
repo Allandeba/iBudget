@@ -18,6 +18,7 @@ namespace iBudget.Repository
             return await _context.Item
                 .Include(i => i.ItemImageList)
                 .OrderByDescending(a => a.ItemImageList.Count > 1)
+                .AsNoTracking()
                 .ToListAsync();
         }
     }

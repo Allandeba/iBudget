@@ -42,14 +42,18 @@ namespace iBudget.Repository
         public async Task<IEnumerable<CompanyModel>> GetAllAsync(Enum[] includes)
         {
             IQueryable<CompanyModel> query = GetQuery(includes);
-            return await query.ToListAsync();
+            return await query
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<CompanyModel>> FindAsync(
             Expression<Func<CompanyModel, bool>> where
         )
         {
-            return await _context.Company.Where(where).ToListAsync();
+            return await _context.Company.Where(where)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<CompanyModel>> FindAsync(
@@ -58,7 +62,9 @@ namespace iBudget.Repository
         )
         {
             IQueryable<CompanyModel> query = GetQuery(includes);
-            return await query.Where(where).ToListAsync();
+            return await query.Where(where)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task AddAsync(CompanyModel company)

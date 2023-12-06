@@ -59,7 +59,9 @@ namespace iBudget.Repository
         public async Task<IEnumerable<ProposalModel>> GetAllAsync(Enum[] includes)
         {
             IQueryable<ProposalModel> query = GetQuery(includes);
-            return await query.ToListAsync();
+            return await query
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<ProposalModel> GetByIdAsync(int proposalId, Enum[] includes)
@@ -85,7 +87,9 @@ namespace iBudget.Repository
             Expression<Func<ProposalModel, bool>> where
         )
         {
-            return await _context.Proposal.Where(where).ToListAsync();
+            return await _context.Proposal.Where(where)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<ProposalModel>> FindAsync(
@@ -94,14 +98,18 @@ namespace iBudget.Repository
         )
         {
             IQueryable<ProposalModel> query = GetQuery(includes);
-            return await query.Where(where).ToListAsync();
+            return await query.Where(where)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<ProposalContentModel>> FindProposalContentAsync(
             Expression<Func<ProposalContentModel, bool>> where
         )
         {
-            return await _context.ProposalContent.Where(where).ToListAsync();
+            return await _context.ProposalContent.Where(where)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task AddAsync(ProposalModel Proposal)

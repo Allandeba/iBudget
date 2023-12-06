@@ -50,14 +50,18 @@ namespace iBudget.Repository
         public async Task<IEnumerable<PersonModel>> GetAllAsync(Enum[] includes)
         {
             IQueryable<PersonModel> query = GetQuery(includes);
-            return await query.ToListAsync();
+            return await query
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<PersonModel>> FindAsync(
             Expression<Func<PersonModel, bool>> where
         )
         {
-            return await _context.Person.Where(where).ToListAsync();
+            return await _context.Person.Where(where)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task AddAsync(PersonModel person)
