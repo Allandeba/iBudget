@@ -27,7 +27,7 @@ public class ItemModel
     [Range(0, int.MaxValue, ErrorMessage = Messages.MinValueValidation)]
     [DataType(DataType.Currency, ErrorMessage = Messages.InvalidFormatValidation)]
     [Precision(18, 2)]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C}")]
+    [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:C}")]
     public decimal Value { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]

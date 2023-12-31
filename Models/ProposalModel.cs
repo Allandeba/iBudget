@@ -24,7 +24,7 @@ public class ProposalModel
     [Display(Name = "Desconto")]
     [Range(0, int.MaxValue, ErrorMessage = Messages.MinValueValidation)]
     [Precision(18, 2)]
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:C}")]
+    [DisplayFormat(ApplyFormatInEditMode = false, DataFormatString = "{0:C}")]
     public decimal Discount { get; set; }
 
     public Guid GUID { get; set; }
