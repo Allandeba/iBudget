@@ -87,8 +87,9 @@ namespace iBudget.Repository
             Expression<Func<ProposalModel, bool>> where
         )
         {
-            return await _context.Proposal.Where(where)
+            return await _context.Proposal
                 .AsNoTracking()
+                .Where(where)
                 .ToListAsync();
         }
 
@@ -98,8 +99,9 @@ namespace iBudget.Repository
         )
         {
             IQueryable<ProposalModel> query = GetQuery(includes);
-            return await query.Where(where)
+            return await query
                 .AsNoTracking()
+                .Where(where)
                 .ToListAsync();
         }
 
@@ -107,8 +109,9 @@ namespace iBudget.Repository
             Expression<Func<ProposalContentModel, bool>> where
         )
         {
-            return await _context.ProposalContent.Where(where)
+            return await _context.ProposalContent
                 .AsNoTracking()
+                .Where(where)
                 .ToListAsync();
         }
 

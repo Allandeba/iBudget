@@ -16,9 +16,9 @@ namespace iBudget.Repository
         public async Task<IEnumerable<ItemModel>> GetItems()
         {
             return await _context.Item
+                .AsNoTracking()
                 .Include(i => i.ItemImageList)
                 .OrderByDescending(a => a.ItemImageList.Count > 1)
-                .AsNoTracking()
                 .ToListAsync();
         }
     }

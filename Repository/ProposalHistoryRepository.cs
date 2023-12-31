@@ -59,8 +59,9 @@ namespace iBudget.Repository
             Expression<Func<ProposalHistoryModel, bool>> where
         )
         {
-            return await _context.ProposalHistory.Where(where)
+            return await _context.ProposalHistory
                 .AsNoTracking()
+                .Where(where)
                 .ToListAsync();
         }
 

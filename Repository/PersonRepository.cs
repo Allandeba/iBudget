@@ -59,8 +59,9 @@ namespace iBudget.Repository
             Expression<Func<PersonModel, bool>> where
         )
         {
-            return await _context.Person.Where(where)
+            return await _context.Person
                 .AsNoTracking()
+                .Where(where)
                 .ToListAsync();
         }
 

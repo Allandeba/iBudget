@@ -51,8 +51,9 @@ namespace iBudget.Repository
             Expression<Func<CompanyModel, bool>> where
         )
         {
-            return await _context.Company.Where(where)
+            return await _context.Company
                 .AsNoTracking()
+                .Where(where)
                 .ToListAsync();
         }
 
@@ -62,8 +63,9 @@ namespace iBudget.Repository
         )
         {
             IQueryable<CompanyModel> query = GetQuery(includes);
-            return await query.Where(where)
+            return await query
                 .AsNoTracking()
+                .Where(where)
                 .ToListAsync();
         }
 
