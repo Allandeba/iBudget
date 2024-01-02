@@ -53,31 +53,26 @@ public class Program
 
         string syncfusionKey = "";
         string connectionString = "";
-        var environment = builder.Configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
-        switch (environment)
+
+        if (builder.Environment.IsDevelopment())
         {
-            case Constants.EnvironmentDevelopment:
-                syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
-                connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
-                SystemManager.IsDevelopment = true;
-                break;
+            syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
+            connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
+            SystemManager.IsDevelopment = true;
+        }
+        else
+        {
+            syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
+            if (syncfusionKey.IsNullOrEmpty())
+                throw new Exception(
+                    "Chave Syncfusion não encontrada para produção"
+                );
 
-            case Constants.EnvironmentProduction:
-                syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
-                if (syncfusionKey.IsNullOrEmpty())
-                    throw new Exception(
-                        "Chave Syncfusion não encontrada - " + environment.ToString()
-                    );
-
-                connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
-                if (connectionString.IsNullOrEmpty())
-                    throw new Exception(
-                        "Configuração de banco de dados não encontrada - " + environment.ToString()
-                    );
-                break;
-
-            default:
-                throw new Exception("Environment não implementado para inicializar o sistema");
+            connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
+            if (connectionString.IsNullOrEmpty())
+                throw new Exception(
+                    "Configuração de banco de dados não encontrada para produção"
+                );
         }
 
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionKey);
