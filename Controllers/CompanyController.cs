@@ -64,6 +64,12 @@ public class CompanyController : BaseController
     [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue, ValueLengthLimit = int.MaxValue)]
     public async Task<IActionResult> Update(CompanyModel company)
     {
+        if (SystemManager.IsDevelopment)
+        {
+            ViewBag.Message = "Em modo desenvolvimento não é possível alterar a empresa!";
+            return View(company);
+        }
+
         if (company == null)
             return BadRequest(ModelState);
 

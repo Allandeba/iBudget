@@ -1,5 +1,7 @@
 @model CompanyModel
 
+<partial name="..\Shared/Partials/_Error" />
+
 <div class="mb-3 text-start">
     @Html.LabelFor(model => model.CompanyName, new { @class = "form-label"} )
     @Html.EditorFor(model => model.CompanyName, new { htmlAttributes = new { @class = "form-control", placeholder = ""} } )
