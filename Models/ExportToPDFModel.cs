@@ -1,5 +1,7 @@
 ﻿using Syncfusion.HtmlConverter;
 using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf.Parsing;
 
 namespace iBudget.Models;
 
@@ -7,16 +9,52 @@ public class ExportToPDFModel
 {
     public byte[] GetPDF(string url)
     {
-        HtmlToPdfConverter htmlConverter = new();
-        BlinkConverterSettings blinkConverterSettings = new() { PdfPageSize = PdfPageSize.A4 };
-        //blinkConverterSettings.ViewPortSize = new Syncfusion.Drawing.Size(1440, 0);
-        htmlConverter.ConverterSettings = blinkConverterSettings;
-
+        HtmlToPdfConverter htmlConverter = InitializeHtmlConverter();
         PdfDocument document = htmlConverter.Convert(url);
-        MemoryStream stream = new();
-        document.Save(stream);
-        document.Close();
 
-        return stream.ToArray();
+        using (MemoryStream stream = new MemoryStream())
+        {
+            document.Save(stream);
+            document.Close();
+
+            if (SystemManager.IsDevelopment)
+                CreateWatermark(stream);
+
+            return stream.ToArray();
+        }
+    }
+
+    private HtmlToPdfConverter InitializeHtmlConverter()
+    {
+        HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
+        BlinkConverterSettings blinkConverterSettings = new BlinkConverterSettings { PdfPageSize = PdfPageSize.A4 };
+        htmlConverter.ConverterSettings = blinkConverterSettings;
+        return htmlConverter;
+    }
+
+    private void CreateWatermark(MemoryStream stream)
+    {
+        using (PdfLoadedDocument loadedDocument = new PdfLoadedDocument(stream))
+        {
+            foreach (PdfPageBase page in loadedDocument.Pages)
+                CreateWatermark(page);
+
+            loadedDocument.Save(stream);
+            loadedDocument.Close(true);
+        }
+    }
+
+    private void CreateWatermark(PdfPageBase page)
+    {
+        PdfGraphics graphics = page.Graphics;
+        PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 20, PdfFontStyle.Bold);
+        PdfGraphicsState state = graphics.Save();
+
+        graphics.SetTransparency(0.60f);
+        graphics.RotateTransform(-40);
+
+        graphics.DrawString("Arquivo exclusivamente dedicado para testes. Não tem validade alguma!", font, PdfBrushes.Red, new Syncfusion.Drawing.PointF(-280, 350));
+
+        graphics.Restore(state);
     }
 }
