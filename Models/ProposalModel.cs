@@ -37,7 +37,6 @@ public class ProposalModel
 
     [Required(ErrorMessage = "Você deve adicionar um ou mais produtos para criar um orçamento")]
     public List<ProposalContentModel> ProposalContent { get; set; }
-    [ForeignKey("ProposalHistoryId")]
     public List<ProposalHistoryModel> ProposalHistory { get; set; }
 
     public List<int> GetIdProposalContentList()

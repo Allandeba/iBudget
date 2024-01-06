@@ -20,7 +20,6 @@ public class ContactModel
     [DataType(DataType.PhoneNumber, ErrorMessage = Messages.InvalidFormatValidation)]
     public string Phone { get; set; }
 
-    [ForeignKey("Person")]
     public int PersonId { get; set; }
     public PersonModel Person { get; set; }
 }

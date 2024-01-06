@@ -18,7 +18,7 @@ public class ProposalContentJSON
     {
         ProposalContentItems = new();
     }
-    
+
     public List<ProposalContentItems> ProposalContentItems { get; set; }
 
     public List<int> GetItemIds()
@@ -55,9 +55,11 @@ public class ProposalHistoryModel
     public decimal Discount { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
+    public int ProposalId { get; set; }
     public ProposalModel Proposal { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
+    public int PersonId { get; set; }
     public PersonModel Person { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]

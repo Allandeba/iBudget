@@ -34,7 +34,6 @@ public class PersonModel
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     public ContactModel Contact { get; set; }
 
-    [ForeignKey("ProposalId")]
     public List<ProposalModel> Proposal { get; set; }
 
     public string PersonName => FirstName + ' ' + LastName;

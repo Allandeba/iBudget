@@ -82,9 +82,7 @@ public class ItemModel
         }
     }
 
-    [ForeignKey("ItemImageId")]
     public List<ItemImageModel> ItemImageList { get; set; }
-    [ForeignKey("ProposalContentId")]
     public List<ProposalContentModel> ProposalContent { get; set; }
 
     public ItemImageModel GetMainImage()

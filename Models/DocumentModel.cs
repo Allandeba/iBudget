@@ -18,7 +18,6 @@ public class DocumentModel
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
     public string Document { get; set; }
 
-    [ForeignKey("Person")]
     public int PersonId { get; set; }
     public PersonModel Person { get; set; }
 }
