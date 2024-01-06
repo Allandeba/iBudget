@@ -46,10 +46,7 @@ namespace iBudget.Business
             proposal.Person = await GetPersonByIdAsync(proposal.PersonId);
 
             foreach (ProposalContentModel proposalContent in proposal.ProposalContent)
-            {
                 proposalContent.Item = await _itemBusiness.GetByIdAsync(proposalContent.ItemId);
-            }
-            ;
 
             await _repository.AddAsync(proposal);
         }
@@ -99,24 +96,21 @@ namespace iBudget.Business
             proposal.Person = await _personBusiness.GetByIdAsync(proposal.PersonId);
 
             foreach (ProposalContentModel proposalContent in proposal.ProposalContent)
-            {
                 proposalContent.Item = await _itemBusiness.GetByIdAsync(proposalContent.ItemId);
-            }
 
             ProposalIncludes[] includes = new ProposalIncludes[]
             {
                 ProposalIncludes.Person,
                 ProposalIncludes.ItemImageList
             };
+
             ProposalModel existentProposal = await _repository.GetByIdAsync(
                 proposal.ProposalId,
                 includes.Cast<Enum>().ToArray()
             );
 
             if (existentProposal == null)
-            {
                 return;
-            }
 
             await CreateProposalHistoryAsync(existentProposal);
 
@@ -226,9 +220,7 @@ namespace iBudget.Business
                         && pc.ProposalId == proposalToUpdate.ProposalId
                 );
             foreach (ProposalContentModel existentProposalContent in proposalContentToExclude)
-            {
                 _ = existentProposal.ProposalContent.Remove(existentProposalContent);
-            }
         }
 
         public async Task<SelectList> GetSelectListPeople()
@@ -267,9 +259,7 @@ namespace iBudget.Business
         public async Task<IEnumerable<ProposalModel>> GetAllLikeAsync(string search)
         {
             if (search == null)
-            {
                 return await GetProposals();
-            }
 
             ProposalIncludes[] includes = new ProposalIncludes[] { ProposalIncludes.Person };
             return await _repository.FindAsync(
@@ -289,9 +279,7 @@ namespace iBudget.Business
         public async Task IncludeItems(ProposalModel proposal)
         {
             foreach (ProposalContentModel proposalContent in proposal.ProposalContent)
-            {
                 proposalContent.Item = await _itemBusiness.GetByIdAsync(proposalContent.ItemId);
-            }
         }
     }
 }

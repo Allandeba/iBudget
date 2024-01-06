@@ -44,9 +44,7 @@ public class ProposalModel
     {
         List<int> proposalContentIdList = new();
         foreach (ProposalContentModel ProposalContent in ProposalContent)
-        {
             proposalContentIdList.Add(ProposalContent.ProposalContentId);
-        }
 
         return proposalContentIdList;
     }
