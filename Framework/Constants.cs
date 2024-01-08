@@ -12,4 +12,5 @@
     public const string CustomErrorView = "CustomError";
     public const string PasswordValidationRegex =
         @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$!%*?&;]).{8,}$";
+    public const string DefaultSystemLanguage = "pt_BR";
 }
