@@ -1,6 +1,8 @@
 ﻿using iBudget.Framework;
+using iBudget.Framework.Helpers;
 using iBudget.Models;
 using iBudget.Repository;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace iBudget.Business
@@ -105,9 +107,9 @@ namespace iBudget.Business
 
         public async Task<IEnumerable<ItemModel>> GetAllLikeAsync(string search)
         {
-            return search == null
+            return string.IsNullOrEmpty(search)
                 ? await GetItems()
-                : await _repository.FindAsync(p => p.ItemName.ToLower().Contains(search.ToLower()));
+                : await _repository.FindAsync(p => EF.Functions.ILike(p.ItemName, $"%{search.Unaccent()}%"));
         }
 
         public async Task IncludeImages(ItemModel item)

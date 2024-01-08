@@ -26,9 +26,8 @@
             @using (Html.BeginForm("Search", "Person"))
             {
                 <div class="d-flex py-5">
-                    <input id="search-box" type="text" class="form-control" placeholder="Pesquisar..." name="search"
-                        value="@TempData[@Constants.SearchBoxData]" />
-                    @*value="@ViewBag.Search"*@
+                    <input id="search-box" type="text" class="form-control" placeholder="Pesquisar..." name="search" value="@TempData[@Constants.SearchBoxData]" />
+
                     <button class="btn btn-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path

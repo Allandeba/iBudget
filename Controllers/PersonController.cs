@@ -1,6 +1,7 @@
 ﻿using iBudget.Business;
 using iBudget.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace iBudget.Controllers
 {
@@ -15,7 +16,7 @@ namespace iBudget.Controllers
 
         public async Task<IActionResult> Index(IEnumerable<PersonModel> people)
         {
-            return people == null || people.Count() == 0 ? await Search(null) : View(people);
+            return people.IsNullOrEmpty() ? await Search(null) : View(people);
         }
 
         public IActionResult Create()

@@ -1,6 +1,8 @@
 ﻿using iBudget.Framework;
+using iBudget.Framework.Helpers;
 using iBudget.Models;
 using iBudget.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace iBudget.Business
 {
@@ -83,12 +85,11 @@ namespace iBudget.Business
 
         public async Task<IEnumerable<PersonModel>> GetAllLikeAsync(string search)
         {
-            return search == null
+            return string.IsNullOrEmpty(search)
                 ? await GetPeople()
                 : await _repository.FindAsync(
-                    p =>
-                        p.FirstName.ToLower().Contains(search.ToLower())
-                        || p.LastName.ToLower().Contains(search.ToLower())
+                    p => EF.Functions.ILike(EF.Functions.Unaccent(p.FirstName), $"%{search.Unaccent()}%") ||
+                    EF.Functions.ILike(EF.Functions.Unaccent(p.LastName), $"%{search.Unaccent()}%")
                 );
         }
     }

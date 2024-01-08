@@ -1,7 +1,9 @@
 ﻿using iBudget.Framework;
+using iBudget.Framework.Helpers;
 using iBudget.Models;
 using iBudget.Repository;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace iBudget.Business
 {
@@ -264,8 +266,8 @@ namespace iBudget.Business
             ProposalIncludes[] includes = new ProposalIncludes[] { ProposalIncludes.Person };
             return await _repository.FindAsync(
                 p =>
-                    p.Person.FirstName.ToLower().Contains(search.ToLower())
-                    || p.Person.LastName.ToLower().Contains(search.ToLower()),
+                    EF.Functions.ILike(p.Person.FirstName, $"%{search.Unaccent()}%") ||
+                    EF.Functions.ILike(p.Person.LastName, $"%{search.Unaccent()}%"),
                 includes.Cast<Enum>().ToArray()
             );
         }
