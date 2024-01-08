@@ -56,7 +56,8 @@ public class Program
 
         if (builder.Environment.IsDevelopment())
         {
-            syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
+            syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING") ??
+                Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
             connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
             SystemManager.IsDevelopment = true;
         }
