@@ -15,9 +15,9 @@ namespace iBudget.Controllers
             _business = business;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            IEnumerable<ProposalModel> proposals = await _business.GetProposals();
+            var proposals = await _business.GetProposalsPagination(pageNumber);
             return View(proposals);
         }
 
@@ -126,10 +126,10 @@ namespace iBudget.Controllers
             return Redirect(encodedMessage);
         }
 
-        public async Task<IActionResult> Search(string search)
+        public async Task<IActionResult> Search(string search, int? pageNumber)
         {
             TempData[Constants.SearchBoxData] = search ?? "";
-            IEnumerable<ProposalModel> proposals = await _business.GetAllLikeAsync(search);
+            var proposals = await _business.GetAllLikeAsync(search, pageNumber);
             return View(nameof(Index), proposals);
         }
 

@@ -86,13 +86,13 @@ namespace iBudget.Repository
             return _context.Proposal.AsNoTracking().Where(where);
         }
 
-        public async Task<IEnumerable<ProposalModel>> FindAsync(
+        public IQueryable<ProposalModel> FindAsync(
             Expression<Func<ProposalModel, bool>> where,
             Enum[] includes
         )
         {
             IQueryable<ProposalModel> query = GetQuery(includes);
-            return await query.AsNoTracking().Where(where).ToListAsync();
+            return query.AsNoTracking().Where(where);
         }
 
         public async Task<IEnumerable<ProposalContentModel>> FindProposalContentAsync(

@@ -4,6 +4,7 @@ using iBudget.Models;
 using iBudget.Repository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace iBudget.Business
 {
@@ -39,8 +40,25 @@ namespace iBudget.Business
             };
             IEnumerable<ProposalModel> proposals = await _repository
                 .GetAll(includes.Cast<Enum>().ToArray())
+                .OrderByDescending(p => p.ProposalId)
                 .ToListAsync();
-            return proposals.OrderByDescending(p => p.ProposalId);
+            return proposals;
+        }
+
+        public async Task<IPagedList<ProposalModel>> GetProposalsPagination(
+            int? pageNumber = Constants.InitialPageForPagination
+        )
+        {
+            ProposalIncludes[] includes = new ProposalIncludes[]
+            {
+                ProposalIncludes.Person,
+                ProposalIncludes.ProposalHistory
+            };
+            var proposals = await _repository
+                .GetAll(includes.Cast<Enum>().ToArray())
+                .OrderByDescending(p => p.ProposalId)
+                .ToPagedListAsync(pageNumber, Constants.QtRegistersPagination);
+            return proposals;
         }
 
         public async Task AddAsync(ProposalModel proposal)
@@ -258,18 +276,25 @@ namespace iBudget.Business
             return await _companyBusiness?.GetAllAsync();
         }
 
-        public async Task<IEnumerable<ProposalModel>> GetAllLikeAsync(string search)
+        public async Task<IPagedList<ProposalModel>> GetAllLikeAsync(
+            string search,
+            int? pageNumber = Constants.InitialPageForPagination
+        )
         {
             if (search == null)
-                return await GetProposals();
+                return await GetProposalsPagination();
 
             ProposalIncludes[] includes = new ProposalIncludes[] { ProposalIncludes.Person };
-            return await _repository.FindAsync(
+            var proposals = _repository.FindAsync(
                 p =>
                     EF.Functions.ILike(p.Person.FirstName, $"%{search.Unaccent()}%")
                     || EF.Functions.ILike(p.Person.LastName, $"%{search.Unaccent()}%"),
                 includes.Cast<Enum>().ToArray()
             );
+
+            return await proposals
+                .OrderByDescending(p => p.ProposalId)
+                .ToPagedListAsync(pageNumber, Constants.QtRegistersPagination);
         }
 
         public async Task IncludePerson(ProposalModel proposal)
