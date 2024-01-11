@@ -12,9 +12,9 @@ public class ItemController : BaseController
         _business = itemBusiness;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? pageNumber)
     {
-        IEnumerable<ItemModel> items = await _business.GetItems();
+        var items = await _business.GetItemsPagination(pageNumber);
         return View(items);
     }
 
@@ -75,10 +75,10 @@ public class ItemController : BaseController
         return RedirectToAction(nameof(Index));
     }
 
-    public async Task<IActionResult> Search(string search)
+    public async Task<IActionResult> Search(string search, int? pageNumber)
     {
         TempData[Constants.SearchBoxData] = search ?? "";
-        IEnumerable<ItemModel> items = await _business.GetAllLikeAsync(search);
+        IEnumerable<ItemModel> items = await _business.GetAllLikeAsync(search, pageNumber);
         return View(nameof(Index), items);
     }
 }

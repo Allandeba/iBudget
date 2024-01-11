@@ -36,6 +36,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.14" />
+    <PackageReference Include="X.PagedList.MVC.Core" Version="8.4.7" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="DAO\" />

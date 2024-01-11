@@ -13,4 +13,6 @@
     public const string PasswordValidationRegex =
         @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$!%*?&;]).{8,}$";
     public const string DefaultSystemLanguage = "pt_BR";
+    public const int QtRegistersPagination = 5;
+    public const int InitialPageForPagination = 1;
 }

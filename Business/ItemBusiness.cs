@@ -4,6 +4,7 @@ using iBudget.Models;
 using iBudget.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using X.PagedList;
 
 namespace iBudget.Business
 {
@@ -21,8 +22,21 @@ namespace iBudget.Business
             ItemIncludes[] includes = new ItemIncludes[] { ItemIncludes.None };
             IEnumerable<ItemModel> items = await _repository
                 .GetAll(includes.Cast<Enum>().ToArray())
+                .OrderByDescending(i => i.ItemId)
                 .ToListAsync();
-            return items.OrderByDescending(i => i.ItemId);
+            return items;
+        }
+
+        public async Task<IPagedList<ItemModel>> GetItemsPagination(
+            int? pageNumber = Constants.InitialPageForPagination
+        )
+        {
+            ItemIncludes[] includes = new ItemIncludes[] { ItemIncludes.None };
+            var items = await _repository
+                .GetAll(includes.Cast<Enum>().ToArray())
+                .OrderByDescending(i => i.ItemId)
+                .ToPagedListAsync(pageNumber, Constants.QtRegistersPagination);
+            return items;
         }
 
         public async Task AddAsync(ItemModel item)
@@ -105,13 +119,16 @@ namespace iBudget.Business
             return await _repository.FindAsync(where, includes.Cast<Enum>().ToArray());
         }
 
-        public async Task<IEnumerable<ItemModel>> GetAllLikeAsync(string search)
+        public async Task<IPagedList<ItemModel>> GetAllLikeAsync(
+            string search,
+            int? pageNumber = Constants.InitialPageForPagination
+        )
         {
             return string.IsNullOrEmpty(search)
-                ? await GetItems()
+                ? await GetItemsPagination(pageNumber)
                 : await _repository
                     .Find(p => EF.Functions.ILike(p.ItemName, $"%{search.Unaccent()}%"))
-                    .ToListAsync();
+                    .ToPagedListAsync(pageNumber, Constants.QtRegistersPagination);
         }
 
         public async Task IncludeImages(ItemModel item)

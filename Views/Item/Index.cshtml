@@ -1,4 +1,7 @@
-﻿@model IEnumerable<ItemModel>
+﻿@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@model IPagedList<ItemModel>
 
 @{
     ViewData["Title"] = "Itens";
@@ -59,6 +62,18 @@
                     </div>
                 }
             </div>
+
+
+            @Html.PagedListPager(Model, pageNumber => Url.Action("Search", new { pageNumber, search = TempData[@Constants.SearchBoxData] }), 
+                new PagedListRenderOptions {
+                    DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                    DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                    MaximumPageNumbersToDisplay = 5,
+                    LiElementClasses = new string[] { "page-item" }, 
+                        PageClasses = new string[] { "page-link" }
+                })
         </div>
     </div>
 </div>
