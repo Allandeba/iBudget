@@ -18,9 +18,9 @@ namespace iBudget.Business
         public async Task<IEnumerable<PersonModel>> GetPeople()
         {
             PersonIncludes[] includes = new PersonIncludes[] { PersonIncludes.None };
-            IEnumerable<PersonModel> people = await _repository.GetAllAsync(
-                includes.Cast<Enum>().ToArray()
-            );
+            IEnumerable<PersonModel> people = await _repository
+                .GetAll(includes.Cast<Enum>().ToArray())
+                .ToListAsync();
             return people.OrderByDescending(p => p.PersonId);
         }
 
@@ -87,10 +87,19 @@ namespace iBudget.Business
         {
             return string.IsNullOrEmpty(search)
                 ? await GetPeople()
-                : await _repository.FindAsync(
-                    p => EF.Functions.ILike(EF.Functions.Unaccent(p.FirstName), $"%{search.Unaccent()}%") ||
-                    EF.Functions.ILike(EF.Functions.Unaccent(p.LastName), $"%{search.Unaccent()}%")
-                );
+                : await _repository
+                    .Find(
+                        p =>
+                            EF.Functions.ILike(
+                                EF.Functions.Unaccent(p.FirstName),
+                                $"%{search.Unaccent()}%"
+                            )
+                            || EF.Functions.ILike(
+                                EF.Functions.Unaccent(p.LastName),
+                                $"%{search.Unaccent()}%"
+                            )
+                    )
+                    .ToListAsync();
         }
     }
 }

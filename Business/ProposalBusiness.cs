@@ -37,9 +37,9 @@ namespace iBudget.Business
                 ProposalIncludes.Person,
                 ProposalIncludes.ProposalHistory
             };
-            IEnumerable<ProposalModel> proposals = await _repository.GetAllAsync(
-                includes.Cast<Enum>().ToArray()
-            );
+            IEnumerable<ProposalModel> proposals = await _repository
+                .GetAll(includes.Cast<Enum>().ToArray())
+                .ToListAsync();
             return proposals.OrderByDescending(p => p.ProposalId);
         }
 
@@ -266,8 +266,8 @@ namespace iBudget.Business
             ProposalIncludes[] includes = new ProposalIncludes[] { ProposalIncludes.Person };
             return await _repository.FindAsync(
                 p =>
-                    EF.Functions.ILike(p.Person.FirstName, $"%{search.Unaccent()}%") ||
-                    EF.Functions.ILike(p.Person.LastName, $"%{search.Unaccent()}%"),
+                    EF.Functions.ILike(p.Person.FirstName, $"%{search.Unaccent()}%")
+                    || EF.Functions.ILike(p.Person.LastName, $"%{search.Unaccent()}%"),
                 includes.Cast<Enum>().ToArray()
             );
         }

@@ -56,12 +56,10 @@ namespace iBudget.Repository
             return query;
         }
 
-        public async Task<IEnumerable<ProposalModel>> GetAllAsync(Enum[] includes)
+        public IQueryable<ProposalModel> GetAll(Enum[] includes)
         {
             IQueryable<ProposalModel> query = GetQuery(includes);
-            return await query
-                .AsNoTracking()
-                .ToListAsync();
+            return query.AsNoTracking();
         }
 
         public async Task<ProposalModel> GetByIdAsync(int proposalId, Enum[] includes)
@@ -83,14 +81,9 @@ namespace iBudget.Repository
             );
         }
 
-        public async Task<IEnumerable<ProposalModel>> FindAsync(
-            Expression<Func<ProposalModel, bool>> where
-        )
+        public IQueryable<ProposalModel> Find(Expression<Func<ProposalModel, bool>> where)
         {
-            return await _context.Proposal
-                .AsNoTracking()
-                .Where(where)
-                .ToListAsync();
+            return _context.Proposal.AsNoTracking().Where(where);
         }
 
         public async Task<IEnumerable<ProposalModel>> FindAsync(
@@ -99,20 +92,14 @@ namespace iBudget.Repository
         )
         {
             IQueryable<ProposalModel> query = GetQuery(includes);
-            return await query
-                .AsNoTracking()
-                .Where(where)
-                .ToListAsync();
+            return await query.AsNoTracking().Where(where).ToListAsync();
         }
 
         public async Task<IEnumerable<ProposalContentModel>> FindProposalContentAsync(
             Expression<Func<ProposalContentModel, bool>> where
         )
         {
-            return await _context.ProposalContent
-                .AsNoTracking()
-                .Where(where)
-                .ToListAsync();
+            return await _context.ProposalContent.AsNoTracking().Where(where).ToListAsync();
         }
 
         public async Task AddAsync(ProposalModel Proposal)

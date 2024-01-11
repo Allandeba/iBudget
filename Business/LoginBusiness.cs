@@ -1,6 +1,7 @@
 ﻿using iBudget.Framework;
 using iBudget.Models;
 using iBudget.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace iBudget.Business
 {
@@ -33,10 +34,10 @@ namespace iBudget.Business
 
         public async Task AddAsync(LoginModel login)
         {
-            IEnumerable<LoginModel> loginModelList = await _repository.GetAllAsync(
-                Array.Empty<Enum>()
-            );
-            if (loginModelList.Count() > 1)
+            IEnumerable<LoginModel> loginModelList = await _repository
+                .GetAll(Array.Empty<Enum>())
+                .ToListAsync();
+            if (loginModelList.Any())
                 throw new Exception("Não é permitido adicionar um novo usuário");
 
             Cryptography cryptography = new();

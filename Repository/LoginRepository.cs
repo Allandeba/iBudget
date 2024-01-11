@@ -36,14 +36,12 @@ namespace iBudget.Repository
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<LoginModel>> GetAllAsync(Enum[] includes)
+        public IQueryable<LoginModel> GetAll(Enum[] includes)
         {
-            return await _context.Login
-                .AsNoTracking()
-                .ToListAsync();
+            return _context.Login.AsNoTracking();
         }
 
-        public Task<IEnumerable<LoginModel>> FindAsync(Expression<Func<LoginModel, bool>> predicate)
+        public IQueryable<LoginModel> Find(Expression<Func<LoginModel, bool>> predicate)
         {
             throw new NotImplementedException();
         }

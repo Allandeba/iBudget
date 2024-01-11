@@ -19,9 +19,9 @@ namespace iBudget.Business
         public async Task<IEnumerable<ItemModel>> GetItems()
         {
             ItemIncludes[] includes = new ItemIncludes[] { ItemIncludes.None };
-            IEnumerable<ItemModel> items = await _repository.GetAllAsync(
-                includes.Cast<Enum>().ToArray()
-            );
+            IEnumerable<ItemModel> items = await _repository
+                .GetAll(includes.Cast<Enum>().ToArray())
+                .ToListAsync();
             return items.OrderByDescending(i => i.ItemId);
         }
 
@@ -94,7 +94,7 @@ namespace iBudget.Business
 
         public async Task<IEnumerable<ItemModel>> FindAsync(Expression<Func<ItemModel, bool>> where)
         {
-            return await _repository.FindAsync(where);
+            return await _repository.Find(where).ToListAsync();
         }
 
         public async Task<IEnumerable<ItemModel>> FindAsync(
@@ -109,7 +109,9 @@ namespace iBudget.Business
         {
             return string.IsNullOrEmpty(search)
                 ? await GetItems()
-                : await _repository.FindAsync(p => EF.Functions.ILike(p.ItemName, $"%{search.Unaccent()}%"));
+                : await _repository
+                    .Find(p => EF.Functions.ILike(p.ItemName, $"%{search.Unaccent()}%"))
+                    .ToListAsync();
         }
 
         public async Task IncludeImages(ItemModel item)

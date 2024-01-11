@@ -41,12 +41,10 @@ namespace iBudget.Repository
             return query;
         }
 
-        public async Task<IEnumerable<ProposalHistoryModel>> GetAllAsync(Enum[] includes)
+        public IQueryable<ProposalHistoryModel> GetAll(Enum[] includes)
         {
             IQueryable<ProposalHistoryModel> query = GetQuery(includes);
-            return await query
-                .AsNoTracking()
-                .ToListAsync();
+            return query.AsNoTracking();
         }
 
         public async Task<ProposalHistoryModel> GetByIdAsync(int proposalHistoryId, Enum[] includes)
@@ -55,14 +53,11 @@ namespace iBudget.Repository
             return await query.FirstOrDefaultAsync(ph => ph.ProposalHistoryId == proposalHistoryId);
         }
 
-        public async Task<IEnumerable<ProposalHistoryModel>> FindAsync(
+        public IQueryable<ProposalHistoryModel> Find(
             Expression<Func<ProposalHistoryModel, bool>> where
         )
         {
-            return await _context.ProposalHistory
-                .AsNoTracking()
-                .Where(where)
-                .ToListAsync();
+            return _context.ProposalHistory.AsNoTracking().Where(where);
         }
 
         public async Task AddAsync(ProposalHistoryModel proposalHistory)

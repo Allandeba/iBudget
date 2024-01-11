@@ -39,22 +39,15 @@ namespace iBudget.Repository
             return await query.FirstOrDefaultAsync(i => i.CompanyId == CompanyId);
         }
 
-        public async Task<IEnumerable<CompanyModel>> GetAllAsync(Enum[] includes)
+        public IQueryable<CompanyModel> GetAll(Enum[] includes)
         {
             IQueryable<CompanyModel> query = GetQuery(includes);
-            return await query
-                .AsNoTracking()
-                .ToListAsync();
+            return query.AsNoTracking();
         }
 
-        public async Task<IEnumerable<CompanyModel>> FindAsync(
-            Expression<Func<CompanyModel, bool>> where
-        )
+        public IQueryable<CompanyModel> Find(Expression<Func<CompanyModel, bool>> where)
         {
-            return await _context.Company
-                .AsNoTracking()
-                .Where(where)
-                .ToListAsync();
+            return _context.Company.AsNoTracking().Where(where);
         }
 
         public async Task<IEnumerable<CompanyModel>> FindAsync(
@@ -63,10 +56,7 @@ namespace iBudget.Repository
         )
         {
             IQueryable<CompanyModel> query = GetQuery(includes);
-            return await query
-                .AsNoTracking()
-                .Where(where)
-                .ToListAsync();
+            return await query.AsNoTracking().Where(where).ToListAsync();
         }
 
         public async Task AddAsync(CompanyModel company)

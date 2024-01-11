@@ -48,20 +48,15 @@ namespace iBudget.Repository
             return await _context.ItemImage.FindAsync(itemImageId);
         }
 
-        public async Task<IEnumerable<ItemModel>> GetAllAsync(Enum[] includes)
+        public IQueryable<ItemModel> GetAll(Enum[] includes)
         {
             IQueryable<ItemModel> query = GetQuery(includes);
-            return await query
-                .AsNoTracking()
-                .ToListAsync();
+            return query.AsNoTracking();
         }
 
-        public async Task<IEnumerable<ItemModel>> FindAsync(Expression<Func<ItemModel, bool>> where)
+        public IQueryable<ItemModel> Find(Expression<Func<ItemModel, bool>> where)
         {
-            return await _context.Item
-                .AsNoTracking()
-                .Where(where)
-                .ToListAsync();
+            return _context.Item.AsNoTracking().Where(where);
         }
 
         public async Task<IEnumerable<ItemModel>> FindAsync(
@@ -70,10 +65,7 @@ namespace iBudget.Repository
         )
         {
             IQueryable<ItemModel> query = GetQuery(includes);
-            return await query
-                .AsNoTracking()
-                .Where(where)
-                .ToListAsync();
+            return await query.AsNoTracking().Where(where).ToListAsync();
         }
 
         public async Task AddAsync(ItemModel item)

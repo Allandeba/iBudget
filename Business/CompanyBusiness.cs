@@ -1,6 +1,7 @@
 ﻿using iBudget.Framework;
 using iBudget.Models;
 using iBudget.Repository;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq.Expressions;
 
@@ -71,7 +72,7 @@ namespace iBudget.Business
             Expression<Func<CompanyModel, bool>> where
         )
         {
-            return await _repository.FindAsync(where);
+            return await _repository.Find(where).ToListAsync();
         }
 
         public async Task<IEnumerable<CompanyModel>> FindAsync(
@@ -85,9 +86,9 @@ namespace iBudget.Business
         public async Task<CompanyModel> GetAllAsync()
         {
             CompanyIncludes[] includes = new CompanyIncludes[] { CompanyIncludes.None };
-            IEnumerable<CompanyModel> companies = await _repository.GetAllAsync(
-                includes.Cast<Enum>().ToArray()
-            );
+            IEnumerable<CompanyModel> companies = await _repository
+                .GetAll(includes.Cast<Enum>().ToArray())
+                .ToListAsync();
 
             if (companies.IsNullOrEmpty())
                 throw new ECompanyBusinessException(Messages.CompanyNotFoundMessage);
