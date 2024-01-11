@@ -11,77 +11,88 @@ namespace iBudget.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ItemImage_Item_ItemId",
-                table: "ItemImage");
+            migrationBuilder.DropForeignKey(name: "FK_ItemImage_Item_ItemId", table: "ItemImage");
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_Proposal_Person_PersonId",
-                table: "Proposal");
+            migrationBuilder.DropForeignKey(name: "FK_Proposal_Person_PersonId", table: "Proposal");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_ProposalContent_Item_ItemId",
-                table: "ProposalContent");
+                table: "ProposalContent"
+            );
 
             migrationBuilder.DropForeignKey(
                 name: "FK_ProposalHistory_Proposal_ProposalId",
-                table: "ProposalHistory");
+                table: "ProposalHistory"
+            );
 
             migrationBuilder.DropIndex(
                 name: "IX_ProposalHistory_ProposalId",
-                table: "ProposalHistory");
+                table: "ProposalHistory"
+            );
 
-            migrationBuilder.DropIndex(
-                name: "IX_ProposalContent_ItemId",
-                table: "ProposalContent");
+            migrationBuilder.DropIndex(name: "IX_ProposalContent_ItemId", table: "ProposalContent");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Proposal_PersonId",
-                table: "Proposal");
+            migrationBuilder.DropIndex(name: "IX_Proposal_PersonId", table: "Proposal");
 
-            migrationBuilder.DropIndex(
-                name: "IX_ItemImage_ItemId",
-                table: "ItemImage");
+            migrationBuilder.DropIndex(name: "IX_ItemImage_ItemId", table: "ItemImage");
 
-            migrationBuilder.DropColumn(
-                name: "ProposalId",
-                table: "ProposalHistory");
+            migrationBuilder.DropColumn(name: "ProposalId", table: "ProposalHistory");
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ProposalHistoryId",
-                table: "ProposalHistory",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer")
-                .OldAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            migrationBuilder
+                .AlterColumn<int>(
+                    name: "ProposalHistoryId",
+                    table: "ProposalHistory",
+                    type: "integer",
+                    nullable: false,
+                    oldClrType: typeof(int),
+                    oldType: "integer"
+                )
+                .OldAnnotation(
+                    "Npgsql:ValueGenerationStrategy",
+                    NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                );
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ProposalContentId",
-                table: "ProposalContent",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer")
-                .OldAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            migrationBuilder
+                .AlterColumn<int>(
+                    name: "ProposalContentId",
+                    table: "ProposalContent",
+                    type: "integer",
+                    nullable: false,
+                    oldClrType: typeof(int),
+                    oldType: "integer"
+                )
+                .OldAnnotation(
+                    "Npgsql:ValueGenerationStrategy",
+                    NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                );
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ProposalId",
-                table: "Proposal",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer")
-                .OldAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            migrationBuilder
+                .AlterColumn<int>(
+                    name: "ProposalId",
+                    table: "Proposal",
+                    type: "integer",
+                    nullable: false,
+                    oldClrType: typeof(int),
+                    oldType: "integer"
+                )
+                .OldAnnotation(
+                    "Npgsql:ValueGenerationStrategy",
+                    NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                );
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ItemImageId",
-                table: "ItemImage",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer")
-                .OldAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            migrationBuilder
+                .AlterColumn<int>(
+                    name: "ItemImageId",
+                    table: "ItemImage",
+                    type: "integer",
+                    nullable: false,
+                    oldClrType: typeof(int),
+                    oldType: "integer"
+                )
+                .OldAnnotation(
+                    "Npgsql:ValueGenerationStrategy",
+                    NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ItemImage_Item_ItemImageId",
@@ -89,7 +100,8 @@ namespace iBudget.Migrations
                 column: "ItemImageId",
                 principalTable: "Item",
                 principalColumn: "ItemId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Proposal_Person_ProposalId",
@@ -97,7 +109,8 @@ namespace iBudget.Migrations
                 column: "ProposalId",
                 principalTable: "Person",
                 principalColumn: "PersonId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ProposalContent_Item_ProposalContentId",
@@ -105,7 +118,8 @@ namespace iBudget.Migrations
                 column: "ProposalContentId",
                 principalTable: "Item",
                 principalColumn: "ItemId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ProposalHistory_Proposal_ProposalHistoryId",
@@ -113,7 +127,8 @@ namespace iBudget.Migrations
                 column: "ProposalHistoryId",
                 principalTable: "Proposal",
                 principalColumn: "ProposalId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
         }
 
         /// <inheritdoc />
@@ -121,82 +136,111 @@ namespace iBudget.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_ItemImage_Item_ItemImageId",
-                table: "ItemImage");
+                table: "ItemImage"
+            );
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Proposal_Person_ProposalId",
-                table: "Proposal");
+                table: "Proposal"
+            );
 
             migrationBuilder.DropForeignKey(
                 name: "FK_ProposalContent_Item_ProposalContentId",
-                table: "ProposalContent");
+                table: "ProposalContent"
+            );
 
             migrationBuilder.DropForeignKey(
                 name: "FK_ProposalHistory_Proposal_ProposalHistoryId",
-                table: "ProposalHistory");
+                table: "ProposalHistory"
+            );
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ProposalHistoryId",
-                table: "ProposalHistory",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer")
-                .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            migrationBuilder
+                .AlterColumn<int>(
+                    name: "ProposalHistoryId",
+                    table: "ProposalHistory",
+                    type: "integer",
+                    nullable: false,
+                    oldClrType: typeof(int),
+                    oldType: "integer"
+                )
+                .Annotation(
+                    "Npgsql:ValueGenerationStrategy",
+                    NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                );
 
             migrationBuilder.AddColumn<int>(
                 name: "ProposalId",
                 table: "ProposalHistory",
                 type: "integer",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0
+            );
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ProposalContentId",
-                table: "ProposalContent",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer")
-                .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            migrationBuilder
+                .AlterColumn<int>(
+                    name: "ProposalContentId",
+                    table: "ProposalContent",
+                    type: "integer",
+                    nullable: false,
+                    oldClrType: typeof(int),
+                    oldType: "integer"
+                )
+                .Annotation(
+                    "Npgsql:ValueGenerationStrategy",
+                    NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                );
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ProposalId",
-                table: "Proposal",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer")
-                .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            migrationBuilder
+                .AlterColumn<int>(
+                    name: "ProposalId",
+                    table: "Proposal",
+                    type: "integer",
+                    nullable: false,
+                    oldClrType: typeof(int),
+                    oldType: "integer"
+                )
+                .Annotation(
+                    "Npgsql:ValueGenerationStrategy",
+                    NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                );
 
-            migrationBuilder.AlterColumn<int>(
-                name: "ItemImageId",
-                table: "ItemImage",
-                type: "integer",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "integer")
-                .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+            migrationBuilder
+                .AlterColumn<int>(
+                    name: "ItemImageId",
+                    table: "ItemImage",
+                    type: "integer",
+                    nullable: false,
+                    oldClrType: typeof(int),
+                    oldType: "integer"
+                )
+                .Annotation(
+                    "Npgsql:ValueGenerationStrategy",
+                    NpgsqlValueGenerationStrategy.IdentityByDefaultColumn
+                );
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProposalHistory_ProposalId",
                 table: "ProposalHistory",
-                column: "ProposalId");
+                column: "ProposalId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProposalContent_ItemId",
                 table: "ProposalContent",
-                column: "ItemId");
+                column: "ItemId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_Proposal_PersonId",
                 table: "Proposal",
-                column: "PersonId");
+                column: "PersonId"
+            );
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemImage_ItemId",
                 table: "ItemImage",
-                column: "ItemId");
+                column: "ItemId"
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ItemImage_Item_ItemId",
@@ -204,7 +248,8 @@ namespace iBudget.Migrations
                 column: "ItemId",
                 principalTable: "Item",
                 principalColumn: "ItemId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Proposal_Person_PersonId",
@@ -212,7 +257,8 @@ namespace iBudget.Migrations
                 column: "PersonId",
                 principalTable: "Person",
                 principalColumn: "PersonId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ProposalContent_Item_ItemId",
@@ -220,7 +266,8 @@ namespace iBudget.Migrations
                 column: "ItemId",
                 principalTable: "Item",
                 principalColumn: "ItemId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ProposalHistory_Proposal_ProposalId",
@@ -228,7 +275,8 @@ namespace iBudget.Migrations
                 column: "ProposalId",
                 principalTable: "Proposal",
                 principalColumn: "ProposalId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade
+            );
         }
     }
 }
