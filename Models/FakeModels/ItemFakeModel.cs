@@ -15,10 +15,10 @@ public static class ItemFakeModel
             .RuleFor(c => c.ItemId, f => itemId++);
 
         var itemFaker = new Faker<ItemModel>(Constants.DefaultSystemLanguage)
-                .RuleFor(c => c.ItemName, f => f.Lorem.Sentence(2))
-                .RuleFor(c => c.Value, f => f.Random.Decimal(1, 100))
-                .RuleFor(c => c.Description, f => f.Lorem.Sentence(10, 3))
-                .RuleFor(c => c.ItemImageList, f => itemImageFaker.Generate(1).ToList());
+            .RuleFor(c => c.ItemName, f => f.Lorem.Sentence(2))
+            .RuleFor(c => c.Value, f => f.Random.Decimal(1, 100))
+            .RuleFor(c => c.Description, f => f.Lorem.Sentence(10, 3))
+            .RuleFor(c => c.ItemImageList, f => itemImageFaker.Generate(1).ToList());
 
         var itemList = itemFaker.Generate(quantity);
         foreach (var item in itemList)

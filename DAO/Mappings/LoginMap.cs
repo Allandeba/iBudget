@@ -8,8 +8,6 @@ public class LoginMap : IEntityTypeConfiguration<LoginModel>
 {
     public void Configure(EntityTypeBuilder<LoginModel> builder)
     {
-        _ = builder
-            .HasIndex(p => p.Username)
-            .IsUnique();
+        _ = builder.HasIndex(p => p.Username).IsUnique();
     }
 }

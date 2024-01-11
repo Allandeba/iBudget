@@ -27,7 +27,10 @@ public class ExportToPDFModel
     private HtmlToPdfConverter InitializeHtmlConverter()
     {
         HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
-        BlinkConverterSettings blinkConverterSettings = new BlinkConverterSettings { PdfPageSize = PdfPageSize.A4 };
+        BlinkConverterSettings blinkConverterSettings = new BlinkConverterSettings
+        {
+            PdfPageSize = PdfPageSize.A4
+        };
         htmlConverter.ConverterSettings = blinkConverterSettings;
         return htmlConverter;
     }
@@ -53,7 +56,12 @@ public class ExportToPDFModel
         graphics.SetTransparency(0.60f);
         graphics.RotateTransform(-40);
 
-        graphics.DrawString("Arquivo exclusivamente dedicado para testes. Não tem validade alguma!", font, PdfBrushes.Red, new Syncfusion.Drawing.PointF(-280, 350));
+        graphics.DrawString(
+            "Arquivo exclusivamente dedicado para testes. Não tem validade alguma!",
+            font,
+            PdfBrushes.Red,
+            new Syncfusion.Drawing.PointF(-280, 350)
+        );
 
         graphics.Restore(state);
     }

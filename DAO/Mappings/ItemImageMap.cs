@@ -6,8 +6,5 @@ namespace iBudget.DAO.Mappings;
 
 public class ItemImageMap : IEntityTypeConfiguration<ItemImageModel>
 {
-    public void Configure(EntityTypeBuilder<ItemImageModel> builder)
-    {
-
-    }
+    public void Configure(EntityTypeBuilder<ItemImageModel> builder) { }
 }

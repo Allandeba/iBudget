@@ -7,7 +7,11 @@ public static class StringHelper
 {
     public static string Unaccent(this string content)
     {
-        string normalized = Regex.Replace(content.Normalize(NormalizationForm.FormD), @"[\p{Mn}]", "");
+        string normalized = Regex.Replace(
+            content.Normalize(NormalizationForm.FormD),
+            @"[\p{Mn}]",
+            ""
+        );
         return normalized.Normalize(NormalizationForm.FormC);
     }
 }

@@ -8,8 +8,6 @@ public class ItemMap : IEntityTypeConfiguration<ItemModel>
 {
     public void Configure(EntityTypeBuilder<ItemModel> builder)
     {
-        _ = builder
-            .HasIndex(p => p.ItemName)
-            .IsUnique();
+        _ = builder.HasIndex(p => p.ItemName).IsUnique();
     }
 }

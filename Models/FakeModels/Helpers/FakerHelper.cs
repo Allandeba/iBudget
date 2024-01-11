@@ -7,6 +7,7 @@ namespace iBudget.Models.FakeModels.Helpers
     {
         private static int retries;
         private static readonly int maxRetries = 10;
+
         public static async Task<byte[]> GetRandomImage()
         {
             try
@@ -18,7 +19,6 @@ namespace iBudget.Models.FakeModels.Helpers
             }
             catch (Exception)
             {
-
                 // Pode retornar uma URL inválida, e quando converter retorna 404
                 retries++;
                 if (retries < maxRetries)

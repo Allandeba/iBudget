@@ -6,8 +6,5 @@ namespace iBudget.DAO.Mappings;
 
 public class CompanyMap : IEntityTypeConfiguration<CompanyModel>
 {
-    public void Configure(EntityTypeBuilder<CompanyModel> builder)
-    {
-
-    }
+    public void Configure(EntityTypeBuilder<CompanyModel> builder) { }
 }

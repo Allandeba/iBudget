@@ -13,7 +13,8 @@ namespace iBudget.Models
         public static async Task<WebApplication> InitializeDB(this WebApplication app)
         {
             using IServiceScope scope = app.Services.CreateScope();
-            using ApplicationDBContext context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+            using ApplicationDBContext context =
+                scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
             try
             {
                 await context.Database.MigrateAsync();
@@ -25,9 +26,7 @@ namespace iBudget.Models
                 if (app.Environment.IsDevelopment())
                     await CreateFakeData(context);
 
-
                 _ = await context.SaveChangesAsync();
-
             }
             catch (Exception ex)
             {
@@ -48,14 +47,12 @@ namespace iBudget.Models
                 password = app.Configuration.GetConnectionString("USER_PASSWORD");
 
             if (password.IsNullOrEmpty())
-                throw new Exception("Não foi possível encontrar variaveis de sistema para DatabaseInitialize");
+                throw new Exception(
+                    "Não foi possível encontrar variaveis de sistema para DatabaseInitialize"
+                );
 
             await context.Login.AddRangeAsync(
-                new LoginModel
-                {
-                    Username = "admin",
-                    Password = cryptography.GetHash(password)
-                }
+                new LoginModel { Username = "admin", Password = cryptography.GetHash(password) }
             );
         }
 
@@ -65,15 +62,16 @@ namespace iBudget.Models
             {
                 // var companyFakeList = await CompanyFakeModel.GetCompanyFakeModelList(1);
                 // await context.Company.AddRangeAsync(companyFakeList);
-                CompanyModel company = new()
-                {
-                    CompanyName = "Allan Debastiani",
-                    CNPJ = "00.000.000.0000/00",
-                    Address = "Centro, Chapecó - SC, 89801-230",
-                    Email = "allandeba@yahoo.com.br",
-                    Phone = "5549988494737",
-                    ImageFile = await FakerHelper.GetRandomImage()
-                };
+                CompanyModel company =
+                    new()
+                    {
+                        CompanyName = "Allan Debastiani",
+                        CNPJ = "00.000.000.0000/00",
+                        Address = "Centro, Chapecó - SC, 89801-230",
+                        Email = "allandeba@yahoo.com.br",
+                        Phone = "5549988494737",
+                        ImageFile = await FakerHelper.GetRandomImage()
+                    };
                 await context.Company.AddAsync(company);
             }
 

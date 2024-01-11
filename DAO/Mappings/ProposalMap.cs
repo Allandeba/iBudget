@@ -14,8 +14,6 @@ public class ProposalMap : IEntityTypeConfiguration<ProposalModel>
             .HasDefaultValueSql("CURRENT_TIMESTAMP")
             .ValueGeneratedOnAddOrUpdate();
 
-        _ = builder
-            .HasIndex(p => p.GUID)
-            .IsUnique();
+        _ = builder.HasIndex(p => p.GUID).IsUnique();
     }
 }

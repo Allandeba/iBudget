@@ -16,8 +16,6 @@ public class LoginLogMap : IEntityTypeConfiguration<LoginLogModel>
 
         string comment = string.Join(",", enumValues);
 
-        _ = builder
-            .Property(l => l.Status)
-            .HasComment(comment);
+        _ = builder.Property(l => l.Status).HasComment(comment);
     }
 }

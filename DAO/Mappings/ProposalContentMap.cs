@@ -6,8 +6,5 @@ namespace iBudget.DAO.Mappings;
 
 public class ProposalContentMap : IEntityTypeConfiguration<ProposalContentModel>
 {
-    public void Configure(EntityTypeBuilder<ProposalContentModel> builder)
-    {
-
-    }
+    public void Configure(EntityTypeBuilder<ProposalContentModel> builder) { }
 }
