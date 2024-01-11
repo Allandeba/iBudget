@@ -3,6 +3,7 @@ using iBudget.Framework.Helpers;
 using iBudget.Models;
 using iBudget.Repository;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace iBudget.Business
 {
@@ -20,8 +21,21 @@ namespace iBudget.Business
             PersonIncludes[] includes = new PersonIncludes[] { PersonIncludes.None };
             IEnumerable<PersonModel> people = await _repository
                 .GetAll(includes.Cast<Enum>().ToArray())
+                .OrderByDescending(p => p.PersonId)
                 .ToListAsync();
-            return people.OrderByDescending(p => p.PersonId);
+            return people;
+        }
+
+        public async Task<IPagedList<PersonModel>> GetPeoplePagination(
+            int? pageNumber = Constants.InitialPageForPagination
+        )
+        {
+            PersonIncludes[] includes = new PersonIncludes[] { PersonIncludes.None };
+            var people = await _repository
+                .GetAll(includes.Cast<Enum>().ToArray())
+                .OrderByDescending(p => p.PersonId)
+                .ToPagedListAsync(pageNumber, Constants.QtRegistersPagination);
+            return people;
         }
 
         public async Task AddAsync(PersonModel person)
@@ -83,10 +97,13 @@ namespace iBudget.Business
             await _repository.RemoveAsync(person);
         }
 
-        public async Task<IEnumerable<PersonModel>> GetAllLikeAsync(string search)
+        public async Task<IPagedList<PersonModel>> GetAllLikeAsync(
+            string search,
+            int? pageNumber = Constants.InitialPageForPagination
+        )
         {
             return string.IsNullOrEmpty(search)
-                ? await GetPeople()
+                ? await GetPeoplePagination(pageNumber)
                 : await _repository
                     .Find(
                         p =>
@@ -99,7 +116,7 @@ namespace iBudget.Business
                                 $"%{search.Unaccent()}%"
                             )
                     )
-                    .ToListAsync();
+                    .ToPagedListAsync(pageNumber, Constants.QtRegistersPagination);
         }
     }
 }
