@@ -11,7 +11,7 @@
     <div class="container">
         <div class="py-lg-2">
             <h1>Pessoas</h1>
-            <p class="lead text-muted">Para mais informações, selecione uma pessoa logo a baixo.</p>
+            <p class="lead text-muted">Para mais informações, selecione uma pessoa abaixo.</p>
         </div>
 
         <div class="row justify-content-md-end">
@@ -30,55 +30,46 @@
             {
                 <div class="d-flex py-5">
                     <input id="search-box" type="text" class="form-control" placeholder="Pesquisar..." name="search" value="@TempData[@Constants.SearchBoxData]" />
-
                     <button class="btn btn-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" height="1em" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path
-                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
-                            </path>
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
                         </svg>
                     </button>
                 </div>
             }
 
             <div class="list-group">
-                @foreach (var item in Model)
+                @foreach (var person in Model)
                 {
                     <div class="list-group-item list-group-item-action d-flex gap-3 py-2 mb-2">
-                        <a asp-controller="Person" asp-action="Delete" asp-route-id="@item.PersonId"
-                            class="close position-absolute top-0 start-0 translate-middle badge rounded-circle bg-danger p-2 opacity-75"
-                            aria-label="Close">
+                        <a asp-controller="Person" asp-action="Delete" asp-route-id="@person.PersonId" class="close position-absolute top-0 start-0 translate-middle badge rounded-circle bg-danger p-2 opacity-75" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </a>
-
-                        <a asp-controller="Person" asp-action="Update" asp-route-id="@item.PersonId" class="d-flex align-items-center w-100">
+                        <a asp-controller="Person" asp-action="Update" asp-route-id="@person.PersonId" class="d-flex align-items-center w-100">
                             <object class="svg svg-person" alt="user icon" width="32" height="32" class="rounded-circle flex-shrink-0"></object>
-
                             <div class="flex-grow-1 ms-3">
-                                <h6 class="mb-0">@item.PersonName</h6>
-                                @* <p class="mb-0 opacity-75">Some useful information.</p> *@
+                                <h6 class="mb-0">@person.PersonName</h6>
                             </div>
-
                             <div class="d-flex flex-column align-items-end">
                                 <span class="text-muted">Registrado</span>
-                                <small class="opacity-50 text-nowrap">@item.CreationDate.ToString("dd/MM/yyyy")</small>
+                                <small class="opacity-50 text-nowrap">@person.CreationDate.ToString("dd/MM/yyyy")</small>
                             </div>
                         </a>
                     </div>
                 }
             </div>
 
-            @Html.PagedListPager(Model, pageNumber => Url.Action("Search", new { pageNumber, search = TempData[@Constants.SearchBoxData] }), 
-                new PagedListRenderOptions {
-                    DisplayLinkToFirstPage = PagedListDisplayMode.Never,
-                    DisplayLinkToLastPage = PagedListDisplayMode.Never,
-                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
-                    MaximumPageNumbersToDisplay = 5,
-                    LiElementClasses = new string[] { "page-item" }, 
-                        PageClasses = new string[] { "page-link" },
-                    ContainerDivClasses = new string[] { "d-flex justify-content-end mt-2" }
-                })
+            @Html.PagedListPager(Model, pageNumber => Url.Action("Search", new { pageNumber, search = TempData[@Constants.SearchBoxData] }), new PagedListRenderOptions
+            {
+                DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                MaximumPageNumbersToDisplay = 5,
+                LiElementClasses = new[] { "page-item" },
+                PageClasses = new[] { "page-link" },
+                ContainerDivClasses = new[] { "d-flex justify-content-end mt-2" }
+            })
         </div>
     </div>
 </div>
