@@ -7,20 +7,7 @@
     ViewData["Title"] = "Pessoas";
 }
 
-<section class="text-center">
-    <div class="container">
-        <div class="py-lg-2">
-            <h1>Pessoas</h1>
-            <p class="lead text-muted">Para mais informações, selecione uma pessoa abaixo.</p>
-        </div>
-
-        <div class="row justify-content-md-end">
-            <div class="col-lg-6 col-md-8 mt-4 mt-md-0">
-                <button class="btn btn-primary" onclick="location.href='@Url.Action("Create")'">Novo</button>
-            </div>
-        </div>
-    </div>
-</section>
+@await Html.PartialAsync("../Shared/Partials/Helpers/_RegisterHeader", new RegisterHeaderItem { Title = "Pessoas", Description = "Para mais informações, selecione uma pessoa abaixo.", Action = "Create" } )
 
 <div class="container">
     <div class="row justify-content-center">
