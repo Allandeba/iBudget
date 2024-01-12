@@ -29,7 +29,9 @@ public class ExportToPDFModel
         HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
         BlinkConverterSettings blinkConverterSettings = new BlinkConverterSettings
         {
-            PdfPageSize = PdfPageSize.A4
+            PdfPageSize = PdfPageSize.A4,
+            EnableHyperLink = false,
+            EnableJavaScript = false,
         };
         htmlConverter.ConverterSettings = blinkConverterSettings;
         return htmlConverter;
