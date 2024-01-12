@@ -1,50 +1,19 @@
-﻿@{
+﻿@model IEnumerable<HomeItemModel>
+
+@{
     ViewData["Title"] = "Inicio";
 }
 
 <div class="row mt-5 px-5 mb-5 justify-content-center">
-    <a class="zoom-effect col-md-auto" href="Person">
-        <div class="card-inner p-3 d-flex flex-column align-items-center">
-            <object class="svg svg-person" width="50" height="50" alt="Person"></object>
-            <div class="text-center mg-text">
-                <span class="d-block">Pessoa</span>
+    @foreach (var homeItem in Model)
+    {
+        <a class="zoom-effect col-md-auto" href="@homeItem.Url">
+            <div class="card-inner p-3 d-flex flex-column align-items-center">
+                <object class="@homeItem.IconClass" width="50" height="50" alt="@homeItem.Title"></object>
+                <div class="text-center">
+                    <span class="d-block">@homeItem.Title</span>
+                </div>
             </div>
-        </div>
-    </a>
-
-    <a class="zoom-effect col-md-auto" href="Item">
-        <div class="card-inner p-3 d-flex flex-column align-items-center">
-            <object class="svg svg-item" width="50" height="50" alt="Item"></object>
-            <div class="text-center mg-text">
-                <span class="d-block">Item</span>
-            </div>
-        </div>
-    </a>
-
-    <a class="zoom-effect col-md-auto" href="Proposal">
-        <div class="card-inner p-3 d-flex flex-column align-items-center">
-            <object class="svg svg-proposal" width="50" height="50" alt="Proposal"></object>
-            <div class="text-center mg-text">
-                <span class="d-block">Orçamento</span>
-            </div>
-        </div>
-    </a>
-
-    <a class="zoom-effect col-md-auto" href="Catalog">
-        <div class="card-inner p-3 d-flex flex-column align-items-center">
-            <object class="svg svg-catalog" width="50" height="50" alt="Catalog"></object>
-            <div class="text-center mg-text">
-                <span class="d-block">Catalogo</span>
-            </div>
-        </div>
-    </a>
-
-    <a class="zoom-effect col-md-auto" href="Configuration">
-        <div class="card-inner p-3 d-flex flex-column align-items-center">
-            <object class="svg svg-configuration" width="50" height="50" alt="Configurations"></object>
-            <div class="text-center mg-text">
-                <span class="d-block">Configurações</span>
-            </div>
-        </div>
-    </a>
+        </a>
+    }
 </div>
