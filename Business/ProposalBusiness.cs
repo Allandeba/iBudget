@@ -282,7 +282,7 @@ namespace iBudget.Business
         )
         {
             if (search == null)
-                return await GetProposalsPagination();
+                return await GetProposalsPagination(pageNumber);
 
             ProposalIncludes[] includes = new ProposalIncludes[] { ProposalIncludes.Person };
             var proposals = _repository.FindAsync(
