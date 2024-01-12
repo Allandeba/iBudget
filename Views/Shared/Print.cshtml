@@ -6,9 +6,15 @@
 }
 
 <div class="container-fluid bg-white">
-    <header class="header-img bg-dark py-5 mb-4">
+    <header class="header-img bg-dark py-5 mb-2">
         <img src="data:image/*;base64,@(Convert.ToBase64String(ViewBag.Company.ImageFile))" />
     </header>
+
+    <div class="bg-dark py-2 mb-4">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Orçamento</h1>
+        </div>
+    </div> 
 
     <div class="row">
         <div class="col-md-12">
@@ -61,8 +67,8 @@
     </div>
 
     <div class="bg-dark py-2">
-        <div class="text-center">
-            <h1 class="display-4 fw-bolder">Catalogo</h1>
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Catálogo</h1>
         </div>
     </div>
 
@@ -86,6 +92,10 @@
                             alt="@(image.FileName)" class="img-fluid" />
                     }
                 }
+                
+                <div class="text-center">
+                    <p class="text-dark opacity-75">@ProposalContent.Item.ItemName</p>
+                </div>
             </div>
         }
     </div>

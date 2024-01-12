@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-br" data-bs-theme="dark" class="theme-dark">
+<html lang="pt-br" data-bs-theme="@(ViewBag.Theme ?? "light")" class="@($"theme-{ViewBag.Theme ?? "light"}")">
 
 <head>
     <meta charset="utf-8" />
