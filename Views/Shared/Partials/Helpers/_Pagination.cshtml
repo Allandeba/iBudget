@@ -1,0 +1,16 @@
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+
+@model PaginationItem
+
+@Html.PagedListPager(Model.Model, pageNumber => Url.Action(Model.Action, new { pageNumber, search = Model.SearchValue }), 
+    new PagedListRenderOptions {
+        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+        DisplayLinkToLastPage = PagedListDisplayMode.Never,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,
+        MaximumPageNumbersToDisplay = 5,
+        LiElementClasses = new string[] { "page-item" }, 
+            PageClasses = new string[] { "page-link" },
+        ContainerDivClasses = new string[] { "d-flex justify-content-end mt-2" }
+    })

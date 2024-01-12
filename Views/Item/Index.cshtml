@@ -1,6 +1,4 @@
 ﻿@using X.PagedList;
-@using X.PagedList.Mvc.Core;
-@using X.PagedList.Web.Common;
 @model IPagedList<ItemModel>
 
 @{
@@ -37,18 +35,7 @@
                 }
             </div>
 
-
-            @Html.PagedListPager(Model, pageNumber => Url.Action("Search", new { pageNumber, search = TempData[@Constants.SearchBoxData] }), 
-                new PagedListRenderOptions {
-                    DisplayLinkToFirstPage = PagedListDisplayMode.Never,
-                    DisplayLinkToLastPage = PagedListDisplayMode.Never,
-                    DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
-                    DisplayLinkToNextPage = PagedListDisplayMode.Always,
-                    MaximumPageNumbersToDisplay = 5,
-                    LiElementClasses = new string[] { "page-item" }, 
-                        PageClasses = new string[] { "page-link" },
-                    ContainerDivClasses = new string[] { "d-flex justify-content-end mt-2" }
-                })
+            @await Html.PartialAsync("../Shared/Partials/Helpers/_Pagination", new PaginationItem { Model = Model, Action = "Search", SearchValue = (string)TempData[@Constants.SearchBoxData] } )
         </div>
     </div>
 </div>
