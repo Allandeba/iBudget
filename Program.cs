@@ -7,7 +7,6 @@ using iBudget.Framework;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.HttpOverrides;
 
@@ -27,16 +26,18 @@ public class Program
                 ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
         });
 
-        // Add services to the container.
-        _ = builder.Services.AddControllersWithViews(
-            config => config.Filters.Add(typeof(CustomExceptionFilter))
-        );
-        _ = builder.Services
+        _ = builder.Services.AddControllersWithViews(config =>
+        {
+            config.Filters.Add(typeof(CustomExceptionFilter));
+        });
+
+        builder.Services
             .AddControllers()
             .AddJsonOptions(
                 x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
             );
-        _ = builder.Services
+
+        builder.Services
             .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(options =>
             {
@@ -44,6 +45,7 @@ public class Program
                 options.ExpireTimeSpan = TimeSpan.FromHours(8);
                 options.Cookie.Name = "authCookie";
             });
+
         _ = builder.Services.AddAuthorization(options =>
         {
             options.FallbackPolicy = new AuthorizationPolicyBuilder()
@@ -51,8 +53,8 @@ public class Program
                 .Build();
         });
 
-        string syncfusionKey = "";
-        string connectionString = "";
+        string syncfusionKey;
+        string connectionString;
 
         if (builder.Environment.IsDevelopment())
         {
@@ -65,16 +67,17 @@ public class Program
         else
         {
             syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
-            if (syncfusionKey.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(syncfusionKey))
                 throw new Exception("Chave Syncfusion não encontrada para produção");
 
             connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
-            if (connectionString.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(connectionString))
                 throw new Exception("Configuração de banco de dados não encontrada para produção");
         }
 
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionKey);
-        builder.Services.AddDbContext<ApplicationDBContext>(
+
+        _ = builder.Services.AddDbContext<ApplicationDBContext>(
             options => options.UseNpgsql(connectionString)
         );
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -93,6 +96,10 @@ public class Program
         _ = builder.Services.AddScoped<CompanyRepository>();
         _ = builder.Services.AddScoped<LoginBusiness>();
         _ = builder.Services.AddScoped<LoginRepository>();
+        _ = builder.Services.AddScoped<DatabaseInitialize>();
+
+        if (SystemManager.IsDevelopment)
+            _ = builder.Services.AddHostedService<DatabaseResetWorker>();
 
         WebApplication app = builder.Build();
 
@@ -117,7 +124,11 @@ public class Program
             pattern: "{controller=Home}/{action=Index}/{id?}"
         );
 
-        _ = app.InitializeDB();
+        using (var scope = app.Services.CreateScope())
+        {
+            var databaseInitialize = scope.ServiceProvider.GetRequiredService<DatabaseInitialize>();
+            databaseInitialize.InitializeDB().Wait();
+        }
 
         app.Run();
     }

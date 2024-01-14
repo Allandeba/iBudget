@@ -15,4 +15,5 @@
     public const string DefaultSystemLanguage = "pt_BR";
     public const int QtRegistersPagination = 5;
     public const int InitialPageForPagination = 1;
+    public const int QtInitialFakeRegisters = 10;
 }

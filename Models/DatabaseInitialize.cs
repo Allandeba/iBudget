@@ -1,97 +1,132 @@
-using Bogus;
 using iBudget.DAO;
 using iBudget.Framework;
 using iBudget.Models.FakeModels;
 using iBudget.Models.FakeModels.Helpers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
-namespace iBudget.Models
+namespace iBudget.Models;
+
+public class DatabaseInitialize
 {
-    public static class DatabaseInitialize
+    private readonly IConfiguration _configuration;
+    private readonly ApplicationDBContext _context;
+    private readonly IHostEnvironment _env;
+    private readonly ILogger<DatabaseInitialize> _logger;
+
+    public DatabaseInitialize(
+        IConfiguration configuration,
+        ApplicationDBContext context,
+        IHostEnvironment env,
+        ILogger<DatabaseInitialize> logger
+    )
     {
-        public static async Task<WebApplication> InitializeDB(this WebApplication app)
+        _configuration = configuration;
+        _context = context;
+        _env = env;
+        _logger = logger;
+    }
+
+    public async Task InitializeDB()
+    {
+        try
         {
-            using IServiceScope scope = app.Services.CreateScope();
-            using ApplicationDBContext context =
-                scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
-            try
+            await _context.Database.MigrateAsync();
+
+            if (!await _context.Database.CanConnectAsync())
             {
-                await context.Database.MigrateAsync();
-                _ = await context.Database.EnsureCreatedAsync();
-
-                if (!await context.Login.AnyAsync())
-                    await CreateAdminLogin(context, app);
-
-                if (app.Environment.IsDevelopment())
-                    await CreateFakeData(context);
-
-                _ = await context.SaveChangesAsync();
+                _logger.LogError("Não foi possível conectar ao banco de dados.");
+                return;
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw;
-            }
-            return app;
+
+            if (!await _context.Login.AnyAsync())
+                await CreateAdminLogin();
+
+            if (_env.IsDevelopment())
+                await CreateFakeData();
+
+            await _context.SaveChangesAsync();
         }
-
-        private static async Task CreateAdminLogin(ApplicationDBContext context, WebApplication app)
+        catch (Exception ex)
         {
-            Cryptography cryptography = new();
+            _logger.LogError(ex, "Erro durante a inicialização do banco de dados");
+            throw;
+        }
+    }
 
-            string password;
-            if (app.Environment.IsProduction())
-                password = Environment.GetEnvironmentVariable("USER_PASSWORD");
-            else
-                password = app.Configuration.GetConnectionString("USER_PASSWORD");
+    private async Task CreateAdminLogin()
+    {
+        Cryptography cryptography = new Cryptography();
 
-            if (password.IsNullOrEmpty())
-                throw new Exception(
-                    "Não foi possível encontrar variaveis de sistema para DatabaseInitialize"
-                );
+        var password = _env.IsProduction()
+            ? Environment.GetEnvironmentVariable("USER_PASSWORD")
+            : _configuration.GetConnectionString("USER_PASSWORD");
 
-            await context.Login.AddRangeAsync(
-                new LoginModel { Username = "admin", Password = cryptography.GetHash(password) }
+        if (string.IsNullOrEmpty(password))
+            throw new Exception(
+                "Não foi possível encontrar variáveis de sistema para DatabaseInitialize"
             );
-        }
 
-        private static async Task CreateFakeData(ApplicationDBContext context)
+        await _context.Login.AddAsync(
+            new LoginModel { Username = "admin", Password = cryptography.GetHash(password) }
+        );
+    }
+
+    private async Task CreateFakeData()
+    {
+        await CreateFakeCompany();
+        await CreateFakePersons();
+        await CreateFakeItems();
+        await CreateFakeProposals();
+    }
+
+    private async Task CreateFakeCompany()
+    {
+        if (!_context.Company.Any())
         {
-            if (!context.Company.Any())
+            CompanyModel company = new CompanyModel
             {
-                // var companyFakeList = await CompanyFakeModel.GetCompanyFakeModelList(1);
-                // await context.Company.AddRangeAsync(companyFakeList);
-                CompanyModel company =
-                    new()
-                    {
-                        CompanyName = "Allan Debastiani",
-                        CNPJ = "00.000.000.0000/00",
-                        Address = "Centro, Chapecó - SC, 89801-230",
-                        Email = "allandeba@yahoo.com.br",
-                        Phone = "5549988494737",
-                        ImageFile = await FakerHelper.GetRandomImage()
-                    };
-                await context.Company.AddAsync(company);
-            }
+                CompanyName = "Allan Debastiani",
+                CNPJ = "00.000.000.0000/00",
+                Address = "Centro, Chapecó - SC, 89801-230",
+                Email = "allandeba@yahoo.com.br",
+                Phone = "5549988494737",
+                ImageFile = await FakerHelper.GetRandomImage()
+            };
 
-            if (!await context.Person.AnyAsync())
-            {
-                var personFakeList = PersonFakeModel.GetPersonFakeModelList(10);
-                await context.Person.AddRangeAsync(personFakeList);
-            }
+            await _context.Company.AddAsync(company);
+        }
+    }
 
-            if (!await context.Item.AnyAsync())
-            {
-                var itemFakeList = await ItemFakeModel.GetItemFakeModelList(10);
-                await context.Item.AddRangeAsync(itemFakeList);
-            }
+    private async Task CreateFakePersons()
+    {
+        if (!await _context.Person.AnyAsync())
+        {
+            var personFakeList = PersonFakeModel.GetPersonFakeModelList(
+                Constants.QtInitialFakeRegisters
+            );
+            await _context.Person.AddRangeAsync(personFakeList);
+        }
+    }
 
-            if (!await context.Proposal.AnyAsync())
-            {
-                var proposalFakeList = ProposalFakeModel.GetProposalFakeModelList(10);
-                await context.Proposal.AddRangeAsync(proposalFakeList);
-            }
+    private async Task CreateFakeItems()
+    {
+        if (!await _context.Item.AnyAsync())
+        {
+            var itemFakeList = await ItemFakeModel.GetItemFakeModelList(
+                Constants.QtInitialFakeRegisters
+            );
+            await _context.Item.AddRangeAsync(itemFakeList);
+        }
+    }
+
+    private async Task CreateFakeProposals()
+    {
+        if (!await _context.Proposal.AnyAsync())
+        {
+            var proposalFakeList = ProposalFakeModel.GetProposalFakeModelList(
+                Constants.QtInitialFakeRegisters
+            );
+            await _context.Proposal.AddRangeAsync(proposalFakeList);
         }
     }
 }
