@@ -1,7 +1,8 @@
 # iBudget
 
-![GitHub repo size](https://img.shields.io/github/repo-size/allandeba/iBudget)
-![GitHub language count](https://img.shields.io/github/languages/count/allandeba/iBudget)
+| **Redes Sociais** | **Linguagens** | **Versão do .NET** | **Último Commit** |
+| ----------------- | -------------- | ------------------- | ------------------ |
+| [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/allan-debastiani/) | ![GitHub language count](https://img.shields.io/github/languages/count/allandeba/iBudget) ![GitHub top language](https://img.shields.io/github/languages/top/allandeba/iBudget) | ![GitHub target](https://img.shields.io/badge/.NET%20Core-7.0-green) | ![GitHub last commit](https://img.shields.io/github/last-commit/allandeba/iBudget) |
 
 ## Visão Geral
 
