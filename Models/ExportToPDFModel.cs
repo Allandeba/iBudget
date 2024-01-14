@@ -33,6 +33,10 @@ public class ExportToPDFModel
             EnableHyperLink = false,
             EnableJavaScript = false,
         };
+
+        blinkConverterSettings.CommandLineArguments.Add("--no-sandbox");
+        blinkConverterSettings.CommandLineArguments.Add("--disable-setuid-sandbox");
+
         htmlConverter.ConverterSettings = blinkConverterSettings;
         return htmlConverter;
     }
