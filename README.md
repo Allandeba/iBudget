@@ -9,6 +9,12 @@ Seja bem-vindo ao iBudget, um aplicativo intuitivo para gestão de orçamentos q
 
 O sistema oferece suporte à geração de orçamentos em formato PDF e permite o compartilhamento direto através do WhatsApp.
 
+Os dados são resetados diariamente para manter um ambiente de teste consistente.
+
+**Para experimentar o sistema, acesse: [ibudget.allandeba.dev.br](https://ibudget.allandeba.dev.br)**
+- *Ao acessar o sistema, já será preenchido o usuário e senha para acessar a aplicação, não sendo possível incluir novos usuários* 
+
+
 ## Tecnologias Utilizadas
 
 - **Banco de Dados:** PostgreSQL
