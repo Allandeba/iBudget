@@ -1,5 +1,6 @@
 ﻿using iBudget.Business;
 using iBudget.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace iBudget.Controllers
@@ -13,6 +14,7 @@ namespace iBudget.Controllers
             _business = business;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Print(int id)
         {
             ViewBag.Company = await _business.GetCompany();
