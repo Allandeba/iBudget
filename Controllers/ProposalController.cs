@@ -112,7 +112,10 @@ namespace iBudget.Controllers
                 $"{url}/{ControllerContext.RouteData.Values["controller"]}/{nameof(ExportToPDF)}/{id}";
 
             string number = proposal.Person?.Contact.Phone;
-            string msg = string.Format(Messages.WhatsAppMessage, company.CompanyName, url);
+
+            string msg = SystemManager.IsDevelopment
+                ? string.Format(Messages.WhatsAppMessage, Constants.ApplicationName, url)
+                : string.Format(Messages.WhatsAppMessage, company.CompanyName, url);
 
             string encodedMessage =
                 Constants.WhatsAppURL

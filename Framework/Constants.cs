@@ -1,5 +1,6 @@
 ﻿internal static class Constants
 {
+    public const string ApplicationName = "iBudget";
     public const int MaxImageWidth = 250;
     public const int MaxImageHeight = 250;
     public const int MaxImageLogoWidth = 400;
