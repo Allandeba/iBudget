@@ -26,7 +26,6 @@ Os dados são resetados diariamente para manter um ambiente de teste consistente
 - **Conteinerização:** Docker
 - **Hospedagem:** Servidor VPS Linux
 - **Arquitetura:** MVC
-- **Reusabilidade de Código:** Partial Pages para evitar replicação de código
 - **ORM:** Entity Framework
 - **Paginação:** X.PageList
 - **UI:** Bootstrap
