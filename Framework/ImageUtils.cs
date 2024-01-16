@@ -1,4 +1,6 @@
-﻿using SixLabors.ImageSharp.Formats.Png;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Processing;
 using Image = SixLabors.ImageSharp.Image;
 
 namespace iBudget.Framework;
