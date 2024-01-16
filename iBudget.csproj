@@ -26,8 +26,8 @@
     </PackageReference>
     <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Linux" Version="23.2.4" />
-    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Mac" Version="23.2.4" />
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Linux" Version="24.1.45" />
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Mac" Version="24.1.45" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
     <PackageReference Include="xunit" Version="2.6.2" />

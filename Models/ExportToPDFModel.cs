@@ -32,6 +32,7 @@ public class ExportToPDFModel
             PdfPageSize = PdfPageSize.A4,
             EnableHyperLink = false,
             EnableJavaScript = false,
+            AdditionalDelay = 0,
         };
 
         blinkConverterSettings.CommandLineArguments.Add("--no-sandbox");
