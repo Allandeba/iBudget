@@ -25,17 +25,8 @@ function addProposalContentCellClasses(cell) {
 
 function setProposalContentIdContent(proposalContentIdCell) {
   let inputProposalContentId =
-    '<input type="hidden" name="ProposalContent[' +
-    getActualRow() +
-    '].ProposalContentId" value="' +
-    NEW_PROPOSAL_CONTENT_ID +
-    '" />';
-  let inputITemId =
-    '<input type="hidden" name="ProposalContent[' +
-    getActualRow() +
-    '].ItemId" value="' +
-    itemList.value +
-    '" />';
+    '<input type="hidden" name="ProposalContent[' + getActualRow() + '].ProposalContentId" value="' + NEW_PROPOSAL_CONTENT_ID + '" />';
+  let inputITemId = '<input type="hidden" name="ProposalContent[' + getActualRow() + '].ItemId" value="' + itemList.value + '" />';
 
   let span = '<span>' + NEW_PROPOSAL_CONTENT_ID + '</span>';
 
@@ -198,9 +189,7 @@ function deleteItem(proposalContentId, itemId) {
   })
     .then((result) => {
       if (result) {
-        let row = document.getElementById(
-          NEW_PROPOSAL_CONTENT_NAME + proposalContentId
-        );
+        let row = document.getElementById(NEW_PROPOSAL_CONTENT_NAME + proposalContentId);
         if (row) {
           row.remove();
           calculateTotalValue();

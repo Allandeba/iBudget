@@ -3,9 +3,9 @@
 @using iBudget.Framework
 
 <div class="mb-3 text-start">
-    @Html.LabelFor(model => model.PersonId, new { @class = "form-label"} )
+    @Html.LabelFor(model => model.PersonId, new { @class = "form-label" })
     @Html.DropDownListFor(model => model.PersonId, (IEnumerable<SelectListItem>)ViewBag.People, "--Selecione--", new { @class = "form-select" })
-    @Html.ValidationMessageFor(model => model.PersonId, "", new { @class = "text-danger" } )
+    @Html.ValidationMessageFor(model => model.PersonId, "", new { @class = "text-danger" })
 </div>
 
 <div class="mb-3 text-start">
@@ -16,9 +16,9 @@
 </div>
 
 <div class="mb-3 text-start">
-    @Html.LabelFor(model => model.Discount, new { @class = "form-label"} )
-    @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @id = "discount", @class = "form-control", placeholder = "", step="0.01", @onchange = "calculateTotalValue()" } } )
-    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" } )
+    @Html.LabelFor(model => model.Discount, new { @class = "form-label" })
+    @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @id = "discount", @class = "form-control", placeholder = "", step = "0.01", @onchange = "calculateTotalValue()" } })
+    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
 </div>
 
 <hr class="my-4">
