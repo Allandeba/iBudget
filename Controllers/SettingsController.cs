@@ -2,7 +2,7 @@
 
 namespace iBudget.Controllers
 {
-    public class ConfigurationController : BaseController
+    public class SettingsController : BaseController
     {
         public IActionResult Index()
         {

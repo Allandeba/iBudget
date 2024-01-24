@@ -36,8 +36,8 @@ public class HomeController : BaseController
             new HomeItemModel
             {
                 Title = "Configurações",
-                Url = "Configuration",
-                IconClass = "svg svg-configuration"
+                Url = "Settings",
+                IconClass = "svg svg-settings"
             }
         };
 
