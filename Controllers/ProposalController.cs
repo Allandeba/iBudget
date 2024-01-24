@@ -135,7 +135,6 @@ namespace iBudget.Controllers
 
         private async Task PopulateViewBagUpdate(ProposalModel proposal)
         {
-            ViewBag.ProposalPerson = proposal.Person;
             ViewBag.ProposalContent = proposal.ProposalContent;
             await PopulateViewBagDefault();
         }
