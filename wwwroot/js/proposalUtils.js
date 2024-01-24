@@ -1,9 +1,9 @@
 ﻿const NEW_PROPOSAL_CONTENT_ID = 0;
 const NEW_PROPOSAL_CONTENT_NAME = 'proposalContentRow_';
-const FULL_ID_NEW_PROPOSAL_CONTENT_ROW =
-  NEW_PROPOSAL_CONTENT_NAME + NEW_PROPOSAL_CONTENT_ID;
+const FULL_ID_NEW_PROPOSAL_CONTENT_ROW = NEW_PROPOSAL_CONTENT_NAME + NEW_PROPOSAL_CONTENT_ID;
+const ITEM_LIST_ID = 'ItemList';
 
-const itemList = document.getElementById('ItemList');
+const itemList = document.getElementById(ITEM_LIST_ID);
 const proposalContentTable = document.getElementById('proposalContentTable');
 const tableRows = document.getElementById('table-rows');
 const discountElement = document.getElementById('discount');
@@ -11,6 +11,8 @@ const totalValueCell = document.getElementById('total-value-cell');
 
 function setItemDefault() {
   itemList.value = 0;
+  let jQueryItemList = $('#' + ITEM_LIST_ID);
+  jQueryItemList.val(jQueryItemList.find('option:first').val()).trigger('change.select2');
 }
 
 function getActualRow() {
