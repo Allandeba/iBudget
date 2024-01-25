@@ -5,13 +5,13 @@
     ViewData["Title"] = "Itens";
 }
 
-@await Html.PartialAsync("../Shared/Partials/Helpers/_RegisterHeader", new RegisterHeaderItem { Title = "Itens", Description = "Para mais informações, selecione um item abaixo.", Action = "Create" } )
+@await Html.PartialAsync("../Shared/Partials/Components/_RegisterHeader", new RegisterHeaderItem { Title = "Itens", Description = "Para mais informações, selecione um item abaixo.", Action = "Create" } )
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8">
 
-            @await Html.PartialAsync("../Shared/Partials/Helpers/_SearchBox", new SearchBoxItem { Action = "Search", ControllerName = "Item", SearchValue = (string)TempData[@Constants.SearchBoxData] } )
+            @await Html.PartialAsync("../Shared/Partials/Components/_SearchBox", new SearchBoxItem { Action = "Search", ControllerName = "Item", SearchValue = (string)TempData[@Constants.SearchBoxData] } )
             
             <div class="list-group">
                 @foreach (var item in Model)
@@ -33,7 +33,7 @@
                 }
             </div>
 
-            @await Html.PartialAsync("../Shared/Partials/Helpers/_Pagination", new PaginationItem { Model = Model, Action = "Search", SearchValue = (string)TempData[@Constants.SearchBoxData] } )
+            @await Html.PartialAsync("../Shared/Partials/Components/_Pagination", new PaginationItem { Model = Model, Action = "Search", SearchValue = (string)TempData[@Constants.SearchBoxData] } )
         </div>
     </div>
 </div>

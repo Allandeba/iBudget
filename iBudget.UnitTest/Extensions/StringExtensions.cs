@@ -1,9 +1,9 @@
 using iBudget.Framework;
-using iBudget.Framework.Helpers;
+using iBudget.Framework.Extensions;
 
 namespace iBudget.UnitTest.Extensions;
 
-public class StringHelpersTest
+public class StringExtensionsTest
 {
     [Fact]
     public void ShouldFindAccentWord()

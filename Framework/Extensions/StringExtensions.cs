@@ -1,9 +1,9 @@
 using System.Text.RegularExpressions;
 using System.Text;
 
-namespace iBudget.Framework.Helpers;
+namespace iBudget.Framework.Extensions;
 
-public static class StringHelper
+public static class StringExtensions
 {
     public static string Unaccent(this string content)
     {
