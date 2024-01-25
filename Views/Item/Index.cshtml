@@ -17,11 +17,9 @@
                 @foreach (var item in Model)
                 {
                     <div class="list-group-item list-group-item-action d-flex gap-3 py-2 mb-2">
-                        <a asp-controller="Item" asp-action="Delete" asp-route-id="@item.ItemId"
-                            class="close position-absolute top-0 start-0 translate-middle badge rounded-circle bg-danger p-2 opacity-75"
-                            aria-label="Close">
+                        <button id="@item.ItemId" class="close position-absolute top-0 start-0 translate-middle badge rounded-circle bg-danger p-2 opacity-75 border-0" aria-label="Close" onclick="showModal(this.id, 'Item', 'Delete', '@item.ItemName')">
                             <span aria-hidden="true">&times;</span>
-                        </a>
+                        </button>
 
                         <a asp-controller="Item" asp-action="Update" asp-route-id="@item.ItemId" class="d-flex align-items-center w-100">
                             <object class="svg svg-item" alt="user icon" width="32" height="32" class="rounded-circle flex-shrink-0"></object>

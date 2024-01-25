@@ -91,3 +91,33 @@ function removeBackdrop() {
     document.body.removeChild(backdrop);
   }
 }
+
+function showModal(id, controller, endpoint, deleteItemName) {
+  const url = `/${controller}/${endpoint}/${id}`;
+  const confirmationMessage = `Você tem certeza que deseja deletar ${deleteItemName}?`;
+
+  openModal({
+    title: `Deletando ${deleteItemName}!`,
+    message: confirmationMessage,
+  })
+    .then((result) => {
+      if (result) {
+        deleteItem(url);
+      } else {
+        //
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+function deleteItem(url) {
+  $.post(url)
+    .done(function (data) {
+      location.reload();
+    })
+    .fail(function () {
+      alert(`Falha ao excluir ${url}.`);
+    });
+}
