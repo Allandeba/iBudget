@@ -78,3 +78,4 @@ _[Ss]cripts
 *.env
 .vs/
 .idea
+*.yaml

@@ -1,11 +1,16 @@
 ﻿using iBudget.Framework;
+using iBudget.Framework.Extensions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata.Ecma335;
+using Xunit.Sdk;
 
-namespace iBudget.Models;
+namespace iBudget.DAO.Entities;
 
 public class DocumentModel
 {
+    private string _document = string.Empty;
+
     [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
     public int DocumentId { get; set; }
 
@@ -16,7 +21,11 @@ public class DocumentModel
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
     [Display(Name = "Documento")]
     [MaxLength(50, ErrorMessage = Messages.MaxLengthValidation)]
-    public string Document { get; set; }
+    public string Document
+    {
+        get => _document;
+        set => _document = value.OnlyNumbers();
+    }
 
     public int PersonId { get; set; }
     public PersonModel Person { get; set; }

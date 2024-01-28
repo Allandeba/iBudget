@@ -4,7 +4,7 @@ using iBudget.Models.FakeModels;
 using iBudget.Models.FakeModels.Helpers;
 using Microsoft.EntityFrameworkCore;
 
-namespace iBudget.Models;
+namespace iBudget.DAO.Entities;
 
 public class DatabaseInitialize
 {

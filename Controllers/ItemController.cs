@@ -1,6 +1,6 @@
 ﻿using iBudget.Business;
 using iBudget.Controllers;
-using iBudget.Models;
+using iBudget.DAO.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 public class ItemController : BaseController

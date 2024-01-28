@@ -1,4 +1,4 @@
-using iBudget.Models;
+using iBudget.DAO.Entities;
 
 namespace iBudget.UnitTest.Models
 {

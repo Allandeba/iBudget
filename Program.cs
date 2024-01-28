@@ -1,7 +1,8 @@
 ﻿using iBudget.Business;
 using iBudget.Controllers;
-using iBudget.DAO;
 using iBudget.Models;
+using iBudget.DAO;
+using iBudget.DAO.Entities;
 using iBudget.Repository;
 using iBudget.Framework;
 using Microsoft.AspNetCore.Authentication.Cookies;

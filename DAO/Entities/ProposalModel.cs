@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace iBudget.Models;
+namespace iBudget.DAO.Entities;
 
 public class ProposalModel
 {

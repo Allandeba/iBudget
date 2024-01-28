@@ -1,5 +1,5 @@
 using iBudget.Framework;
-using iBudget.Models;
+using iBudget.DAO.Entities;
 using Microsoft.AspNetCore.Http;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;

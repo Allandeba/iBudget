@@ -1,5 +1,6 @@
 ﻿using iBudget.Business;
 using iBudget.Models;
+using iBudget.DAO.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 using Microsoft.AspNetCore.Authorization;

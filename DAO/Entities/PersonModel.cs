@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace iBudget.Models;
+namespace iBudget.DAO.Entities;
 
 public class PersonModel
 {
@@ -29,9 +29,11 @@ public class PersonModel
     public DateTime CreationDate { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
+    public int DocumentId { get; set; }
     public DocumentModel Document { get; set; }
 
     [Required(ErrorMessage = Messages.EmptyTextValidation)]
+    public int ContactId { get; set; }
     public ContactModel Contact { get; set; }
 
     public List<ProposalModel> Proposal { get; set; }

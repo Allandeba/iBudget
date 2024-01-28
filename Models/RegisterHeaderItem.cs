@@ -1,4 +1,4 @@
-namespace iBudget.Models;
+namespace iBudget.DAO.Entities;
 
 public class RegisterHeaderItem
 {

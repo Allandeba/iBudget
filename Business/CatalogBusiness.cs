@@ -1,4 +1,4 @@
-﻿using iBudget.Models;
+﻿using iBudget.DAO.Entities;
 using iBudget.Repository;
 
 namespace iBudget.Business

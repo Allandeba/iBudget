@@ -1,6 +1,6 @@
 ﻿using iBudget.DAO;
 using iBudget.Framework;
-using iBudget.Models;
+using iBudget.DAO.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

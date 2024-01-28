@@ -1,5 +1,5 @@
 ﻿using iBudget.DAO.Mappings;
-using iBudget.Models;
+using iBudget.DAO.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace iBudget.DAO

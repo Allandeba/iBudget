@@ -1,6 +1,6 @@
 ﻿using iBudget.Framework;
 using iBudget.Framework.Extensions;
-using iBudget.Models;
+using iBudget.DAO.Entities;
 using iBudget.Repository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;

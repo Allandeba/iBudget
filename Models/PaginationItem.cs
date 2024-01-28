@@ -1,6 +1,6 @@
 using X.PagedList;
 
-namespace iBudget.Models;
+namespace iBudget.DAO.Entities;
 
 public class PaginationItem
 {

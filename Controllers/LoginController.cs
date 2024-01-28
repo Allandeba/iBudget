@@ -1,6 +1,6 @@
 ﻿using iBudget.Business;
 using iBudget.Framework;
-using iBudget.Models;
+using iBudget.DAO.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
