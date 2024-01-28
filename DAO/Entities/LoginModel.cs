@@ -26,4 +26,7 @@ public class LoginModel
     [NotMapped]
     [Display(Name = "Lembrar-me")]
     public bool Remember { get; set; }
+
+    [NotMapped]
+    public string IpAddress { get; set; }
 }

@@ -104,8 +104,8 @@ namespace iBudget.Controllers
                 {
                     Username = login.Username,
                     Password = login.Password,
-                    RemoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString(),
-                    DateTime = DateTime.Now,
+                    RemoteIpAddress = login.IpAddress,
+                    DateTime = DateTime.UtcNow,
                     Status = loginLogStatus
                 };
 
