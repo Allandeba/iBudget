@@ -55,7 +55,7 @@
                                     <td class="text-center">
                                         <input id=item-quantity name="ProposalContent[@i].Quantity" class="text-center" onchange="onChangeItemQuantity(this)"
                                             value="@(proposalContent.Quantity)" type="number" step="0.01" />
-                                        <span asp-validation-for="ProposalContent[@i].Quantity" class="text-danger"></span>
+                                        <span asp-validation-for="proposalContent[@i].Quantity" class="text-danger"></span>
                                     </td>
                                     <td class="text-center">
                                         <span class="delete-icon" onclick="deleteItem(@proposalContent.ProposalContentId, @proposalContent.Item.ItemId)">
