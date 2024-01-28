@@ -9,6 +9,25 @@ public class LoginLogMap : IEntityTypeConfiguration<LoginLogModel>
 {
     public void Configure(EntityTypeBuilder<LoginLogModel> builder)
     {
+        _ = builder.ToTable("LoginLogs");
+
+        _ = builder.HasKey(ll => ll.LoginLogId);
+
+        _ = builder.Property(ll => ll.Username).HasColumnName("Username").IsRequired();
+
+        _ = builder.Property(ll => ll.Password).HasColumnName("Password").IsRequired();
+
+        _ = builder.Property(ll => ll.RemoteIpAddress).HasColumnName("RemoteIpAddress");
+
+        _ = builder
+            .Property(ll => ll.DateTime)
+            .HasColumnName("DateTime")
+            .HasColumnType("timestamp")
+            .IsRequired();
+
+        _ = builder.Property(ll => ll.Status).HasColumnName("Status").IsRequired();
+
+        // todo: fazer um extension class para enums <T>
         List<string> enumValues = Enum.GetValues(typeof(LoginLogStatus))
             .Cast<LoginLogStatus>()
             .Select(e => $"{(int)e}-{e}")
