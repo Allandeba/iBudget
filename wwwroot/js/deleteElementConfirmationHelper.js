@@ -102,7 +102,7 @@ function showModal(id, controller, endpoint, deleteItemName) {
   })
     .then((result) => {
       if (result) {
-        deleteItem(url);
+        deleteItemOpenModal(url);
       } else {
         //
       }
@@ -112,12 +112,21 @@ function showModal(id, controller, endpoint, deleteItemName) {
     });
 }
 
-function deleteItem(url) {
-  $.post(url)
-    .done(function (data) {
+function deleteItemOpenModal(url) {
+  $.ajax({
+    url: url,
+    method: 'POST',
+    dataType: 'text',
+    success: function (data) {
+      if (data.includes('CustomError')) {
+        $('body').html(data);
+        return;
+      }
+
       location.reload();
-    })
-    .fail(function () {
-      alert(`Falha ao excluir ${url}.`);
-    });
+    },
+    error: function (xhr, status, error) {
+      alert(`Error: ${error}`);
+    },
+  });
 }
