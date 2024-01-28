@@ -27,6 +27,6 @@ public class StringExtensionsTest
         const string successReturning = "1232132849332210";
 
         var result = dotString.OnlyNumbers();
-        Assert.Equal(result, successReturning);
+        Assert.Equal(successReturning, result);
     }
 }
