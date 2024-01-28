@@ -19,4 +19,14 @@ public class StringExtensionsTest
         var foundWordUnaccent = unaccentWord.Contains(wordToFind);
         Assert.True(foundWordUnaccent);
     }
+
+    [Fact]
+    public void ShouldRemoveDots()
+    {
+        const string dotString = "123.d21-f32/8493%$#!@#&*()(_-+=_-`|32210";
+        const string successReturning = "1232132849332210";
+
+        var result = dotString.OnlyNumbers();
+        Assert.Equal(result, successReturning);
+    }
 }
