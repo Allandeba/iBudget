@@ -5,6 +5,7 @@ using iBudget.Repository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
+using Microsoft.IdentityModel.Tokens;
 
 namespace iBudget.Business
 {
@@ -113,8 +114,6 @@ namespace iBudget.Business
 
         public async Task UpdateAsync(ProposalModel proposal)
         {
-            proposal.Person = await _personBusiness.GetByIdAsync(proposal.PersonId);
-
             foreach (ProposalContentModel proposalContent in proposal.ProposalContent)
                 proposalContent.Item = await _itemBusiness.GetByIdAsync(proposalContent.ItemId);
 
@@ -130,7 +129,9 @@ namespace iBudget.Business
             );
 
             if (existentProposal == null)
-                return;
+                throw new Exception(
+                    $"Não existe uma Proposal com o id == {proposal.ProposalId} para ser atualizada"
+                );
 
             await CreateProposalHistoryAsync(existentProposal);
 
@@ -143,23 +144,17 @@ namespace iBudget.Business
             ProposalIncludes[] includes = new ProposalIncludes[]
             {
                 ProposalIncludes.Person,
-                ProposalIncludes.ItemImageList
+                ProposalIncludes.ItemImageList,
+                ProposalIncludes.ProposalHistory
             };
             ProposalModel proposal = await _repository.GetByIdAsync(
                 proposalId,
                 includes.Cast<Enum>().ToArray()
             );
             if (proposal == null)
-                return;
-
-            foreach (ProposalContentModel proposalContent in proposal.ProposalContent)
-            {
-                ProposalContentModel dBProposalContent =
-                    await _repository.GetProposalContentByIdAsync(
-                        proposalContent.ProposalContentId
-                    );
-                await _repository.RemoveProposalContentAsync(dBProposalContent);
-            }
+                throw new Exception(
+                    $"Não foi encontrado uma Proposal com o id == {proposalId} para remoção"
+                );
 
             await _repository.RemoveAsync(proposal);
         }
@@ -175,8 +170,8 @@ namespace iBudget.Business
                 new()
                 {
                     ModificationDate = existentProposal.ModificationDate,
-                    Person = existentProposal.Person,
-                    Proposal = existentProposal
+                    PersonId = existentProposal.PersonId,
+                    ProposalId = existentProposal.ProposalId
                 };
 
             ProposalContentJSON proposalContentJSON = new();
@@ -201,7 +196,7 @@ namespace iBudget.Business
             ProposalModel proposalToUpdate
         )
         {
-            existentProposal.Person = proposalToUpdate.Person;
+            existentProposal.PersonId = proposalToUpdate.PersonId;
             existentProposal.Discount = proposalToUpdate.Discount;
 
             await RemoveDeletedProposalContents(existentProposal, proposalToUpdate);
@@ -312,6 +307,9 @@ namespace iBudget.Business
 
         public async Task IncludeItems(ProposalModel proposal)
         {
+            if (proposal.ProposalContent.IsNullOrEmpty())
+                return;
+
             foreach (ProposalContentModel proposalContent in proposal.ProposalContent)
                 proposalContent.Item = await _itemBusiness.GetByIdAsync(proposalContent.ItemId);
         }
