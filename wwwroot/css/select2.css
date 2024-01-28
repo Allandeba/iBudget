@@ -45,3 +45,8 @@
   border: 1px solid #007bff;
   color: var(--theme-text);
 }
+
+.select2-search,
+.select2-search--dropdown {
+  background-color: var(--theme-background);
+}
