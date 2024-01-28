@@ -206,7 +206,7 @@ namespace iBudget.Business
 
             await RemoveDeletedProposalContents(existentProposal, proposalToUpdate);
 
-            //Adiciona novos itens ou atualiza os existentes com seus novos valores
+            // //Adiciona novos itens ou atualiza os existentes com seus novos valores
             foreach (ProposalContentModel proposalContent in proposalToUpdate.ProposalContent)
             {
                 ProposalContentModel updateProposalContent = existentProposal.ProposalContent.Find(
@@ -227,20 +227,27 @@ namespace iBudget.Business
             ProposalModel proposalToUpdate
         )
         {
-            // ProposalContent enviados da view
             List<int> updatedProposalContentIds = proposalToUpdate.ProposalContent
                 .Select(pc => pc.ProposalContentId)
                 .ToList();
 
-            // Pega todos os ProposalContent que estão no banco mas foram excluidos na view
             IEnumerable<ProposalContentModel> proposalContentToExclude =
                 await _repository.FindProposalContentAsync(
                     pc =>
                         !updatedProposalContentIds.Contains(pc.ProposalContentId)
                         && pc.ProposalId == proposalToUpdate.ProposalId
                 );
-            foreach (ProposalContentModel existentProposalContent in proposalContentToExclude)
-                _ = existentProposal.ProposalContent.Remove(existentProposalContent);
+
+            foreach (ProposalContentModel exclude in proposalContentToExclude)
+            {
+                var item = existentProposal.ProposalContent.FirstOrDefault(
+                    x => x.ItemId == exclude.ItemId
+                );
+                if (item != null)
+                    existentProposal.ProposalContent.Remove(item);
+                else
+                    throw new Exception("Não encontrou o item");
+            }
         }
 
         public async Task<SelectList> GetSelectListPeople()
