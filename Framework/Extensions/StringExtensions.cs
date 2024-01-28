@@ -14,4 +14,9 @@ public static class StringExtensions
         );
         return normalized.Normalize(NormalizationForm.FormC);
     }
+
+    public static string OnlyNumbers(this string content)
+    {
+        return Regex.Replace(content, @"[^\d]", "");
+    }
 }
