@@ -1,5 +1,6 @@
 ﻿using iBudget.Framework;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -90,4 +91,6 @@ public class ItemModel
         ItemImageModel itemImageModel = ItemImageList.FirstOrDefault(a => a.Main);
         return itemImageModel;
     }
+
+    public bool HasImages() => !ItemImageList.IsNullOrEmpty();
 }

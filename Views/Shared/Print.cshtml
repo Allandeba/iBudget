@@ -74,29 +74,24 @@
     </div>
 
     <div class="row justify-content-center py-2">
-        @foreach (var ProposalContent in Model.ProposalContent)
-        {
-            ItemImageModel image = ProposalContent.Item.GetMainImage();
-            <div class="col-6 col-md-4 col-lg-3">
-                @if (image != null)
+        @{
+            foreach (var ProposalContent in Model.ProposalContent)
+            {
+                if (ProposalContent.Item.HasImages())
                 {
-                    <img id="@(image.ItemImageId)" name="@(image.FileName)" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))"
-                        alt="@(image.FileName)" class="img-fluid" />
-                }
-                else
-                {
-                    image = ProposalContent.Item?.ItemImageList.FirstOrDefault();
-                    if (image != null)
-                    {
-                        <img id="@(image.ItemImageId)" name="@(image.FileName)" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))"
-                            alt="@(image.FileName)" class="img-fluid" />
-                    }
-                }
+                    ItemImageModel image = ProposalContent.Item.GetMainImage();
+                    if (image == null)
+                        image = ProposalContent.Item?.ItemImageList.FirstOrDefault();
+                    
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <img id="@(image.ItemImageId)" name="@(image.FileName)" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)" class="img-fluid" />
 
-                <div class="text-center">
-                    <p class="text-dark opacity-75">@ProposalContent.Item.ItemName</p>
-                </div>
-            </div>
+                        <div class="text-center">
+                            <p class="text-dark opacity-75">@ProposalContent.Item.ItemName</p>
+                        </div>
+                    </div>
+                }
+            }
         }
     </div>
 </div>
