@@ -13,7 +13,7 @@
                 {
                     <p class="lead text-muted">@exception.Message</p>
                 }
-                @if (dBException.Trim() != "")
+                @if (!string.IsNullOrEmpty(dBException.Trim()))
                 {
                     <p class="lead text-muted">@dBException</p>
                 }
