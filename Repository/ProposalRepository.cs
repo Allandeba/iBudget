@@ -104,26 +104,26 @@ namespace iBudget.Repository
 
         public async Task AddAsync(ProposalModel Proposal)
         {
-            _ = await _context.Proposal.AddAsync(Proposal);
-            _ = await _context.SaveChangesAsync();
+            await _context.Proposal.AddAsync(Proposal);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(ProposalModel Proposal)
         {
-            _ = _context.Proposal.Update(Proposal);
-            _ = await _context.SaveChangesAsync();
+            _context.Proposal.Update(Proposal);
+            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveAsync(ProposalModel Proposal)
         {
-            _ = _context.Proposal.Remove(Proposal);
-            _ = await _context.SaveChangesAsync();
+            _context.Proposal.Remove(Proposal);
+            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveProposalContentAsync(ProposalContentModel proposalContent)
         {
-            _ = _context.ProposalContent.Remove(proposalContent);
-            _ = await _context.SaveChangesAsync();
+            _context.ProposalContent.Remove(proposalContent);
+            await _context.SaveChangesAsync();
         }
     }
 }
