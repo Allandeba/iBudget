@@ -83,10 +83,4 @@ public class CompanyController : BaseController
         await _business.UpdateAsync(company);
         return Redirect("/");
     }
-
-    public async Task<IActionResult> Delete(int id)
-    {
-        await _business.RemoveAsync(id);
-        return RedirectToAction(nameof(Index));
-    }
 }
