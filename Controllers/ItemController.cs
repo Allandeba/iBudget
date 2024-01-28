@@ -1,4 +1,5 @@
-﻿using iBudget.Business;
+﻿using System.Linq.Expressions;
+using iBudget.Business;
 using iBudget.Controllers;
 using iBudget.DAO.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -78,7 +79,7 @@ public class ItemController : BaseController
     public async Task<IActionResult> Search(string search, int? pageNumber)
     {
         TempData[Constants.SearchBoxData] = search ?? "";
-        IEnumerable<ItemModel> items = await _business.GetAllLikeAsync(search, pageNumber);
+        var items = await _business.GetAllLikeAsync(search, pageNumber);
         return View(nameof(Index), items);
     }
 }
