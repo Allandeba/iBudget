@@ -30,13 +30,11 @@ public class DatabaseInitialize
     {
         try
         {
-            await _context.Database.MigrateAsync();
-
             if (!await _context.Database.CanConnectAsync())
-            {
-                _logger.LogError("Não foi possível conectar ao banco de dados.");
-                return;
-            }
+                throw new Exception("Não foi possível conectar ao banco de dados.");
+
+            await _context.Database.EnsureCreatedAsync();
+            await _context.Database.MigrateAsync();
 
             if (!await _context.Login.AnyAsync())
                 await CreateAdminLogin();
@@ -57,9 +55,9 @@ public class DatabaseInitialize
     {
         Cryptography cryptography = new Cryptography();
 
-        var password = _env.IsProduction()
-            ? Environment.GetEnvironmentVariable("USER_PASSWORD")
-            : _configuration.GetConnectionString("USER_PASSWORD");
+        var password = _configuration.GetConnectionString("USER_PASSWORD");
+        if (string.IsNullOrEmpty(password))
+            password = Environment.GetEnvironmentVariable("USER_PASSWORD");
 
         if (string.IsNullOrEmpty(password))
             throw new Exception(

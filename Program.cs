@@ -54,27 +54,21 @@ public class Program
                 .Build();
         });
 
+        SystemManager.IsDevelopment = builder.Environment.IsDevelopment();
         string syncfusionKey;
         string connectionString;
 
-        if (builder.Environment.IsDevelopment())
-        {
-            syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
-            if (string.IsNullOrEmpty(syncfusionKey))
-                syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
-            connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
-            SystemManager.IsDevelopment = true;
-        }
-        else
-        {
-            syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
-            if (string.IsNullOrEmpty(syncfusionKey))
-                throw new Exception("Chave Syncfusion não encontrada para produção");
-
+        connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
+        if (string.IsNullOrEmpty(connectionString))
             connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
-            if (string.IsNullOrEmpty(connectionString))
-                throw new Exception("Configuração de banco de dados não encontrada para produção");
-        }
+        if (string.IsNullOrEmpty(connectionString))
+            throw new Exception("Configuração de banco de dados não encontrada");
+
+        syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
+        if (string.IsNullOrEmpty(syncfusionKey))
+            syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");        
+        if (string.IsNullOrEmpty(syncfusionKey))
+            throw new Exception("Chave Syncfusion não encontrada");
 
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionKey);
 
