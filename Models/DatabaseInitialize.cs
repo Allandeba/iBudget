@@ -33,7 +33,6 @@ public class DatabaseInitialize
             if (!await _context.Database.CanConnectAsync())
                 throw new Exception("Não foi possível conectar ao banco de dados.");
 
-            await _context.Database.EnsureCreatedAsync();
             await _context.Database.MigrateAsync();
 
             if (!await _context.Login.AnyAsync())

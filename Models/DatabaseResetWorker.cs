@@ -1,4 +1,3 @@
-using iBudget.DAO;
 using iBudget.DAO.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -53,10 +52,10 @@ public class DatabaseResetWorker : BackgroundService
                 )
                 .ToList();
 
-            var truncateCommands = appTables
+            var dropCommands = appTables
                 .Select(table => $"DROP TABLE \"{table}\" CASCADE")
                 .ToList();
-            var sql = string.Join("; ", truncateCommands);
+            var sql = string.Join("; ", dropCommands);
 
             await context.Database.ExecuteSqlRawAsync(sql);
         }
