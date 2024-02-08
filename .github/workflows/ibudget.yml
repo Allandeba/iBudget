@@ -24,7 +24,7 @@ jobs:
       - name: Build application
         run: dotnet build --no-restore
       - name: Test application
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test ./iBudget.UnitTest/iBudget.UnitTest.csproj --no-build --verbosity normal
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
