@@ -16,9 +16,15 @@ jobs:
       - name: Build and test application
         uses: actions/setup-dotnet@v3
         with:
-            dotnet-version: 7.0.x
-        run: dotnet build
-        run: dotnet test
+          dotnet-version: 7.0.x
+      - name: Clean application
+        run: dotnet clean
+      - name: Restore application
+        run: dotnet restore
+      - name: Build application
+        run: dotnet build --no-restore
+      - name: Test application
+        run: dotnet test --no-build --verbosity normal
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -53,5 +59,5 @@ jobs:
       - name: Check status
         uses: srt32/uptime@master
         with:
-            url-to-hit: ${{ secrets.WEBSITE_URL }}
-            expected-statuses: "200"
+          url-to-hit: ${{ secrets.WEBSITE_URL }}
+          expected-statuses: '200'
