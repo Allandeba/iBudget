@@ -1,0 +1,55 @@
+name: iBudget Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and test application
+        uses: actions/setup-dotnet@v3
+        run: dotnet build --configuration Release
+        run: dotnet test --no-restore
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+
+      - name: SSH into server and deploy
+        uses: appleboy/ssh-action@1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            docker pull ${{ secrets.DOCKER_IMAGE_NAME }}:latest
+            docker stop ${{ secrets.CONTAINER_NAME }} || true
+            docker rm ${{ secrets.CONTAINER_NAME }} || true
+            docker run -d --name ${{ secrets.CONTAINER_NAME }} -p ${{ secrets.CONTAINER_PORT }} --restart=always --env-file=${{ secrets.VPN_ENVIRONMENT_FILE }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+
+      - name: Check status
+        uses: srt32/uptime@master
+        with:
+            url-to-hit: ${{ secrets.WEBSITE_URL }}
+            expected-statuses: "200"
