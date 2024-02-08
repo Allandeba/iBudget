@@ -52,7 +52,7 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
             docker stop ${{ secrets.CONTAINER_NAME }} || true
-            docker rm ${{ secrets.CONTAINER_NAME }} || true
+            docker rm ${{ secrets.CONTAINER_NAME }} -f || true
             docker run -d --name ${{ secrets.CONTAINER_NAME }} -p ${{ secrets.CONTAINER_PORT }} --restart=always --env-file=${{ secrets.VPN_ENVIRONMENT_FILE }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
 
       - name: Check status
