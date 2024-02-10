@@ -23,7 +23,8 @@ jobs:
             docker run -d --name ${{ secrets.CONTAINER_NAME }} -p ${{ secrets.CONTAINER_PORT }} --restart=always --env-file=${{ secrets.VPN_ENVIRONMENT_FILE }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
 
       - name: Check status
-        uses: srt32/uptime@master
+        uses: jtalk/url-health-check-action@v4
         with:
-          url-to-hit: ${{ secrets.WEBSITE_URL }}
-          expected-statuses: '200,301'
+          url: ${{ secrets.WEBSITE_URL }}
+          max-attempts: 3
+          retry-delay: 5s
