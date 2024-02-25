@@ -33,7 +33,9 @@ public class DatabaseInitialize
             if (!await _context.Database.CanConnectAsync())
                 throw new Exception("Não foi possível conectar ao banco de dados.");
 
-            await _context.Database.MigrateAsync();
+            if (_context.Database.GetPendingMigrations().Any()) {
+                _context.Database.Migrate();
+            }
 
             if (!await _context.Login.AnyAsync())
                 await CreateAdminLogin();
