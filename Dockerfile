@@ -31,6 +31,8 @@ RUN apk add --no-cache icu-libs icu-data-full
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 # Fix Syncfusion Failed to launch chromium: Due to insufficient permission unable to launch the chromium process for conversion
+COPY . /app
+WORKDIR /app
 RUN chmod +x /app/runtimes/linux/native/chrome && \
     chmod +x /app/runtimes/linux/native/chrome-wrapper
 
