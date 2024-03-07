@@ -4,11 +4,11 @@ ARG TAG=$VERSION-alpine
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app
 
-COPY iBudget.csproj .
-RUN dotnet restore iBudget.csproj
+COPY *.csproj .
+RUN dotnet restore
 
 COPY . .
-RUN dotnet publish iBudget.csproj -c release -o out --no-restore --no-cache /restore
+RUN dotnet publish -c release -o out --no-restore --no-cache /restore
 
 # Syncfusion
 RUN apt-get update \
@@ -23,19 +23,18 @@ RUN apt-get update \
     && rm -rf /var/cache/apk/* \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/*
 
-# Fix Syncfusion Failed to launch chromium: Due to insufficient permission unable to launch the chromium process for conversion
-COPY . /app
-WORKDIR /app
-
-RUN chmod +x out/runtimes/linux/native/chrome && \
-    chmod +x out/runtimes/linux/native/chrome-wrapper
-
 FROM mcr.microsoft.com/dotnet/aspnet:$TAG
 WORKDIR /app
 
 # Fix InvariantCulture when using Alpine version
 RUN apk add --no-cache icu-libs icu-data-full
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
+# Fix Syncfusion Failed to launch chromium: Due to insufficient permission unable to launch the chromium process for conversion
+COPY . /app
+WORKDIR /app
+RUN chmod +x /app/runtimes/linux/native/chrome && \
+    chmod +x /app/runtimes/linux/native/chrome-wrapper
 
 COPY --from=build /app/out .
 
