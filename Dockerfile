@@ -5,11 +5,14 @@ ARG TAG=$VERSION-bullseye-slim-$ARCH
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app
 
-COPY *.csproj .
-RUN dotnet restore
+COPY iBudget.csproj .
+RUN dotnet restore iBudget.csproj
 
 COPY . .
-RUN dotnet publish -c release -o out --no-restore --no-cache /restore
+RUN dotnet publish iBudget.csproj -c release -o out --no-restore --no-cache /restore
+
+FROM mcr.microsoft.com/dotnet/aspnet:$TAG
+WORKDIR /app
 
 # Syncfusion
 RUN apt-get update \
