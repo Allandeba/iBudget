@@ -1,5 +1,6 @@
+ARG ARCH=amd64
 ARG VERSION=7.0
-ARG TAG=$VERSION-alpine
+ARG TAG=$VERSION-bullseye-slim-$ARCH
 
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app
@@ -22,13 +23,6 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && rm -rf /var/cache/apk/* \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/*
-
-FROM mcr.microsoft.com/dotnet/aspnet:$TAG
-WORKDIR /app
-
-# Fix InvariantCulture when using Alpine version
-RUN apk add --no-cache icu-libs icu-data-full
-ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 COPY --from=build /app/out .
 
