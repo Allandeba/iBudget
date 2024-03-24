@@ -1,0 +1,68 @@
+﻿@import 'svg.css';
+@import 'select2.css';
+
+:root {
+    --onfocus: #258cfb;
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--onfocus);
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+.form-button-disable {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: default;
+}
+
+.header-img {
+    text-align: center;
+}
+
+.header-img img {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.zoom-effect {
+    transition: transform 0.2s;
+}
+
+.zoom-effect:hover,
+.zoom-effect:active {
+    transform: scale(1.1);
+}
+
+a {
+    color: black;
+    text-decoration: none !important;
+}
+
+a:hover,
+a:active {
+    color: var(--onfocus);
+}

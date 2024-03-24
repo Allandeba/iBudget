@@ -1,0 +1,50 @@
+﻿@model LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<script type="application/javascript">
+    $(document).ready(function() {
+        setIpAddress();
+    });
+
+    function setIpAddress() {
+        const ipAddress = $('#ipAddress');
+        ipAddress.val(null);
+
+        $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
+        function(json) {
+            if (json.ip)
+                ipAddress.val(json.ip);
+        });
+    }
+</script>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "needs-validation" }))
+            {
+                <object class="svg svg-person mb-4" width="72" height="72" alt="Person"></object>
+                <h1 class="h3 mb-3 font-weight-normal">Entrar</h1>
+
+                <partial name="Partials/_EditLogin"/>
+
+                <div class="form-check text-start my-3">
+                    <label asp-for="Remember" class="form-check-label">
+                        <input asp-for="Remember" class="form-check-input" type="checkbox">
+                        Lembrar-me
+                    </label>
+                </div>
+
+                <input type="hidden" id="ipAddress" name="IpAddress"/>
+
+                <div id="submit" class="text-end mb-4">
+                    <button class="btn btn-primary btn-lg" type="submit">Entrar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

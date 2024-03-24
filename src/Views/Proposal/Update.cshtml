@@ -1,0 +1,102 @@
+﻿@using Newtonsoft.Json
+@model ProposalModel
+
+@{
+    ViewData["Title"] = "Atualizar - " + Model.ProposalId;
+    string itemsJson = JsonConvert.SerializeObject(ViewBag.ItemsFull);
+
+    decimal totalValue = 0;
+}
+
+@section Scripts
+{
+    <script src="@Url.Content("~/js/proposalUtils.js")"></script>
+    <script src="@Url.Content("~/js/submitHelper.js")"></script>
+}
+
+<script>
+    const items = @Html.Raw(itemsJson);
+    const symbol = "@(new CultureInfo("pt-br").NumberFormat.CurrencySymbol)";
+</script>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h4 class="mb-3">Detalhe do orçamento</h4>
+            @using (Html.BeginForm("Update", "Proposal", FormMethod.Post, new { @class = "needs-validation" }))
+            {
+                @Html.HiddenFor(m => m.ProposalId)
+                ;
+                @Html.HiddenFor(m => m.ModificationDate)
+                ;
+                @Html.HiddenFor(m => m.GUID)
+                ;
+
+                <partial name="Partials/_EditProposal"/>
+
+                <div class="table-responsive mb-4">
+                    <table id="proposalContentTable" class="table table-striped">
+
+                        <partial name="Partials/_THeadProposal"/>
+
+                        <tbody id="table-rows">
+                        @{
+                            if ((IEnumerable<ProposalContentModel>)ViewBag.ProposalContent != null)
+
+                                for (var i = 0; i < ViewBag.ProposalContent.Count; i++)
+                                {
+                                    var proposalContent = ViewBag.ProposalContent[i];
+
+                                    <tr id="proposalContentRow_@proposalContent.ProposalContentId">
+                                        <td class="text-center">
+                                            <input type="hidden" name="ProposalContent[@i].ProposalContentId" value="@proposalContent.ProposalContentId"/>
+                                            <input type="hidden" name="ProposalContent[@i].ItemId" value="@proposalContent.Item.ItemId"/>
+                                            <span>@proposalContent.ProposalContentId</span>
+                                        </td>
+                                        <td name="ProposalContent[@i].Item.ItemId" class="text-center">@proposalContent.Item.ItemId</td>
+                                        <td class="text-center" name="ProposalContent[@i].Item.ItemName">@proposalContent.Item.ItemName</td>
+                                        <td id="item-value" name="ProposalContent[@i].Item.Value" class="text-center">@proposalContent.Item.Value</td>
+                                        <td class="text-center">
+                                            <input id=item-quantity name="ProposalContent[@i].Quantity" class="text-center" onchange="onChangeItemQuantity(this)"
+                                                   value="@(proposalContent.Quantity)" type="number" step="0.01"/>
+                                            <span asp-validation-for="proposalContent[@i].Quantity" class="text-danger"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="delete-icon" onclick="deleteItem(@proposalContent.ProposalContentId, @proposalContent.Item.ItemId)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+                                                    <style>
+                                                        svg {
+                                                            fill: #e60a0a
+                                                        }
+                                                    </style>
+                                                    <path
+                                                        d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"/>
+                                                </svg>
+                                            </span>
+                                        </td>
+                                    </tr>
+
+                                    totalValue += proposalContent.Item.Value;
+                                }
+                        }
+
+                        <tr>
+                            <td colspan="3" class="text-end fw-bold">Total:</td>
+                            <td id="total-value-cell" class="text-center fw-bold">@((totalValue - Model.Discount).ToString("C", new CultureInfo("pt-br")))</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <span asp-validation-for="ProposalContent" class="text-danger"></span>
+                </div>
+
+                <hr class="my-4">
+
+                <div id="submit" class="text-end mb-4">
+                    <button class="btn btn-primary btn-lg" type="submit">Salvar</button>
+                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancelar</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

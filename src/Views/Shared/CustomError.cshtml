@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "CustomError";
+    var exception = ViewData["Exception"] as Exception ?? null;
+    var dBException = ViewData["DBException"] as string ?? "";
+}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <div class="text-center ">
+                <h1 class="fw-bolder">Ocorreu uma inconsistência</h1>
+                @if (exception != null)
+                {
+                    <p class="lead text-muted">@exception.Message</p>
+                }
+                @if (!string.IsNullOrEmpty(dBException.Trim()))
+                {
+                    <p class="lead text-muted">@dBException</p>
+                }
+                <form asp-area="" asp-controller="Home" asp-action="Index">
+                    <button type="submit" class="btn btn-primary">Clique aqui para voltar a tela inicial</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

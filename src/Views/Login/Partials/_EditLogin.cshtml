@@ -1,0 +1,25 @@
+@model LoginModel
+
+
+@{
+    var username = "";
+    var password = "";
+    if (SystemManager.IsDevelopment)
+    {
+        username = "admin";
+        password = "@dministrat0R.";
+    }
+}
+
+
+<div class="mb-3 text-start">
+    <label asp-for="Username" class="form-label"></label>
+    <input asp-for="Username" class="form-control" placeholder="" autofocus="" value="@username">
+    <span asp-validation-for="Username" class="text-danger"></span>
+</div>
+
+<div class="mb-3 text-start">
+    <label asp-for="Password" class="form-label"></label>
+    <input asp-for="Password" class="form-control" placeholder="" value="@password">
+    <span asp-validation-for="Password" class="text-danger"></span>
+</div>

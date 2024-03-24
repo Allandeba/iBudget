@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "_LayoutBase";
+    ViewBag.Theme = "dark";
+}
+
+@section Header
+{
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                <partial name="Partials/_DevelopmentMenu"/>
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@Constants.ApplicationName</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <partial name="Partials/_UserAuthenticatedMenu"/>
+                </div>
+            </div>
+        </nav>
+    </header>
+}
+
+
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+
+@section Footer
+{
+    <footer class="border-top footer ">
+        <div class="container">
+            &copy; @DateTime.Now.Year - @Constants.ApplicationName<a asp-area="" asp-controller="Home" asp-action="Index"></a>
+        </div>
+    </footer>
+}
+
+@RenderSection("scripts", false)

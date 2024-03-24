@@ -1,0 +1,53 @@
+﻿@using Newtonsoft.Json
+@model ProposalModel
+
+@{
+    ViewData["Title"] = "Cadastro de orçamento";
+    string itemsJson = JsonConvert.SerializeObject(ViewBag.ItemsFull);
+}
+
+@section Scripts
+{
+    <script src="@Url.Content("~/js/proposalUtils.js")"></script>
+    <script src="@Url.Content("~/js/submitHelper.js")"></script>
+}
+
+<script>
+    const items = @Html.Raw(itemsJson);
+    const symbol = "@(new CultureInfo("pt-br").NumberFormat.CurrencySymbol)";
+</script>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            @using (Html.BeginForm("Create", "Proposal", FormMethod.Post, new { @class = "needs-validation" }))
+            {
+                <partial name="Partials/_EditProposal"/>
+
+                <div class="table-responsive mb-4">
+                    <table id="proposalContentTable" class="table table-striped">
+
+                        <partial name="Partials/_THeadProposal"/>
+
+                        <tbody id="table-rows">
+                        @*dinamically*@
+                        <tr>
+                            <td colspan="3" class="text-end fw-bold">Total:</td>
+                            <td id="total-value-cell" class="text-center fw-bold">0.00</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <span asp-validation-for="ProposalContent" class="text-danger"></span>
+                </div>
+
+                <hr class="my-4">
+
+                <div id="submit" class="text-end mb-4">
+                    <button class="btn btn-primary btn-lg" type="submit">Salvar</button>
+                    <a class="btn btn-secondary btn-lg" asp-action="index">Cancelar</a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

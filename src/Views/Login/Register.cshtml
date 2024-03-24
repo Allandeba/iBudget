@@ -1,0 +1,29 @@
+﻿@model LoginModel
+
+@{
+    ViewData["Title"] = "Cadastro de usuário";
+}
+
+@section Scripts
+{
+    <script src="@Url.Content("~/js/submitHelper.js")"></script>
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-4">
+
+            @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @class = "needs-validation" }))
+            {
+                <object class="svg svg-person mb-4" width="72" height="72" alt="Person"></object>
+                <h1 class="h3 mb-3 font-weight-normal">Novo usuário</h1>
+
+                <partial name="Partials/_EditLogin"/>
+
+                <div id="submit" class="text-end mb-4">
+                    <button class="btn btn-primary btn-lg" type="submit">Criar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
