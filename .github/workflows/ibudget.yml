@@ -6,63 +6,31 @@ on:
       - main
 
 jobs:
-  build:
+  installChrome:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+  automatedTest:
+    runs-on: ubuntu-latest
+    needs: installChrome
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build and test application
+      - name: Setup dotnet build
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 7.0.x
 
-      - name: Restore application
-        run: dotnet restore
+      - name: Restore automated test project
+        run: dotnet restore ./test/iBudget.AutomatedTest/iBudget.AutomatedTest.csproj
 
-      - name: Build application
-        run: dotnet build --no-restore
+      - name: Build solution
+        run: dotnet build ./test/iBudget.AutomatedTest/iBudget.AutomatedTest.csproj --no-restore
 
-      - name: Test application
-        run: dotnet test ./iBudget.UnitTest/iBudget.UnitTest.csproj --no-build --verbosity normal
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
-
-      - name: SSH into server and deploy
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          command_timeout: 60m
-          script: |
-            yum update -y
-            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
-            docker rm -f ${{ secrets.CONTAINER_NAME }}
-            docker run -d --name ${{ secrets.CONTAINER_NAME }} -p ${{ secrets.CONTAINER_PORT }} --restart=always --env-file=${{ secrets.VPN_ENVIRONMENT_FILE }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
-
-      - name: Check status
-        uses: jtalk/url-health-check-action@v4
-        with:
-          url: ${{ secrets.WEBSITE_URL }}
-          follow-redirect: true
-          max-attempts: 3
-          retry-delay: 10s
-          retry-all: true
+      - name: Automated Test
+        run: dotnet test ./test/iBudget.AutomatedTest/iBudget.AutomatedTest.csproj --no-build --verbosity normal
