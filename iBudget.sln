@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iBudget", "iBudget.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iBudget.UnitTest", "iBudget.UnitTest\iBudget.UnitTest.csproj", "{055DC3EA-A61E-4276-A65D-8C35520F542D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iBudget.AutomatedTest", "iBudget.AutomatedTest\iBudget.AutomatedTest.csproj", "{C1731BDC-81D7-4CBC-A40A-FB093FC17B0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{055DC3EA-A61E-4276-A65D-8C35520F542D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{055DC3EA-A61E-4276-A65D-8C35520F542D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{055DC3EA-A61E-4276-A65D-8C35520F542D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1731BDC-81D7-4CBC-A40A-FB093FC17B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1731BDC-81D7-4CBC-A40A-FB093FC17B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1731BDC-81D7-4CBC-A40A-FB093FC17B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1731BDC-81D7-4CBC-A40A-FB093FC17B0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
