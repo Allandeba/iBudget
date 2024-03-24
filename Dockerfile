@@ -5,10 +5,10 @@ ARG TAG=$VERSION-bullseye-slim-$ARCH
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
 WORKDIR /app
 
-COPY iBudget.csproj .
+COPY /src/iBudget.csproj .
 RUN dotnet restore iBudget.csproj
 
-COPY . .
+COPY /src/ .
 RUN dotnet publish iBudget.csproj -c release -o out --no-restore --no-cache /restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:$TAG
