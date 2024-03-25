@@ -1,3 +1,4 @@
+@using Shared
 @model LoginModel
 
 
@@ -6,8 +7,8 @@
     var password = "";
     if (SystemManager.IsDevelopment)
     {
-        username = "admin";
-        password = "@dministrat0R.";
+        username = Constants.DefaultUsername;
+        password = Constants.DefaultPassword;
     }
 }
 

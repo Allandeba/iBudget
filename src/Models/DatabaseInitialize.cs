@@ -66,7 +66,7 @@ public class DatabaseInitialize
             );
 
         await _context.Login.AddAsync(
-            new LoginModel { Username = "admin", Password = cryptography.GetHash(password) }
+            new LoginModel { Username = Constants.DefaultUsername, Password = cryptography.GetHash(password) }
         );
     }
 

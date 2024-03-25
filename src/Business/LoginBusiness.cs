@@ -2,6 +2,7 @@
 using iBudget.Framework;
 using iBudget.Repository;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 
 namespace iBudget.Business;
 
@@ -18,11 +19,11 @@ public class LoginBusiness
     {
         var user = await _repository.GetByUsernameAsync(login.Username);
         if (user == null)
-            throw new Exception("Usuário não é válido!");
+            throw new Exception(Messages.InvalidUsernameOrPassword);
 
         Cryptography Cryptography = new();
         if (!user.Password.Equals(Cryptography.GetHash(login.Password)))
-            throw new Exception("Senha incorreta!");
+            throw new Exception(Messages.InvalidUsernameOrPassword);
     }
 
     public async Task SaveLoginLog(LoginLogModel loginLog)

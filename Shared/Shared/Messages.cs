@@ -1,4 +1,4 @@
-﻿namespace iBudget.Framework;
+﻿namespace Shared;
 
 public class Messages
 {
@@ -10,9 +10,10 @@ public class Messages
 
     public const string WhatsAppMessage =
         "Olá, essa é uma mensagem automática de {0}.\nVocê pode fazer o download do seu orçamento através desse link a seguir:\n{1}";
-
     public const string PasswordValidation =
         "A senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial. Ela também deve ter pelo menos 8 caracteres.";
+
+    public const string InvalidUsernameOrPassword = "Usuário ou senha inválidos";        
 
     public const string UniqueDBMessage = "Já existe um registro com esse valor";
 
