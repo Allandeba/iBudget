@@ -25,7 +25,7 @@
     <div class="row justify-content-center">
         <div class="col-12 col-md-4">
 
-            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "needs-validation" }))
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "needs-validation", id = "formLogin" }))
             {
                 <object class="svg svg-person mb-4" width="72" height="72" alt="Person"></object>
                 <h1 class="h3 mb-3 font-weight-normal">Entrar</h1>

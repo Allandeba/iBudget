@@ -62,4 +62,13 @@ public class LoginTest : WebDriverFixture
         Login();
         Assert.Equal(Messages.InvalidUsernameOrPassword, ExceptionMessage);
     }
+    
+    [Fact]
+    public void ShouldLogoff()
+    {
+        Login();
+        _driver.FindElement(By.Id("logoff")).Click();
+        var formLogin = _driver.FindElement(By.Id("formLogin"));
+        Assert.NotNull(formLogin);
+    }
 }
