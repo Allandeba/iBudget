@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using iBudget.Framework;
-using iBudget.Framework.Extensions;
+using Shared;
+using Shared.Extensions;
 
 namespace iBudget.DAO.Entities;
 

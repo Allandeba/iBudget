@@ -1,6 +1,6 @@
 ﻿using iBudget.DAO.Entities;
-using iBudget.Framework;
 using iBudget.Repository;
+using Shared;
 
 namespace iBudget.Business;
 
@@ -89,6 +89,6 @@ public class ProposalHistoryBusiness
 
     public async Task<CompanyModel> GetCompany()
     {
-        return await _companyBusiness?.GetAllAsync();
+        return await _companyBusiness!.GetAllAsync();
     }
 }

@@ -1,8 +1,8 @@
 ﻿using iBudget.DAO.Entities;
-using iBudget.Framework;
-using iBudget.Framework.Extensions;
 using iBudget.Repository;
 using Microsoft.EntityFrameworkCore;
+using Shared;
+using Shared.Extensions;
 using X.PagedList;
 
 namespace iBudget.Business;

@@ -58,12 +58,14 @@
         <Folder Include="Business\"/>
         <Folder Include="Repository\"/>
         <Folder Include="Interfaces\"/>
-        <Folder Include="Framework\"/>
         <Folder Include="Views\Company\"/>
         <Folder Include="Views\Configuration\"/>
     </ItemGroup>
     <ItemGroup>
         <Content Remove="iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\MvcTestingAppManifest.json"/>
         <Content Remove="iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\MvcTestingAppManifest.json"/>
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Shared\Shared\Shared.csproj" />
     </ItemGroup>
 </Project>

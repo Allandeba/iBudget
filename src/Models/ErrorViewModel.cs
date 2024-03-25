@@ -1,4 +1,4 @@
-﻿namespace iBudget.DAO.Entities;
+﻿namespace iBudget.Models;
 
 public class ErrorViewModel
 {

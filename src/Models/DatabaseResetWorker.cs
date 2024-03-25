@@ -1,7 +1,8 @@
+using iBudget.DAO;
 using iBudget.DAO.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace iBudget.DAO.Entities;
+namespace iBudget.Models;
 
 public class DatabaseResetWorker : BackgroundService
 {

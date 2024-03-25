@@ -1,7 +1,7 @@
 using Bogus;
 using Bogus.Extensions.Brazil;
 using iBudget.DAO.Entities;
-using iBudget.Framework;
+using Shared;
 
 namespace iBudget.Models.FakeModels;
 

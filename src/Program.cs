@@ -3,7 +3,6 @@ using DotNetEnv;
 using iBudget.Business;
 using iBudget.Controllers;
 using iBudget.DAO;
-using iBudget.DAO.Entities;
 using iBudget.Framework;
 using iBudget.Models;
 using iBudget.Repository;

@@ -4,12 +4,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iBudget", "src\iBudget.csproj", "{0B29C5E0-2DEF-42ED-AA54-80A491EF37B9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B20D5BEE-0676-4DE6-BE8F-0B867669B58F} = {B20D5BEE-0676-4DE6-BE8F-0B867669B58F}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "iBudget.Test", "iBudget.Test", "{7C2D66AE-4411-49FB-A94F-A278BD9701B1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iBudget.UnitTest", "test\iBudget.UnitTest\iBudget.UnitTest.csproj", "{21F21183-8C6E-427D-942D-32B4B8A6ED75}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iBudget.AutomatedTest", "test\iBudget.AutomatedTest\iBudget.AutomatedTest.csproj", "{51A4EDE4-F18D-40D9-9221-E9CDADE8418B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B20D5BEE-0676-4DE6-BE8F-0B867669B58F} = {B20D5BEE-0676-4DE6-BE8F-0B867669B58F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared\Shared.csproj", "{B20D5BEE-0676-4DE6-BE8F-0B867669B58F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +37,10 @@ Global
 		{51A4EDE4-F18D-40D9-9221-E9CDADE8418B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51A4EDE4-F18D-40D9-9221-E9CDADE8418B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51A4EDE4-F18D-40D9-9221-E9CDADE8418B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B20D5BEE-0676-4DE6-BE8F-0B867669B58F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B20D5BEE-0676-4DE6-BE8F-0B867669B58F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B20D5BEE-0676-4DE6-BE8F-0B867669B58F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B20D5BEE-0676-4DE6-BE8F-0B867669B58F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

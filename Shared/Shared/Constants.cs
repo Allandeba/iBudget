@@ -1,4 +1,6 @@
-﻿internal static class Constants
+﻿namespace Shared;
+
+public static class Constants
 {
     public const string ApplicationName = "iBudget";
     public const int MaxImageWidth = 250;

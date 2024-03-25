@@ -1,9 +1,9 @@
 ﻿using System.Linq.Expressions;
 using iBudget.DAO.Entities;
-using iBudget.Framework;
-using iBudget.Framework.Extensions;
+using Shared.Extensions;
 using iBudget.Repository;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using X.PagedList;
 
 namespace iBudget.Business;

@@ -1,4 +1,4 @@
-using iBudget.Framework.Extensions;
+using Shared.Extensions;
 
 namespace iBudget.UnitTest.Extensions;
 

@@ -1,6 +1,6 @@
 ﻿using System.Net.Mime;
 using iBudget.Business;
-using iBudget.DAO.Entities;
+using iBudget.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

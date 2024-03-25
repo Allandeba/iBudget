@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using iBudget.DAO;
 using iBudget.DAO.Entities;
+using iBudget.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace iBudget.Repository;

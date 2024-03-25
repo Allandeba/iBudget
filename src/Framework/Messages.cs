@@ -1,4 +1,6 @@
-﻿public class Messages
+﻿namespace iBudget.Framework;
+
+public class Messages
 {
     public const string EmptyTextValidation = "{0} não pode ser vazio";
     public const string InvalidFormatValidation = "Formato inválido {0}";

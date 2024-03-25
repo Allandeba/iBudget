@@ -1,5 +1,6 @@
 using Bogus;
 using iBudget.DAO.Entities;
+using Shared;
 
 namespace iBudget.Models.FakeModels;
 

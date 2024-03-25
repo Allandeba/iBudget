@@ -1,8 +1,9 @@
 ﻿using iBudget.Business;
-using iBudget.Controllers;
 using iBudget.DAO.Entities;
 using iBudget.Models;
 using Microsoft.AspNetCore.Mvc;
+
+namespace iBudget.Controllers;
 
 public class CompanyController : BaseController
 {

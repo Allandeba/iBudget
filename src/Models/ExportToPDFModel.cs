@@ -1,11 +1,10 @@
-﻿using iBudget.Models;
-using Syncfusion.Drawing;
+﻿using Syncfusion.Drawing;
 using Syncfusion.HtmlConverter;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
 using Syncfusion.Pdf.Parsing;
 
-namespace iBudget.DAO.Entities;
+namespace iBudget.Models;
 
 public class ExportToPDFModel
 {

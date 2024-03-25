@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using iBudget.Framework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Shared;
 
 namespace iBudget.DAO.Entities;
 

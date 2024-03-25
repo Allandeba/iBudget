@@ -26,17 +26,14 @@
                             }
 
                             IEnumerable<ItemImageModel> otherImages = item.ItemImageList.Where(item => !item.Main).ToList();
-                            if (otherImages != null)
-                            {
-                                <div class="card-group">
-                                    @foreach (var image in otherImages)
-                                    {
-                                        <div class="card">
-                                            <img class="img-fluid" style="width: 150px;" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)"/>
-                                        </div>
-                                    }
-                                </div>
-                            }
+                            <div class="card-group">
+                                @foreach (var image in otherImages)
+                                {
+                                    <div class="card">
+                                        <img class="img-fluid" style="width: 150px;" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)"/>
+                                    </div>
+                                }
+                            </div>
                         }
 
                         <div class="card-body p-4">

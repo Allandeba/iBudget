@@ -4,6 +4,7 @@ using iBudget.Framework;
 using iBudget.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Shared;
 
 namespace iBudget.Business;
 
@@ -57,7 +58,6 @@ public class CompanyBusiness
             includes.Cast<Enum>().ToArray()
         );
         if (company == null) return;
-        ;
 
         await _repository.RemoveAsync(company);
     }

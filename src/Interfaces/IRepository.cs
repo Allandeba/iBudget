@@ -1,5 +1,7 @@
 ﻿using System.Linq.Expressions;
 
+namespace iBudget.Interfaces;
+
 public interface IRepository<T>
 {
     Task<T> GetByIdAsync(int id, Enum[] includes);

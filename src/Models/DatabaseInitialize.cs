@@ -1,9 +1,12 @@
+using iBudget.DAO;
+using iBudget.DAO.Entities;
 using iBudget.Framework;
 using iBudget.Models.FakeModels;
 using iBudget.Models.FakeModels.Helpers;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 
-namespace iBudget.DAO.Entities;
+namespace iBudget.Models;
 
 public class DatabaseInitialize
 {

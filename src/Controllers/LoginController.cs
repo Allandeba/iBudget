@@ -1,11 +1,11 @@
 ﻿using System.Security.Claims;
 using iBudget.Business;
 using iBudget.DAO.Entities;
-using iBudget.Framework;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
 namespace iBudget.Controllers;
 
@@ -21,7 +21,7 @@ public class LoginController : BaseController
     [AllowAnonymous]
     public IActionResult Index()
     {
-        if (!User.Identity.IsAuthenticated)
+        if (!User.Identity!.IsAuthenticated)
             return View(new LoginModel());
 
         return RedirectToAction(nameof(HomeController.Index), "Home");

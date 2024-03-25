@@ -84,10 +84,10 @@
                         image = ProposalContent.Item?.ItemImageList.FirstOrDefault();
 
                     <div class="col-6 col-md-4 col-lg-3">
-                        <img id="@(image.ItemImageId)" name="@(image.FileName)" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)" class="img-fluid"/>
+                        <img id="@(image!.ItemImageId)" name="@(image.FileName)" src="data:image/*;base64,@(Convert.ToBase64String(image.ImageFile))" alt="@(image.FileName)" class="img-fluid"/>
 
                         <div class="text-center">
-                            <p class="text-dark opacity-75">@ProposalContent.Item.ItemName</p>
+                            <p class="text-dark opacity-75">@ProposalContent.Item!.ItemName</p>
                         </div>
                     </div>
                 }

@@ -1,6 +1,7 @@
 ﻿using iBudget.Business;
 using iBudget.DAO.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
 namespace iBudget.Controllers;
 

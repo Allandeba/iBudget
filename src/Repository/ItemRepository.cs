@@ -1,8 +1,9 @@
 ﻿using System.Linq.Expressions;
 using iBudget.DAO;
 using iBudget.DAO.Entities;
-using iBudget.Framework;
+using iBudget.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 
 namespace iBudget.Repository;
 

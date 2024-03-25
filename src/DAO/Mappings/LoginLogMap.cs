@@ -1,7 +1,7 @@
 using iBudget.DAO.Entities;
-using iBudget.Framework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Shared;
 
 namespace iBudget.DAO.Mappings;
 

@@ -1,10 +1,10 @@
 ﻿using iBudget.DAO.Entities;
-using iBudget.Framework;
-using iBudget.Framework.Extensions;
 using iBudget.Repository;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Shared;
+using Shared.Extensions;
 using X.PagedList;
 
 namespace iBudget.Business;
@@ -277,7 +277,7 @@ public class ProposalBusiness
 
     public async Task<CompanyModel> GetCompany()
     {
-        return await _companyBusiness?.GetAllAsync();
+        return await _companyBusiness!.GetAllAsync();
     }
 
     public async Task<IPagedList<ProposalModel>> GetAllLikeAsync(

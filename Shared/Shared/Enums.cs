@@ -1,4 +1,4 @@
-﻿namespace iBudget.Framework;
+﻿namespace Shared;
 
 public enum DocumentTypes
 {

@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace iBudget.Framework.Extensions;
+namespace Shared.Extensions;
 
 public static class StringExtensions
 {
