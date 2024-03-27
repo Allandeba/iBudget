@@ -45,10 +45,60 @@ jobs:
 
       - name: Run Unit Tests
         run: dotnet test ./test/iBudget.UnitTest/iBudget.UnitTest.csproj --no-build --verbosity normal
+        
+  updateDockerContainerHomologacao:
+    runs-on: ubuntu-latest
+    needs: unitTest
+    
+    steps:
+      - name: Set up docker QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push docker container HOMOLOGACAO
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:homologacao
+          
+  deployHomologacao:
+    runs-on: ubuntu-latest
+    needs: updateDockerContainerHomologacao
+    
+    steps:
+      - name: SSH into server and deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          command_timeout: 60m
+          script: |
+            yum update -y
+            docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:homologacao
+            docker rm -f ${{ secrets.CONTAINER_NAME_HOMOLOGACAO }}
+            docker run -d --name ${{ secrets.CONTAINER_NAME_HOMOLOGACAO }} -p ${{ secrets.CONTAINER_PORT_HOMOLOGACAO }} --restart=always --env-file=${{ secrets.VPN_ENVIRONMENT_FILE_HOMOLOGACAO }} ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:homologacao
+
+      - name: Check status
+        uses: jtalk/url-health-check-action@v4
+        with:
+          url: ${{ secrets.WEBSITE_URL_HOMOLOGACAO }}
+          follow-redirect: true
+          max-attempts: 3
+          retry-delay: 10s
+          retry-all: true
 
   automatedTest:
     runs-on: ubuntu-latest
-    needs: unitTest
+    needs: deployHomologacao
 
     steps:
       - name: Install Chrome
@@ -71,7 +121,7 @@ jobs:
       - name: Run Automated Tests
         run: dotnet test ./test/iBudget.AutomatedTest/iBudget.AutomatedTest.csproj --no-build --verbosity normal
 
-  updateDockerContainer:
+  updateDockerContainerProducao:
     runs-on: ubuntu-latest
     needs: automatedTest
 
@@ -96,7 +146,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: updateDockerContainer
+    needs: updateDockerContainerProducao
     
     steps:
       - name: SSH into server and deploy
