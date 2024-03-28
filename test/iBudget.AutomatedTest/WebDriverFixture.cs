@@ -7,7 +7,7 @@ public class WebDriverFixture : IDisposable
 {
     protected readonly ChromeDriver _driver;
 
-    public WebDriverFixture()
+    protected WebDriverFixture()
     {
         var options = new ChromeOptions();
         options.AddArguments("--no-sandbox");
