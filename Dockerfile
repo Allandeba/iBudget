@@ -9,6 +9,7 @@ COPY /src/iBudget.csproj .
 RUN dotnet restore iBudget.csproj
 
 COPY /src/ .
+COPY /Shared/ ./Shared/
 RUN dotnet publish iBudget.csproj -c release -o out --no-restore --no-cache /restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:$TAG
