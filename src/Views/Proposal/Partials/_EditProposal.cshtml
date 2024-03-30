@@ -8,9 +8,7 @@
 
 <div class="mb-3 text-start">
     <label for="ItemList" class="form-label">Item</label>
-    <select id="ItemList" class="form-select" asp-items="@ViewBag.Items" onchange="javascript:selectionChange(this)">
-        <option selected value="@((int)SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
-    </select>
+    @Html.DropDownList("ItemList", ViewBag.Items, "--Selecione--", new { @class = "form-select", @onchange = "javascript:selectionChange(this)" });
 </div>
 
 <div class="mb-3 text-start">

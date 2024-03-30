@@ -78,9 +78,7 @@ public class ItemModel
     {
         if (ItemImageList != null && ItemImageList.Count > 0)
             foreach (var image in ItemImageList)
-                image.Main =
-                    defaultImageFileName != SelectDefault.Nenhum.ToString()
-                    && image.FileName == defaultImageFileName;
+                image.Main = image.FileName == defaultImageFileName;
     }
 
     public ItemImageModel GetMainImage()

@@ -23,22 +23,21 @@
 
                 <div class="mb-3 text-start">
                     @Html.LabelFor(model => model.DefaultImage, new { @class = "form-label" })
-                    <select asp-for="DefaultImage" class="form-select" id="defaultImageSelect">
-                        <option disabled selected value="@(SelectDefault.Nenhum)">@(SelectDefault.Nenhum.ToString())</option>
-                        @{
-                            foreach (var image in Model.ItemImageList)
+                    
+                    @{
+                        var imageOptions = new List<SelectListItem>();
+                        foreach (var image in Model.ItemImageList)
+                        {
+                            imageOptions.Add(new SelectListItem
                             {
-                                if (image.Main)
-                                {
-                                    <option selected="selected" value="@(image.FileName)">@(image.FileName)</option>
-                                }
-                                else
-                                {
-                                    <option value="@(image.FileName)">@(image.FileName)</option>
-                                }
-                            }
+                                Value = image.FileName,
+                                Text = image.FileName,
+                                Selected = image.Main
+                            });
                         }
-                    </select>
+                    }
+                    
+                    @Html.DropDownListFor(model => model.DefaultImage, imageOptions, "--Selecione--", new { @class = "form-select", id = "defaultImageSelect" })
                 </div>
 
                 <div class="mb-3 text-start">
