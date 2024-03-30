@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using iBudget.Framework;
 using Shared;
 
 namespace iBudget.DAO.Entities;
