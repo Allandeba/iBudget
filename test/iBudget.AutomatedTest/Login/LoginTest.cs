@@ -69,5 +69,7 @@ public class LoginTest : WebDriverFixture
         _driver.FindElement(By.Id("logoff")).Click();
         var formLogin = _driver.FindElement(By.Id("formLogin"));
         Assert.NotNull(formLogin);
+        Assert.NotNull(Username);
+        Assert.NotNull(Password);
     }
 }
