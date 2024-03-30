@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using iBudget.Framework;
 using Shared;
 
 namespace iBudget.DAO.Entities;
@@ -26,7 +25,7 @@ public class PersonModel
     [MaxLength(100, ErrorMessage = Messages.MaxLengthValidation)]
     public string LastName { get; set; }
 
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = Constants.DateFormat)]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = Constants.ptBRDateFormat)]
     [Display(Name = "Data da criação")]
     [DataType(DataType.DateTime, ErrorMessage = Messages.InvalidFormatValidation)]
     public DateTime CreationDate { get; set; }

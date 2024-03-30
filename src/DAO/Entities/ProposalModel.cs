@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using iBudget.Framework;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 
@@ -19,7 +18,7 @@ public class ProposalModel
     [Key]
     public int ProposalId { get; set; }
 
-    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = Constants.DateFormat)]
+    [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = Constants.ptBRDateFormat)]
     [Display(Name = "Data da modificação")]
     public DateTime ModificationDate { get; set; }
 

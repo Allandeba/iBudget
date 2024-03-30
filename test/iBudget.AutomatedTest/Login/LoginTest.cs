@@ -8,7 +8,6 @@ public class LoginTest : WebDriverFixture
 {
     private IWebElement Username => _driver.FindElement(By.Id("Username"));
     private IWebElement Password => _driver.FindElement(By.Id("Password"));
-    private string ExceptionMessage => _driver.FindElement(By.Id("exceptionMessageContent")).Text;
     
     [Fact]
     public void ShouldHaveDeveloperBadge()
@@ -52,7 +51,7 @@ public class LoginTest : WebDriverFixture
     {
         Username.SendKeys("outroUsuarioErro");
         Login();
-        Assert.Equal(Messages.InvalidUsernameOrPassword, ExceptionMessage);
+        Assert.Equal(Messages.InvalidUsernameOrPassword, _exceptionMessage);
     }
     
     [Fact]
@@ -60,7 +59,7 @@ public class LoginTest : WebDriverFixture
     {
         Password.SendKeys("senhaIncorreta");
         Login();
-        Assert.Equal(Messages.InvalidUsernameOrPassword, ExceptionMessage);
+        Assert.Equal(Messages.InvalidUsernameOrPassword, _exceptionMessage);
     }
     
     [Fact]

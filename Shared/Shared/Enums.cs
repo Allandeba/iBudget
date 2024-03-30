@@ -7,11 +7,6 @@ public enum DocumentTypes
     CNPJ
 }
 
-public enum SelectDefault
-{
-    Nenhum
-}
-
 public enum ProposalIncludes
 {
     None,

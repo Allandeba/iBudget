@@ -8,7 +8,7 @@ public static class Constants
     public const int MaxImageLogoWidth = 400;
     public const int MaxImageLogoHeight = 150;
     public const string SearchBoxData = "search";
-    public const string DateFormat = "dd/MM/yyyy";
+    public const string ptBRDateFormat = "dd/MM/yyyy";
     public const string WhatsAppURL = "https://api.whatsapp.com/send?phone=";
     public const string ThrowException = "Exception";
     public const string ThrowDBException = "DBException";

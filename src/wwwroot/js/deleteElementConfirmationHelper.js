@@ -22,9 +22,10 @@
     });
 }
 
-function createElement(tag, classes = []) {
+function createElement(id, tag, classes = []) {
     const element = document.createElement(tag);
     element.classList.add(...classes);
+    element.id = id;
     return element;
 }
 
@@ -33,27 +34,27 @@ function appendChildren(parent, children) {
 }
 
 function createModalHeader(title) {
-    const modalHeader = createElement('div', ['modal-header', 'd-flex', 'justify-content-center']);
-    const heading = createElement('p', ['heading']);
+    const modalHeader = createElement('modalHeader', 'div', ['modal-header', 'd-flex', 'justify-content-center']);
+    const heading = createElement('modalHeading', 'p', ['heading']);
     heading.textContent = title;
     modalHeader.appendChild(heading);
     return modalHeader;
 }
 
 function createModalBody(message) {
-    const modalBody = createElement('div', ['modal-body']);
-    const icon = createElement('i', ['fas', 'fa-times', 'fa-4x', 'animated', 'rotateIn']);
-    const bodyText = createElement('p');
+    const modalBody = createElement('modalBody', 'div', ['modal-body']);
+    const icon = createElement('modalIcon', 'i', ['fas', 'fa-times', 'fa-4x', 'animated', 'rotateIn']);
+    const bodyText = createElement('modalBody', 'p');
     bodyText.textContent = message;
     appendChildren(modalBody, [icon, bodyText]);
     return modalBody;
 }
 
 function createModalFooter() {
-    const modalFooter = createElement('div', ['modal-footer', 'flex-center']);
-    const yesButton = createElement('a', ['btn', 'btn-outline-danger']);
+    const modalFooter = createElement('modalFooter', 'div', ['modal-footer', 'flex-center']);
+    const yesButton = createElement('modalConfirmationButton', 'a', ['btn', 'btn-outline-danger']);
     yesButton.textContent = 'Sim';
-    const noButton = createElement('a', ['btn', 'btn-danger', 'waves-effect']);
+    const noButton = createElement('modalCancelButton', 'a', ['btn', 'btn-danger', 'waves-effect']);
     noButton.setAttribute('data-dismiss', 'modal');
     noButton.textContent = 'Não';
     appendChildren(modalFooter, [yesButton, noButton]);
@@ -61,20 +62,20 @@ function createModalFooter() {
 }
 
 function createModalContent(title, message) {
-    const modalContent = createElement('div', ['modal-content', 'text-center']);
+    const modalContent = createElement('modalContent', 'div', ['modal-content', 'text-center']);
     appendChildren(modalContent, [createModalHeader(title), createModalBody(message), createModalFooter()]);
     return modalContent;
 }
 
 function createModalDialog(title, message) {
-    const modalDialog = createElement('div', ['modal-dialog', 'modal-sm', 'modal-notify', 'modal-danger']);
+    const modalDialog = createElement('modalDialog', 'div', ['modal-dialog', 'modal-sm', 'modal-notify', 'modal-danger']);
     modalDialog.role = 'document';
     modalDialog.appendChild(createModalContent(title, message));
     return modalDialog;
 }
 
 function createModalContainer(title, message) {
-    const modalDiv = createElement('div');
+    const modalDiv = createElement('', 'div');
     modalDiv.classList.add('modal', 'fade');
     modalDiv.id = 'confirmationModal';
     modalDiv.tabIndex = '-1';

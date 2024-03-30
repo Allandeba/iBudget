@@ -5,7 +5,7 @@
     ViewData["Title"] = "Itens";
 }
 
-@await Html.PartialAsync("../Shared/Partials/Components/_RegisterHeader", new RegisterHeaderItem { Title = "Itens", Description = "Para mais informações, selecione um item abaixo.", Action = "Create" })
+@await Html.PartialAsync("../Shared/Partials/Components/_RegisterHeader", new RegisterHeaderItem { Title = "Itens", Description = "Para mais informações, selecione um item abaixo.", Action = "Create", ActionId = "ItemCreate" })
 
 <div class="container">
     <div class="row justify-content-center">

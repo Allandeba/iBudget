@@ -7,7 +7,7 @@
 <div id="IndexMenu" class="row mt-5 px-5 mb-5 justify-content-center">
     @foreach (var homeItem in Model)
     {
-        <a class="zoom-effect col-md-auto" href="@homeItem.Url">
+        <a id="@homeItem.Id" class="zoom-effect col-md-auto" href="@homeItem.Url">
             <div class="card-inner p-3 d-flex flex-column align-items-center">
                 <object class="@homeItem.IconClass" width="50" height="50" alt="@homeItem.Title"></object>
                 <div class="text-center">

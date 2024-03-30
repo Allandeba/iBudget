@@ -1,6 +1,5 @@
 using iBudget.DAO.Entities;
 using Microsoft.AspNetCore.Http;
-using Shared;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
@@ -62,7 +61,7 @@ public class ItemModelTest
         FetchImageList(3, item.ImageFiles);
 
         item.SetItemImageList();
-        item.SetDefaultImage(SelectDefault.Nenhum.ToString());
+        item.SetDefaultImage("-1");
 
         var itemImage = item.ItemImageList.Find(i => i.Main);
         Assert.Null(itemImage);

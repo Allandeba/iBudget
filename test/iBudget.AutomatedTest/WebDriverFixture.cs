@@ -6,7 +6,9 @@ namespace iBudget.AutomatedTest;
 public class WebDriverFixture : IDisposable
 {
     protected readonly ChromeDriver _driver;
-
+    protected string _exceptionMessage => _driver.FindElement(By.Id("exceptionMessageContent")).Text;
+    protected Uri _uri => new Uri(_driver.Url); 
+    
     protected WebDriverFixture()
     {
         var options = new ChromeOptions();

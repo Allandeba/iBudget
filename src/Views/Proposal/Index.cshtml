@@ -5,7 +5,7 @@
     ViewData["Title"] = "Orçamentos";
 }
 
-@await Html.PartialAsync("../Shared/Partials/Components/_RegisterHeader", new RegisterHeaderItem { Title = "Orçamento", Description = "Para mais informações, selecione um orçamento abaixo.", Action = "Create" })
+@await Html.PartialAsync("../Shared/Partials/Components/_RegisterHeader", new RegisterHeaderItem { Title = "Orçamento", Description = "Para mais informações, selecione um orçamento abaixo.", Action = "Create", ActionId = "ProposalCreate" })
 
 <div class="container">
     <div class="row justify-content-center">
@@ -26,7 +26,7 @@
 
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="mb-0">@proposal.ProposalId - @proposal.Person.PersonName</h6>
-                                <p class="mb-0 opacity-75">Modificado @proposal.ModificationDate.ToString("dd/MM/yyyy")</p>
+                                <p class="mb-0 opacity-75">Modificado @proposal.ModificationDate.ToString(Constants.ptBRDateFormat)</p>
                             </div>
                         </a>
 
@@ -55,7 +55,7 @@
                                         {
                                             <li>
                                                 <a asp-controller="ProposalHistory" asp-action="ExportToPDF" asp-route-id="@proposalHistory.ProposalHistoryId" class="dropdown-item d-flex align-items-center" target="_blank">
-                                                    <span class="text-muted">@($"{proposalHistory.ProposalHistoryId} - Modificado {proposalHistory.ModificationDate.ToString("dd/MM/yyyy")}")</span>
+                                                    <span class="text-muted">@($"{proposalHistory.ProposalHistoryId} - Modificado {proposalHistory.ModificationDate.ToString(Constants.ptBRDateFormat)}")</span>
                                                 </a>
                                             </li>
                                         }
