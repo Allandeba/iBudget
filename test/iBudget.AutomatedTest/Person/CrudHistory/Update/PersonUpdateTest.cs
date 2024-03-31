@@ -34,6 +34,7 @@ public class PersonUpdateTest : PersonSharedCrudTest
 
         var selectElement = new SelectElement(_documentType);
         selectElement.SelectByValue(PersonDocumentType.ToString());
+        _document.Clear();
         _document.SendKeys(PersonDocument);
 
         _driver.FindElement(By.TagName("form")).Submit();
