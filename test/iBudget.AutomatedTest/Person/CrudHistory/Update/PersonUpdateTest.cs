@@ -19,7 +19,8 @@ public class PersonUpdateTest : PersonSharedCrudTest
     [Fact]
     public void ShouldUpdateLastAddedPerson()
     {
-        _lastAddedPerson.Click();
+        Assert.NotNull(_lastAddedPerson);
+        _lastAddedPerson!.Click();
         Assert.Contains(_personUpdateController, _uri.AbsolutePath);
 
         _firstName.Clear();

@@ -14,5 +14,5 @@ public class PersonSharedCrudTest : PersonSharedTest
     protected IWebElement _phone => _driver.FindElement(By.Id("Contact_Phone"));
     protected IWebElement _documentType => _driver.FindElement(By.Id("Document_DocumentType"));
     protected IWebElement _document => _driver.FindElement(By.Id("Document_Document"));
-    protected IWebElement _lastAddedPerson => _driver.FindElements(By.Id("PersonItem")).FirstOrDefault();
+    protected IWebElement? _lastAddedPerson => _driver.FindElements(By.Id("PersonItem")).FirstOrDefault();
 }
