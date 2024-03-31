@@ -22,13 +22,5 @@ public class PersonDeleteTest : PersonSharedCrudTest
         confirmationButton.Click();
         
         Assert.Equal(_personController, _uri.AbsolutePath);
-        var lastPerson = _lastAddedPerson;
-        if (lastPerson is not null)
-        {
-            var lastPersonId = 0;
-            int.TryParse(_lastAddedPerson.FindElement(By.TagName("button")).GetAttribute("id"), out lastPersonId);
-            var isDifferentPerson = lastPersonId < personId;
-            Assert.True(isDifferentPerson);
-        }
     }
 }

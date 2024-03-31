@@ -18,7 +18,8 @@ public class WebDriverFixture : IDisposable
         _driver = new ChromeDriver(options);
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(1000);
         _driver.Manage().Window.Maximize();
-        _driver.Navigate().GoToUrl("https://homologacao.ibudget.allandeba.dev.br");
+        //_driver.Navigate().GoToUrl("https://homologacao.ibudget.allandeba.dev.br");
+        _driver.Navigate().GoToUrl("http://127.0.0.1:5105");
     }
 
     public void Dispose()
