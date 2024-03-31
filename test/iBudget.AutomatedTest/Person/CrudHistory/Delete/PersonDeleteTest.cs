@@ -1,8 +1,10 @@
 using iBudget.AutomatedTest.Person.Shared;
 using OpenQA.Selenium;
+using Xunit.Extensions.Ordering;
 
 namespace iBudget.AutomatedTest.Person.CrudHistory.Delete;
 
+[Order(3)]
 public class PersonDeleteTest : PersonSharedCrudTest
 {
     [Fact]

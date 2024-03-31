@@ -3,9 +3,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Shared;
 using Shared.Extensions;
+using Xunit.Extensions.Ordering;
 
 namespace iBudget.AutomatedTest.Person.CrudHistory.Update;
 
+[Order(2)]
 public class PersonUpdateTest : PersonSharedCrudTest
 {
     //TODO: Criar um ViewModel no Shared/ViewModels/PersonViewModel.cs e passar a separar a Entidade dos objetos de valores ViewModels.

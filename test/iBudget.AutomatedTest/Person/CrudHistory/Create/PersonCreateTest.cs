@@ -4,9 +4,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Shared;
 using Shared.Extensions;
+using Xunit.Extensions.Ordering;
 
 namespace iBudget.AutomatedTest.Person.CrudHistory.Create;
 
+[Order(1)]
 public class PersonCreateTest : PersonSharedCrudTest
 {
     private IWebElement PersonCreate => _driver.FindElement(By.Id("PersonCreate"));
