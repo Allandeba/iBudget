@@ -8,9 +8,12 @@ namespace iBudget.AutomatedTest.Person.CrudHistory.Delete;
 public class PersonDeleteTest : PersonSharedCrudTest
 {
     [Fact]
-    public void ShouldDeleteLastAddedPerson()
+    public void ShouldDeleteAutomatedLastAddedPerson()
     {
         Assert.NotNull(_lastAddedPerson);
+        var personName = _lastAddedPerson.FindElement(By.Id("PersonItemName"));
+        Assert.Contains("Automated", personName.Text);
+        
         var deleteButton = _lastAddedPerson.FindElement(By.TagName("button"));
         Assert.NotNull(deleteButton);
         var personId = int.Parse(deleteButton.GetAttribute("id"));
