@@ -1,6 +1,4 @@
 using OpenQA.Selenium;
-using Shared;
-using Shared.Extensions;
 
 namespace iBudget.AutomatedTest.Person.Shared;
 
