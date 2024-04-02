@@ -71,6 +71,6 @@ public class PersonCreateTest : PersonSharedCrudTest
         Assert.Equal(expectedPersonName, personName.Text);
 
         var personCreationDate = _lastAddedPerson.FindElement(By.Id("PersonItemCreationDate"));
-        Assert.Equal(DateTime.Now.ToString(Constants.ptBRDateFormat), personCreationDate.Text);
+        Assert.Equal(DateTime.UtcNow.ToString(Constants.ptBRDateFormat), personCreationDate.Text);
     }
 }
