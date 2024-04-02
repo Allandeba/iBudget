@@ -1,16 +1,24 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using DotNetEnv;
 
 namespace iBudget.AutomatedTest;
 
 public class WebDriverFixture : IDisposable
 {
+    private const string DevelopmentUrl = "http://127.0.0.1:5105";
+    private const string StagingUrl = "https://homologacao.ibudget.allandeba.dev.br" + "TESTE_PRA DAR ERRO";
+    
+    private bool IsDevelopment() => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
+
     protected readonly ChromeDriver _driver;
     protected string _exceptionMessage => _driver.FindElement(By.Id("exceptionMessageContent")).Text;
-    protected Uri _uri => new Uri(_driver.Url); 
-    
+    protected Uri _uri => new Uri(_driver.Url);
+
     protected WebDriverFixture()
     {
+        _ = DotNetEnv.Env.TraversePath().Load();
+
         var options = new ChromeOptions();
         options.AddArguments("--no-sandbox");
         options.AddArguments("--disable-dev-shm-usage");
@@ -18,8 +26,9 @@ public class WebDriverFixture : IDisposable
         _driver = new ChromeDriver(options);
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(1000);
         _driver.Manage().Window.Maximize();
-        //_driver.Navigate().GoToUrl("https://homologacao.ibudget.allandeba.dev.br");
-        _driver.Navigate().GoToUrl("http://127.0.0.1:5105");
+
+        var urlRunner = IsDevelopment() ? DevelopmentUrl : StagingUrl;
+        _driver.Navigate().GoToUrl(urlRunner);
     }
 
     public void Dispose()
