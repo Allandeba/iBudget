@@ -5,17 +5,44 @@ namespace iBudget.AutomatedTest.Person.Index;
 
 public class PersonIndexTest : PersonSharedCrudTest
 {
+    private IWebElement SearchBox => _driver.FindElement(By.Id("search-box"));
+    private IWebElement PersonList => _driver.FindElement(By.Id("PersonList"));
+    
     [Fact]
     public void ShouldHavePersonList()
     {
-        var personList = _driver.FindElement(By.Id("PersonList"));
-        Assert.NotNull(personList);
+        Assert.NotNull(PersonList);
     }
     
     [Fact]
     public void ShouldHaveSearchField()
     {
-        var searchField = _driver.FindElement(By.Id("search-box"));
-        Assert.NotNull(searchField);
+        Assert.NotNull(SearchBox);
+    }
+    
+    [Fact]
+    public void ShouldSearchSuccessfully()
+    {
+        Assert.NotNull(SearchBox);
+        SearchBox.SendKeys("aB");
+        SearchBox.Submit();
+        Assert.Equal(_personSearchController, _uri.AbsolutePath);
+
+        Assert.NotNull(PersonList);
+        var persons = PersonList.FindElements(By.Id("PersonItem"));
+        foreach (var person in persons)
+        {
+            var personName = person.FindElement(By.Id("PersonItemName")).Text;
+            Assert.Contains("aB", personName, StringComparison.InvariantCultureIgnoreCase);
+        }
+    }
+
+    [Fact]
+    public void ShouldSearchWithEnter()
+    {
+        Assert.NotNull(SearchBox);
+        SearchBox.SendKeys("a");
+        SearchBox.SendKeys(Keys.Enter);
+        Assert.Equal(_personSearchController, _uri.AbsolutePath);
     }
 }
