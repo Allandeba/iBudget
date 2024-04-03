@@ -53,6 +53,7 @@ public class PersonIndexTest : PersonSharedCrudTest
         Assert.NotNull(pagination);
 
         var skipToPrevisious = pagination.FindElement(By.ClassName("PagedList-skipToPrevious"));
-        Assert.False(skipToPrevisious.Enabled);
+        var classes = skipToPrevisious.GetAttribute("class");
+        Assert.Contains("disabled", classes);
     }
 }
