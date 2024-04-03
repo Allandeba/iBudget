@@ -19,7 +19,7 @@
 
                 <div class="mb-3 text-start">
                     @Html.LabelFor(model => model.DefaultImage, new { @class = "form-label" })
-                    @Html.DropDownListFor(model => model.DefaultImage, null, "--Selecione--", new { @class = "form-select", id = "defaultImageSelect" })
+                    @Html.DropDownListFor(model => model.DefaultImage, new SelectList(new List<SelectListItem>()), "--Selecione--", new { @class = "form-select", id = "defaultImageSelect" })
                 </div>
 
                 <div class="mb-3 text-start">
