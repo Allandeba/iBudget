@@ -45,4 +45,14 @@ public class PersonIndexTest : PersonSharedCrudTest
         SearchBox.SendKeys(Keys.Enter);
         Assert.Equal(_personSearchController, _uri.AbsolutePath);
     }
+
+    [Fact]
+    public void ShouldNotBackPage()
+    {
+        var pagination = _driver.FindElement(By.ClassName("pagination"));
+        Assert.NotNull(pagination);
+
+        var skipToPrevisious = pagination.FindElement(By.ClassName("PagedList-skipToPrevious"));
+        Assert.False(skipToPrevisious.Enabled);
+    }
 }
