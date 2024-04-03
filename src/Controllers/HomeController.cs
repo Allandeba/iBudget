@@ -18,7 +18,7 @@ public class HomeController : BaseController
             },
             new()
             {
-                Id = "ItemMenu",
+                Id = "itemMenu",
                 Title = "Item",
                 Url = "Item",
                 IconClass = "svg svg-item"
