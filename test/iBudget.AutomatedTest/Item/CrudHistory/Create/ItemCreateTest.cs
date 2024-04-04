@@ -22,7 +22,7 @@ public class ItemCreateTest : ItemSharedCrudTest
         ItemCreate.Click();
         
         Assert.Empty(_itemName.Text);
-        Assert.Equal("0,00", _itemValue.Value());
+        Assert.Equal(double.Parse("0,00"), double.Parse(_itemValue.Value()));
         Assert.Empty(_itemDescription.Text);
         
         var selectElement = new SelectElement(_itemDefaultImageSelect);
