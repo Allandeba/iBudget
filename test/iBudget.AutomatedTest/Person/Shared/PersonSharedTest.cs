@@ -11,5 +11,5 @@ public class PersonSharedTest : WebDriverFixture
     protected const string _personCreateController = $"{_personController}/Create";
     protected const string _personSearchController = $"{_personController}/Search";
 
-    protected IWebElement _personMenu => _driver.FindElement(By.Id("PersonMenu")); 
+    protected IWebElement _personMenu => _driver.FindElement(By.Id("personMenu")); 
 }

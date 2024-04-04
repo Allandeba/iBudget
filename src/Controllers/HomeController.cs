@@ -11,7 +11,7 @@ public class HomeController : BaseController
         {
             new()
             {
-                Id = "PersonMenu",
+                Id = "personMenu",
                 Title = "Pessoa",
                 Url = "Person",
                 IconClass = "svg svg-person"
