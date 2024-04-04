@@ -25,21 +25,21 @@ public class HomeController : BaseController
             },
             new()
             {
-                Id = "ProposalMenu",
+                Id = "proposalMenu",
                 Title = "Orçamento",
                 Url = "Proposal",
                 IconClass = "svg svg-proposal"
             },
             new()
             {
-                Id = "CatalogMenu",
+                Id = "catalogMenu",
                 Title = "Catalogo",
                 Url = "Catalog",
                 IconClass = "svg svg-catalog"
             },
             new()
             {
-                Id = "SettingsMenu",
+                Id = "settingsMenu",
                 Title = "Configurações",
                 Url = "Settings",
                 IconClass = "svg svg-settings"
