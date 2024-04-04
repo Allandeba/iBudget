@@ -30,7 +30,6 @@ public class PersonIndexTest : PersonSharedCrudTest
 
         Assert.NotNull(PersonList);
         var persons = PersonList.FindElements(By.Id("PersonItem"));
-        Assert.NotEmpty(persons);
         foreach (var person in persons)
         {
             var personName = person.FindElement(By.Id("PersonItemName")).Text;

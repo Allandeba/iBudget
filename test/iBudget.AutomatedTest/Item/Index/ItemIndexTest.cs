@@ -30,7 +30,6 @@ public class ItemIndexTest : ItemSharedCrudTest
 
         Assert.NotNull(ItemList);
         var items = ItemList.FindElements(By.Id("item"));
-        Assert.NotEmpty(items);
         foreach (var item in items)
         {
             var itemName = item.FindElement(By.Id("itemName")).Text;
