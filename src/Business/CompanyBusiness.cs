@@ -83,7 +83,7 @@ public class CompanyBusiness
             .GetAll(includes.Cast<Enum>().ToArray())
             .ToListAsync();
 
-        if (companies.IsNullOrEmpty())
+        if (companies.Count() is 0)
             throw new ECompanyBusinessException(Messages.CompanyNotFoundMessage);
 
         return companies?.FirstOrDefault();

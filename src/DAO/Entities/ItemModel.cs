@@ -89,6 +89,6 @@ public class ItemModel
 
     public bool HasImages()
     {
-        return !ItemImageList.IsNullOrEmpty();
+        return ItemImageList!.Count() is 0;
     }
 }

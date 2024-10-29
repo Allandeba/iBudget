@@ -309,7 +309,7 @@ public class ProposalBusiness
 
     public async Task IncludeItems(ProposalModel proposal)
     {
-        if (proposal.ProposalContent.IsNullOrEmpty())
+        if (proposal.ProposalContent.Count() is 0)
             return;
 
         foreach (var proposalContent in proposal.ProposalContent)
