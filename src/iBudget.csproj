@@ -10,12 +10,12 @@
         <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' "/>
-    <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' "/>
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
     <ItemGroup>
-        <PackageReference Include="Bogus" Version="35.4.0"/>
-        <PackageReference Include="OpenIddict" Version="5.0.1"/>
-        <PackageReference Include="DotNetEnv" Version="2.5.0"/>
+        <PackageReference Include="Bogus" Version="35.4.0" />
+        <PackageReference Include="OpenIddict" Version="5.0.1" />
+        <PackageReference Include="DotNetEnv" Version="2.5.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -24,46 +24,46 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.3"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Linux" Version="24.1.45"/>
+        <PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Linux" Version="24.1.45" />
         <!-- <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Mac" Version="24.1.45" /> -->
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11"/>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0"/>
-        <PackageReference Include="xunit" Version="2.6.6"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+        <PackageReference Include="xunit" Version="2.6.6" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.14"/>
-        <PackageReference Include="X.PagedList.MVC.Core" Version="8.4.7"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.14" />
+        <PackageReference Include="X.PagedList.MVC.Core" Version="8.4.7" />
     </ItemGroup>
     <ItemGroup>
-        <None Remove="DAO\"/>
-        <None Remove="Views\Home %28copy%29\"/>
-        <None Remove="Views\Catalog\"/>
-        <None Remove="Views\Proposal\"/>
-        <None Remove="Business\"/>
-        <None Remove="Repository\"/>
-        <None Remove="Interfaces\"/>
-        <None Remove="Framework\"/>
-        <None Remove="Views\Company\"/>
-        <None Remove="Views\Configuration\"/>
+        <None Remove="DAO\" />
+        <None Remove="Views\Home %28copy%29\" />
+        <None Remove="Views\Catalog\" />
+        <None Remove="Views\Proposal\" />
+        <None Remove="Business\" />
+        <None Remove="Repository\" />
+        <None Remove="Interfaces\" />
+        <None Remove="Framework\" />
+        <None Remove="Views\Company\" />
+        <None Remove="Views\Configuration\" />
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="DAO\"/>
-        <Folder Include="Views\Person\"/>
-        <Folder Include="Views\Catalog\"/>
-        <Folder Include="Views\Proposal\"/>
-        <Folder Include="Business\"/>
-        <Folder Include="Repository\"/>
-        <Folder Include="Interfaces\"/>
-        <Folder Include="Views\Company\"/>
-        <Folder Include="Views\Configuration\"/>
+        <Folder Include="DAO\" />
+        <Folder Include="Views\Person\" />
+        <Folder Include="Views\Catalog\" />
+        <Folder Include="Views\Proposal\" />
+        <Folder Include="Business\" />
+        <Folder Include="Repository\" />
+        <Folder Include="Interfaces\" />
+        <Folder Include="Views\Company\" />
+        <Folder Include="Views\Configuration\" />
     </ItemGroup>
     <ItemGroup>
-        <Content Remove="iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\MvcTestingAppManifest.json"/>
-        <Content Remove="iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\MvcTestingAppManifest.json"/>
+        <Content Remove="iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\MvcTestingAppManifest.json" />
+        <Content Remove="iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\iBudget.UnitTest\bin\Debug\net7.0\MvcTestingAppManifest.json" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Shared\Shared\Shared.csproj" />
