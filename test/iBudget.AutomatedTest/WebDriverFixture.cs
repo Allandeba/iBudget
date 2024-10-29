@@ -1,6 +1,5 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using DotNetEnv;
 
 namespace iBudget.AutomatedTest;
 

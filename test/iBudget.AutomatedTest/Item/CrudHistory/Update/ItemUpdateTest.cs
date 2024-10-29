@@ -1,8 +1,5 @@
 using iBudget.AutomatedTest.Item.Shared;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using Shared;
-using Shared.Extensions;
 using Xunit.Extensions.Ordering;
 
 namespace iBudget.AutomatedTest.Item.CrudHistory.Update;
