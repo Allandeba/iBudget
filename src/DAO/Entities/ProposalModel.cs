@@ -46,8 +46,8 @@ public class ProposalModel
     public List<int> GetIdProposalContentList()
     {
         List<int> proposalContentIdList = new();
-        foreach (var ProposalContent in ProposalContent)
-            proposalContentIdList.Add(ProposalContent.ProposalContentId);
+        foreach (var proposalContent in ProposalContent)
+            proposalContentIdList.Add(proposalContent.ProposalContentId);
 
         return proposalContentIdList;
     }
