@@ -8,7 +8,7 @@ public class Cryptography
 {
     public string GetHash(string text)
     {
-        if (string.IsNullOrEmpty(text))
+        if (text.IsNullOrEmpty())
             throw new Exception("Cryptography.GetHash() must not be null or empty");
 
         var sha256 = SHA256.Create();

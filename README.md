@@ -2,7 +2,7 @@
 
 | **Redes Sociais** | **Linguagens** | **Versão do .NET** | **Último Commit** |
 | ----------------- | -------------- | ------------------- | ------------------ |
-| [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/allan-debastiani/) | ![GitHub language count](https://img.shields.io/github/languages/count/allandeba/iBudget) ![GitHub top language](https://img.shields.io/github/languages/top/allandeba/iBudget) | ![GitHub target](https://img.shields.io/badge/.NET%20Core-8.0-green) | ![GitHub last commit](https://img.shields.io/github/last-commit/allandeba/iBudget) |
+| [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/allan-debastiani/) | ![GitHub language count](https://img.shields.io/github/languages/count/allandeba/iBudget) ![GitHub top language](https://img.shields.io/github/languages/top/allandeba/iBudget) | ![GitHub target](https://img.shields.io/badge/.NET%20Core-7.0-green) | ![GitHub last commit](https://img.shields.io/github/last-commit/allandeba/iBudget) |
 
 ## Visão Geral
 
@@ -19,7 +19,7 @@ Os dados são resetados diariamente para manter um ambiente de teste consistente
 ## Tecnologias Utilizadas
 
 - **Banco de Dados:** PostgreSQL
-- **Framework:** .Net Core 8.0
+- **Framework:** .Net Core 7.0
 - **Geração de PDF:** Syncfusion
 - **Geração de Dados Falsos:** Bogus
 - **Testes Unitários:** xUnit
@@ -53,7 +53,7 @@ macOS:
 
 ```
 1. dotnet build
-2. Acesse a pasta gerada em: ./bin/Debug/net8.0/runtimes/osx/
+2. Acesse a pasta gerada em: ./bin/Debug/net7.0/runtimes/osx/
 3. Extraia o arquivo Chromium.zip
 4. dotnet run
 ```

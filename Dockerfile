@@ -1,5 +1,5 @@
 ARG ARCH=amd64
-ARG VERSION=8.0
+ARG VERSION=7.0
 ARG TAG=$VERSION-bullseye-slim-$ARCH
 
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
