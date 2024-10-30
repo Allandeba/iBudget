@@ -6,7 +6,7 @@ namespace iBudget.AutomatedTest;
 public class WebDriverFixture : IDisposable
 {
     private const string DevelopmentUrl = "http://127.0.0.1:5105";
-    private const string StagingUrl = "https://homologacao.ibudget.allandeba.dev.br";
+    private const string StagingUrl = "https://hml-ibudget.allandeba.dev.br";
     
     private bool IsDevelopment() => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
 
