@@ -17,8 +17,6 @@ public class DatabaseResetWorker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            await Task.Delay(TimeSpan.FromHours(8), stoppingToken);
-
             using (var scope = _serviceProvider.CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
@@ -28,6 +26,8 @@ public class DatabaseResetWorker : BackgroundService
                     scope.ServiceProvider.GetRequiredService<DatabaseInitialize>();
                 await databaseInitialize.InitializeDB();
             }
+            
+            await Task.Delay(TimeSpan.FromHours(8), stoppingToken);
         }
     }
 
