@@ -42,9 +42,24 @@ public class PersonCreateTest : PersonSharedCrudTest
     }
 
     [Fact]
-    public void ShouldCreateNewPerson()
+    public async Task ShouldFindNewPerson()
+    {
+        await CreateNewPerson();
+        Assert.NotNull(_lastAddedPerson);
+        
+        var personName = _lastAddedPerson.FindElement(By.Id("PersonItemName"));
+        //TODO: no base criar um PersonModel (ou um ModelView e utilizar aqui a partir da classe)
+        var expectedPersonName = PersonFirstName + ' ' + PersonLastName; 
+        Assert.Equal(expectedPersonName, personName.Text);
+
+        var personCreationDate = _lastAddedPerson.FindElement(By.Id("PersonItemCreationDate"));
+        Assert.Equal(DateTime.Now.ToString(Constants.ptBRDateFormat), personCreationDate.Text);
+    }
+
+    private async Task CreateNewPerson()
     {
         PersonCreate.Click();
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_personCreateController, _uri.AbsolutePath);
 
         _firstName.SendKeys(PersonFirstName);
@@ -57,20 +72,7 @@ public class PersonCreateTest : PersonSharedCrudTest
         _document.SendKeys(PersonDocument);
 
         _driver.FindElement(By.TagName("form")).Submit();
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_personController, _uri.AbsolutePath);
-    }
-
-    [Fact]
-    public void ShouldFindNewPerson()
-    {
-        Assert.NotNull(_lastAddedPerson);
-        
-        var personName = _lastAddedPerson.FindElement(By.Id("PersonItemName"));
-        //TODO: no base criar um PersonModel (ou um ModelView e utilizar aqui a partir da classe)
-        var expectedPersonName = PersonFirstName + ' ' + PersonLastName; 
-        Assert.Equal(expectedPersonName, personName.Text);
-
-        var personCreationDate = _lastAddedPerson.FindElement(By.Id("PersonItemCreationDate"));
-        Assert.Equal(DateTime.UtcNow.ToString(Constants.ptBRDateFormat), personCreationDate.Text);
     }
 }
