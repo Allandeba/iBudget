@@ -13,6 +13,7 @@ public class WebDriverFixture : IDisposable
     protected readonly ChromeDriver _driver;
     protected string _exceptionMessage => _driver.FindElement(By.Id("exceptionMessageContent")).Text;
     protected Uri _uri => new Uri(_driver.Url);
+    protected const int WaitTimeForUrlAssert = 1500;
 
     protected WebDriverFixture()
     {

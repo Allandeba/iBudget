@@ -19,10 +19,11 @@ public class PersonUpdateTest : PersonSharedCrudTest
     private const string PersonDocument = "11221122112211";
     
     [Fact]
-    public void ShouldUpdateLastAddedPerson()
+    public async Task ShouldUpdateLastAddedPerson()
     {
         Assert.NotNull(_lastAddedPerson);
         _lastAddedPerson!.Click();
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Contains(_personUpdateController, _uri.AbsolutePath);
 
         _firstName.Clear();
@@ -40,6 +41,7 @@ public class PersonUpdateTest : PersonSharedCrudTest
         _document.SendKeys(PersonDocument);
 
         _driver.FindElement(By.TagName("form")).Submit();
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_personController, _uri.AbsolutePath);
     }
     

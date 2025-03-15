@@ -11,9 +11,11 @@ public class ItemMenuTest : ItemSharedTest
     }
     
     [Fact]
-    public void HasAccessToItemIndex()
+    public async Task HasAccessToItemIndex()
     {
         _itemMenu.Click();
+        
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_itemController, _uri.AbsolutePath);
     }
 }

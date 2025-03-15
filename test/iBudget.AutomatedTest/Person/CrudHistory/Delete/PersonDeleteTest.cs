@@ -8,7 +8,7 @@ namespace iBudget.AutomatedTest.Person.CrudHistory.Delete;
 public class PersonDeleteTest : PersonSharedCrudTest
 {
     [Fact]
-    public void ShouldDeleteAutomatedLastAddedPerson()
+    public async Task ShouldDeleteAutomatedLastAddedPerson()
     {
         Assert.NotNull(_lastAddedPerson);
         var personName = _lastAddedPerson.FindElement(By.Id("PersonItemName"));
@@ -26,6 +26,7 @@ public class PersonDeleteTest : PersonSharedCrudTest
         Assert.NotNull(confirmationButton);
         confirmationButton.Click();
         
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_personController, _uri.AbsolutePath);
     }
 }

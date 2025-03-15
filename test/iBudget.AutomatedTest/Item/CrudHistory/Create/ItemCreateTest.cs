@@ -31,9 +31,10 @@ public class ItemCreateTest : ItemSharedCrudTest
     }
 
     [Fact]
-    public void ShouldCreateNewItem()
+    public async Task ShouldCreateNewItem()
     {
         ItemCreate.Click();
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_itemCreateController, _uri.AbsolutePath);
 
         _itemName.SendKeys(ItemName);
@@ -44,6 +45,7 @@ public class ItemCreateTest : ItemSharedCrudTest
         //TODO: Fazer importar imagem e selecionar default
         
         _driver.FindElement(By.TagName("form")).Submit();
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_itemController, _uri.AbsolutePath);
     }
 

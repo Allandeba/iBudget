@@ -8,7 +8,7 @@ namespace iBudget.AutomatedTest.Item.CrudHistory.Delete;
 public class ItemDeleteTest : ItemSharedCrudTest
 {
     [Fact]
-    public void ShouldDeleteAutomatedLastAddedItem()
+    public async Task ShouldDeleteAutomatedLastAddedItem()
     {
         Assert.NotNull(_lastAddedItem);
         var itemName = _lastAddedItem.FindElement(By.Id("itemName"));
@@ -26,6 +26,7 @@ public class ItemDeleteTest : ItemSharedCrudTest
         Assert.NotNull(confirmationButton);
         confirmationButton.Click();
         
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_itemController, _uri.AbsolutePath);
     }
 }

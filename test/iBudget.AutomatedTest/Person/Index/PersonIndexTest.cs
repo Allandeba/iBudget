@@ -21,11 +21,12 @@ public class PersonIndexTest : PersonSharedCrudTest
     }
     
     [Fact]
-    public void ShouldSearchSuccessfully()
+    public async Task ShouldSearchSuccessfully()
     {
         Assert.NotNull(SearchBox);
         SearchBox.SendKeys("aB");
         SearchBox.Submit();
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_personSearchController, _uri.AbsolutePath);
 
         Assert.NotNull(PersonList);
@@ -38,11 +39,13 @@ public class PersonIndexTest : PersonSharedCrudTest
     }
 
     [Fact]
-    public void ShouldSearchWithEnter()
+    public async Task ShouldSearchWithEnter()
     {
         Assert.NotNull(SearchBox);
         SearchBox.SendKeys("a");
         SearchBox.SendKeys(Keys.Enter);
+
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_personSearchController, _uri.AbsolutePath);
     }
 

@@ -13,10 +13,11 @@ public class ItemUpdateTest : ItemSharedCrudTest
     private const string ItemDescription = "automated description updated";
     
     [Fact]
-    public void ShouldUpdateLastAddedItem()
+    public async Task ShouldUpdateLastAddedItem()
     {
         Assert.NotNull(_lastAddedItem);
         _lastAddedItem!.Click();
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Contains(_itemUpdateController, _uri.AbsolutePath);
 
         _itemName.Clear();
@@ -31,6 +32,7 @@ public class ItemUpdateTest : ItemSharedCrudTest
         //TODO: Deletar imagem padrão
         
         _driver.FindElement(By.TagName("form")).Submit();
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_itemController, _uri.AbsolutePath);
     }
     

@@ -11,9 +11,11 @@ public class PersonMenuTest : PersonSharedTest
     }
     
     [Fact]
-    public void HasAccessToPersonIndex()
+    public async Task HasAccessToPersonIndex()
     {
         _personMenu.Click();
+        
+        await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_personController, _uri.AbsolutePath);
     }
 }
