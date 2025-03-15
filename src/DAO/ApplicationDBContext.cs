@@ -25,6 +25,8 @@ public class ApplicationDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasPostgresExtension("unaccent");
+        
         modelBuilder.ApplyConfiguration(new PersonMap());
         modelBuilder.ApplyConfiguration(new DocumentMap());
         modelBuilder.ApplyConfiguration(new ContactMap());
