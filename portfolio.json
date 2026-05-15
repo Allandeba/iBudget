@@ -1,0 +1,21 @@
+{
+  "title": "iBudget — Sistema de gestão de orçamentos",
+  "impact": "↑ Eliminou planilhas manuais · orçamento em 2min vs horas antes",
+  "techStack": [
+    "C#",
+    ".NET MVC",
+    ".NET Razor Pages",
+    "PostgreSQL",
+    "Relatórios em PDF"
+  ],
+  "diff": {
+    "before": "planilhas manuais e controle em papel",
+    "added": [
+      "CRUD completo de clientes, produtos e serviços",
+      "Geração de PDF com logo e layout profissional",
+      "Banco PostgreSQL com backup automático",
+      "Relatórios financeiros mensais e anuais",
+      "Envio do orçamento direto no whatsapp"
+    ]
+  }
+}
