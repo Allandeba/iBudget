@@ -16,7 +16,7 @@ jobs:
       - name: Setup dotnet build
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
 
       - name: Restore solution
         run: dotnet restore
@@ -35,7 +35,7 @@ jobs:
       - name: Setup dotnet build
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
 
       - name: Restore iBudget.UnitTest
         run: dotnet restore ./test/iBudget.UnitTest/iBudget.UnitTest.csproj
@@ -110,7 +110,7 @@ jobs:
       - name: Setup dotnet build
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 7.0.x
+          dotnet-version: 8.0.x
 
       - name: Restore iBudget.AutomatedTest
         run: dotnet restore ./test/iBudget.AutomatedTest/iBudget.AutomatedTest.csproj
@@ -169,4 +169,4 @@ jobs:
           follow-redirect: true
           max-attempts: 3
           retry-delay: 10s
-          retry-all: true 
+          retry-all: true

@@ -1,19 +1,22 @@
 ARG ARCH=amd64
-ARG VERSION=7.0
-ARG TAG=$VERSION-bullseye-slim-$ARCH
+ARG VERSION=8.0
+# Ubuntu 22.04 retains the native dependencies required by Syncfusion Blink.
+ARG TAG=$VERSION-jammy-$ARCH
 
-FROM mcr.microsoft.com/dotnet/sdk:$VERSION AS build
+FROM mcr.microsoft.com/dotnet/sdk:$VERSION-jammy AS build
 WORKDIR /app
 
-COPY /src/iBudget.csproj .
-RUN dotnet restore iBudget.csproj
+COPY src/iBudget.csproj ./src/
+COPY Shared/Shared/Shared.csproj ./Shared/Shared/
+RUN dotnet restore src/iBudget.csproj
 
-COPY /src/ .
-COPY /Shared/ ./Shared/
-RUN dotnet publish iBudget.csproj -c release -o out --no-restore --no-cache /restore
+COPY src/ ./src/
+COPY Shared/ ./Shared/
+RUN dotnet publish src/iBudget.csproj -c Release -o /app/out --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:$TAG
 WORKDIR /app
+ENV ASPNETCORE_HTTP_PORTS=80
 
 # Syncfusion
 RUN apt-get update \
