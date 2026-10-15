@@ -36,23 +36,33 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="@(DemoAccess.IsEnabled ? "col-12 col-md-6 col-lg-5" : "col-12 col-md-4")">
+        <div class="@(DemoAccess.IsEnabled ? "col-12 col-md-8 col-lg-6" : "col-12 col-md-4")">
 
             @if (DemoAccess.IsEnabled)
             {
-                <form asp-controller="Login" asp-action="Demo" method="post" id="formDemo" class="mt-4">
-                    <h1 class="h3 mb-3">Experimente o iBudget</h1>
-                    <p id="demoDescription">Explore um sistema de orçamentos com dados de exemplo. Não precisa criar conta nem informar senha.</p>
+                <form asp-controller="Login" asp-action="Demo" method="post" id="formDemo"
+                      class="demo-entry border rounded-4 shadow-sm p-4 p-md-5 my-4 my-md-5">
+                    <h1 class="display-6 fw-semibold mb-3">Experimente o iBudget</h1>
+                    <p id="demoDescription" class="lead mb-4">Monte um orçamento completo com clientes e itens de exemplo. Não precisa criar conta nem informar senha.</p>
+
+                    <ul class="demo-entry__features mb-4 ps-4">
+                        <li>Cadastre pessoas e itens</li>
+                        <li>Crie e consulte orçamentos</li>
+                        <li>Gere PDFs para compartilhamento</li>
+                    </ul>
 
                     @if (ViewData["DemoError"] is string error)
                     {
-                        <p id="demoError" class="text-danger-emphasis" role="alert">@error</p>
+                        <p id="demoError" class="alert alert-danger mb-4" role="alert">@error</p>
                     }
 
-                    <button id="demoLoginButton" class="btn btn-primary btn-lg w-100 my-3" type="submit"
+                    <button id="demoLoginButton" class="btn btn-primary btn-lg w-100 mb-4" type="submit"
                             aria-describedby="demoDescription demoNotice">Explorar demonstração</button>
                     <p id="demoLoginStatus" class="visually-hidden" role="status" aria-live="polite"></p>
-                    <p id="demoNotice" class="small text-body-secondary">Os dados são compartilhados e reiniciados periodicamente. Use apenas informações fictícias.</p>
+                    <p id="demoNotice" class="demo-entry__notice small text-body-secondary border-top pt-3 mb-0">
+                        <strong class="text-body">Ambiente compartilhado.</strong>
+                        Os dados são reiniciados periodicamente. Use apenas informações fictícias.
+                    </p>
                 </form>
             }
             else

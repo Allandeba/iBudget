@@ -13,14 +13,17 @@
                 <partial name="Partials/_DevelopmentMenu"/>
 
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@Constants.ApplicationName</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavigation"
+                            aria-controls="primaryNavigation" aria-expanded="false" aria-label="Abrir navegação">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <partial name="Partials/_UserAuthenticatedMenu"/>
-                </div>
+                    <div id="primaryNavigation" class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <partial name="Partials/_UserAuthenticatedMenu"/>
+                    </div>
+                }
             </div>
         </nav>
     </header>

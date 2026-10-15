@@ -29,13 +29,40 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body > .container {
+    flex: 1;
+}
+
+.footer {
+    margin-top: auto;
 }
 
 .form-button-disable {
     pointer-events: none;
     opacity: 0.6;
     cursor: default;
+}
+
+.demo-entry {
+    background-color: var(--bs-tertiary-bg);
+}
+
+.demo-entry__features {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.demo-entry__features li::marker {
+    color: var(--bs-primary);
+}
+
+.demo-entry__notice {
+    line-height: 1.55;
 }
 
 .header-img {
