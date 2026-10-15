@@ -65,9 +65,13 @@ jobs:
 
       - name: Build and push docker container HOMOLOGACAO
         uses: docker/build-push-action@v5
+        env:
+          SIXLABORS_LICENSE_KEY: ${{ secrets.SIXLABORS_LICENSE_KEY }}
         with:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:homologacao
+          secret-envs: |
+            sixlabors_license=SIXLABORS_LICENSE_KEY
           
   deployStaging:
     runs-on: ubuntu-latest
@@ -142,9 +146,13 @@ jobs:
 
       - name: Build and push docker container
         uses: docker/build-push-action@v5
+        env:
+          SIXLABORS_LICENSE_KEY: ${{ secrets.SIXLABORS_LICENSE_KEY }}
         with:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+          secret-envs: |
+            sixlabors_license=SIXLABORS_LICENSE_KEY
 
   deployProduction:
     runs-on: ubuntu-latest

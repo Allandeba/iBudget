@@ -12,7 +12,9 @@ RUN dotnet restore src/iBudget.csproj
 
 COPY src/ ./src/
 COPY Shared/ ./Shared/
-RUN dotnet publish src/iBudget.csproj -c Release -o /app/out --no-restore
+RUN --mount=type=secret,id=sixlabors_license,required=true \
+    dotnet publish src/iBudget.csproj -c Release -o /app/out --no-restore \
+    -p:SixLaborsLicenseFile=/run/secrets/sixlabors_license
 
 FROM mcr.microsoft.com/dotnet/aspnet:$TAG
 WORKDIR /app
