@@ -25,6 +25,7 @@ public class PersonUpdateTest : PersonSharedCrudTest
         _lastAddedPerson!.Click();
         await Task.Delay(WaitTimeForUrlAssert);
         Assert.Contains(_personUpdateController, _uri.AbsolutePath);
+        var originalCreationDate = _driver.FindElement(By.Id("CreationDate")).GetAttribute("value");
 
         _firstName.Clear();
         _firstName.SendKeys(PersonFirstName);
@@ -43,6 +44,15 @@ public class PersonUpdateTest : PersonSharedCrudTest
         _driver.FindElement(By.TagName("form")).Submit();
         await Task.Delay(WaitTimeForUrlAssert);
         Assert.Equal(_personController, _uri.AbsolutePath);
+
+        Assert.NotNull(_lastAddedPerson);
+        var personName = _lastAddedPerson!.FindElement(By.Id("PersonItemName"));
+        Assert.Equal(PersonFirstName + ' ' + PersonLastName, personName.Text);
+
+        _lastAddedPerson.Click();
+        await Task.Delay(WaitTimeForUrlAssert);
+        var persistedCreationDate = _driver.FindElement(By.Id("CreationDate")).GetAttribute("value");
+        Assert.Equal(originalCreationDate, persistedCreationDate);
     }
     
     [Fact]
@@ -54,8 +64,5 @@ public class PersonUpdateTest : PersonSharedCrudTest
         //TODO: no base criar um PersonModel (ou um ModelView e utilizar aqui a partir da classe)
         var expectedPersonName = PersonFirstName + ' ' + PersonLastName; 
         Assert.Equal(expectedPersonName, personName.Text);
-
-        var personCreationDate = _lastAddedPerson.FindElement(By.Id("PersonItemCreationDate"));
-        Assert.Equal(DateTime.Now.ToString(Constants.ptBRDateFormat), personCreationDate.Text);
     }
 }

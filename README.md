@@ -81,6 +81,8 @@ Se a demonstração estiver desligada, o helper Selenium preenche `Constants.Def
 
 **Os testes Selenium alteram dados.** Confira o `.env`, pois ele pode sobrescrever as variáveis acima. Sem uma URL explícita, a fixture usa localhost em Development e a homologação remota nos demais ambientes. Para verificar o projeto localmente, prefira os comandos por projeto em vez de rodar `dotnet test` na solução inteira.
 
+A validação da data de criação de pessoas usa `America/Sao_Paulo`, independentemente do fuso do executor. Se a sessão PostgreSQL usar outro fuso, configure `IBUDGET_TEST_DATABASE_TIMEZONE` com o mesmo identificador (por exemplo, `UTC`). O banco gera essa data com `CURRENT_TIMESTAMP`; a edição deve preservar a data original.
+
 ## Publicação e validação
 
 Um push em `main` aciona o [workflow](.github/workflows/ibudget.yml): ele compila o projeto, executa os testes unitários e implanta em homologação. Depois dos testes Selenium, implanta em produção. Os secrets do GitHub guardam os endereços, as credenciais e os caminhos dos arquivos de ambiente.

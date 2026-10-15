@@ -44,7 +44,9 @@ public class PersonCreateTest : PersonSharedCrudTest
     [Fact]
     public async Task ShouldFindNewPerson()
     {
+        var beforeCreation = DateTimeOffset.UtcNow;
         await CreateNewPerson();
+        var afterCreation = DateTimeOffset.UtcNow;
         Assert.NotNull(_lastAddedPerson);
         
         var personName = _lastAddedPerson.FindElement(By.Id("PersonItemName"));
@@ -53,7 +55,8 @@ public class PersonCreateTest : PersonSharedCrudTest
         Assert.Equal(expectedPersonName, personName.Text);
 
         var personCreationDate = _lastAddedPerson.FindElement(By.Id("PersonItemCreationDate"));
-        Assert.Equal(DateTime.Now.ToString(Constants.ptBRDateFormat), personCreationDate.Text);
+        PersonCreationDate.AssertCreatedBetween(personCreationDate.Text, beforeCreation,
+            afterCreation, PersonCreationDate.DatabaseTimeZone);
     }
 
     private async Task CreateNewPerson()
