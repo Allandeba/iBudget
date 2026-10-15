@@ -8,9 +8,11 @@ namespace iBudget.AutomatedTest.Item.CrudHistory.Update;
 public class ItemUpdateTest : ItemSharedCrudTest
 {
     //TODO: Criar um ViewModel no Shared/ViewModels/ItemViewModel.cs e passar a separar a Entidade dos objetos de valores ViewModels. 
-    private const string ItemName = "Automated item Updated";
+    private const string ItemNamePrefix = "Automated item Updated";
     private const string ItemValue = "9.9";
     private const string ItemDescription = "automated description updated";
+
+    private static string ItemName(int itemId) => $"{ItemNamePrefix} {itemId}";
     
     [Fact]
     public async Task ShouldUpdateLastAddedItem()
@@ -19,9 +21,10 @@ public class ItemUpdateTest : ItemSharedCrudTest
         _lastAddedItem!.Click();
         await Task.Delay(WaitTimeForUrlAssert);
         Assert.Contains(_itemUpdateController, _uri.AbsolutePath);
+        var itemId = int.Parse(_uri.Segments[^1]);
 
         _itemName.Clear();
-        _itemName.SendKeys(ItemName);
+        _itemName.SendKeys(ItemName(itemId));
         _itemValue.Clear();
         _itemValue.SendKeys(ItemValue);
         _itemDescription.Clear();
@@ -40,9 +43,9 @@ public class ItemUpdateTest : ItemSharedCrudTest
     public void ShouldFindUpdatedItem()
     {
         Assert.NotNull(_lastAddedItem);
-        
+        var itemId = int.Parse(_lastAddedItem.FindElement(By.TagName("button")).GetAttribute("id"));
         var itemName = _lastAddedItem.FindElement(By.Id("itemName"));
-        Assert.Equal(ItemName, itemName.Text);
+        Assert.Equal(ItemName(itemId), itemName.Text);
 
         var itemDescription = _lastAddedItem.FindElement(By.Id("itemDescription"));
         Assert.Equal(ItemDescription, itemDescription.Text);

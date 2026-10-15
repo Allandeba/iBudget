@@ -11,12 +11,14 @@ namespace iBudget.AutomatedTest.Person.CrudHistory.Update;
 public class PersonUpdateTest : PersonSharedCrudTest
 {
     //TODO: Criar um ViewModel no Shared/ViewModels/PersonViewModel.cs e passar a separar a Entidade dos objetos de valores ViewModels.
-    private const string PersonFirstName = "Automated Updated";
+    private const string PersonFirstNamePrefix = "Automated Updated";
     private const string PersonLastName = "Test Updated";
     private const string PersonEmail = "automated_updated@test.com";
-    private const string PersonPhone = "+5549000000000";
     private readonly int PersonDocumentType = DocumentTypes.CNPJ.GetValue();
-    private const string PersonDocument = "11221122112211";
+
+    private static string PersonFirstName(int personId) => $"{PersonFirstNamePrefix} {personId}";
+    private static string PersonPhone(int personId) => $"+5549{personId:D9}";
+    private static string PersonDocument(int personId) => $"22{personId:D12}";
     
     [Fact]
     public async Task ShouldUpdateLastAddedPerson()
@@ -25,21 +27,22 @@ public class PersonUpdateTest : PersonSharedCrudTest
         _lastAddedPerson!.Click();
         await Task.Delay(WaitTimeForUrlAssert);
         Assert.Contains(_personUpdateController, _uri.AbsolutePath);
+        var personId = int.Parse(_uri.Segments[^1]);
         var originalCreationDate = _driver.FindElement(By.Id("CreationDate")).GetAttribute("value");
 
         _firstName.Clear();
-        _firstName.SendKeys(PersonFirstName);
+        _firstName.SendKeys(PersonFirstName(personId));
         _lastName.Clear();
         _lastName.SendKeys(PersonLastName);
         _email.Clear();
         _email.SendKeys(PersonEmail);
         _phone.Clear();
-        _phone.SendKeys(PersonPhone);
+        _phone.SendKeys(PersonPhone(personId));
 
         var selectElement = new SelectElement(_documentType);
         selectElement.SelectByValue(PersonDocumentType.ToString());
         _document.Clear();
-        _document.SendKeys(PersonDocument);
+        _document.SendKeys(PersonDocument(personId));
 
         _driver.FindElement(By.TagName("form")).Submit();
         await Task.Delay(WaitTimeForUrlAssert);
@@ -47,7 +50,7 @@ public class PersonUpdateTest : PersonSharedCrudTest
 
         Assert.NotNull(_lastAddedPerson);
         var personName = _lastAddedPerson!.FindElement(By.Id("PersonItemName"));
-        Assert.Equal(PersonFirstName + ' ' + PersonLastName, personName.Text);
+        Assert.Equal(PersonFirstName(personId) + ' ' + PersonLastName, personName.Text);
 
         _lastAddedPerson.Click();
         await Task.Delay(WaitTimeForUrlAssert);
@@ -59,10 +62,10 @@ public class PersonUpdateTest : PersonSharedCrudTest
     public void ShouldFindUpdatedPerson()
     {
         Assert.NotNull(_lastAddedPerson);
-        
+        var personId = int.Parse(_lastAddedPerson.FindElement(By.TagName("button")).GetAttribute("id"));
         var personName = _lastAddedPerson.FindElement(By.Id("PersonItemName"));
         //TODO: no base criar um PersonModel (ou um ModelView e utilizar aqui a partir da classe)
-        var expectedPersonName = PersonFirstName + ' ' + PersonLastName; 
+        var expectedPersonName = PersonFirstName(personId) + ' ' + PersonLastName; 
         Assert.Equal(expectedPersonName, personName.Text);
     }
 }
