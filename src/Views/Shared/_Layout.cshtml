@@ -29,6 +29,10 @@
 
 <div class="container">
     <main role="main" class="pb-3">
+        @if (DemoAccess.IsDemo(User))
+        {
+            <p id="demoSessionNotice" class="small text-body-secondary mb-3">Você está na demonstração. Os dados são compartilhados e temporários; use apenas informações fictícias.</p>
+        }
         @RenderBody()
     </main>
 </div>

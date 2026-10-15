@@ -6,6 +6,7 @@ using iBudget.DAO;
 using iBudget.Framework;
 using iBudget.Models;
 using iBudget.Repository;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -21,6 +22,10 @@ public class Program
         _ = Env.Load();
 
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.Configure<DemoOptions>(builder.Configuration.GetSection(DemoOptions.SectionName));
+        builder.Services.AddSingleton<DemoAccess>();
+        builder.Services.AddSingleton(TimeProvider.System);
 
         builder.Services.Configure<ForwardedHeadersOptions>(options =>
         {
@@ -43,6 +48,15 @@ public class Program
                 options.LoginPath = "/" + nameof(LoginController.Login);
                 options.ExpireTimeSpan = TimeSpan.FromHours(8);
                 options.Cookie.Name = "authCookie";
+                options.Events.OnValidatePrincipal = async context =>
+                {
+                    var demoAccess = context.HttpContext.RequestServices.GetRequiredService<DemoAccess>();
+                    if (context.Principal != null && DemoAccess.IsDemo(context.Principal) && !demoAccess.IsEnabled)
+                    {
+                        context.RejectPrincipal();
+                        await context.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                    }
+                };
             });
 
         _ = builder.Services.AddAuthorization(options =>

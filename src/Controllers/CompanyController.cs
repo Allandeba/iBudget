@@ -8,10 +8,12 @@ namespace iBudget.Controllers;
 public class CompanyController : BaseController
 {
     private readonly CompanyBusiness _business;
+    private readonly DemoAccess _demoAccess;
 
-    public CompanyController(CompanyBusiness companyBusiness)
+    public CompanyController(CompanyBusiness companyBusiness, DemoAccess demoAccess)
     {
         _business = companyBusiness;
+        _demoAccess = demoAccess;
     }
 
     public async Task<IActionResult> Manipulate()
@@ -33,6 +35,9 @@ public class CompanyController : BaseController
 
     public IActionResult Create()
     {
+        if (_demoAccess.IsEnabled)
+            return StatusCode(StatusCodes.Status403Forbidden);
+
         return View(new CompanyModel());
     }
 
@@ -41,6 +46,9 @@ public class CompanyController : BaseController
     [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue, ValueLengthLimit = int.MaxValue)]
     public async Task<IActionResult> Create(CompanyModel company)
     {
+        if (_demoAccess.IsEnabled)
+            return StatusCode(StatusCodes.Status403Forbidden);
+
         if (company == null)
             return BadRequest(ModelState);
 
@@ -65,6 +73,9 @@ public class CompanyController : BaseController
     [RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue, ValueLengthLimit = int.MaxValue)]
     public async Task<IActionResult> Update(CompanyModel company)
     {
+        if (_demoAccess.IsEnabled)
+            return StatusCode(StatusCodes.Status403Forbidden);
+
         if (SystemManager.IsDevelopment)
         {
             ViewBag.Message = "Em modo desenvolvimento não é possível alterar a empresa!";

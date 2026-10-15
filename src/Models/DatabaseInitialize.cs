@@ -28,7 +28,7 @@ public class DatabaseInitialize
         _logger = logger;
     }
 
-    public async Task InitializeDB()
+    public virtual async Task InitializeDB()
     {
         try
         {

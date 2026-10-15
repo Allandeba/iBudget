@@ -14,6 +14,7 @@ public class WebDriverFixture : IDisposable
     protected string _exceptionMessage => _driver.FindElement(By.Id("exceptionMessageContent")).Text;
     protected Uri _uri => new Uri(_driver.Url);
     protected const int WaitTimeForUrlAssert = 1500;
+    protected bool IsDemoMode => _driver.FindElements(By.Id("demoLoginButton")).Count > 0;
 
     protected WebDriverFixture()
     {
@@ -27,7 +28,9 @@ public class WebDriverFixture : IDisposable
         _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(1000);
         _driver.Manage().Window.Maximize();
 
-        var urlRunner = IsDevelopment() ? DevelopmentUrl : StagingUrl;
+        var urlRunner = Environment.GetEnvironmentVariable("IBUDGET_TEST_URL");
+        if (string.IsNullOrWhiteSpace(urlRunner))
+            urlRunner = IsDevelopment() ? DevelopmentUrl : StagingUrl;
         _driver.Navigate().GoToUrl(urlRunner);
     }
 
@@ -39,7 +42,23 @@ public class WebDriverFixture : IDisposable
 
     protected void Login()
     {
-        var submitForm = _driver.FindElement(By.Id("submit"));
-        submitForm.Submit();
+        if (!IsDemoMode)
+        {
+            var password = Environment.GetEnvironmentVariable("USER_PASSWORD");
+            if (string.IsNullOrEmpty(password))
+                throw new InvalidOperationException("Configure USER_PASSWORD no executor Selenium para autenticar sem Demo.");
+
+            var usernameInput = _driver.FindElement(By.Id("Username"));
+            usernameInput.Clear();
+            usernameInput.SendKeys(Shared.Constants.DefaultUsername);
+            var passwordInput = _driver.FindElement(By.Id("Password"));
+            passwordInput.Clear();
+            passwordInput.SendKeys(password);
+        }
+
+        var button = IsDemoMode
+            ? _driver.FindElement(By.Id("demoLoginButton"))
+            : _driver.FindElement(By.CssSelector("#formLogin button[type='submit']"));
+        button.Click();
     }
 }

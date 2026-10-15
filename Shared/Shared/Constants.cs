@@ -14,7 +14,6 @@ public static class Constants
     public const string ThrowDBException = "DBException";
     public const string CustomErrorView = "CustomError";
     public const string DefaultUsername = "admin";
-    public const string DefaultPassword = "@dministrat0R.";
 
     public const string PasswordValidationRegex =
         @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$!%*?&;]).{8,}$";

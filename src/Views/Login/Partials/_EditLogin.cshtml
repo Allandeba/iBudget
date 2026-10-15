@@ -4,11 +4,9 @@
 
 @{
     var username = "";
-    var password = "";
     if (SystemManager.IsDevelopment)
     {
         username = Constants.DefaultUsername;
-        password = Constants.DefaultPassword;
     }
 }
 
@@ -21,6 +19,6 @@
 
 <div class="mb-3 text-start">
     <label asp-for="Password" class="form-label"></label>
-    <input asp-for="Password" class="form-control" placeholder="" value="@password">
+    <input asp-for="Password" class="form-control" placeholder="" autocomplete="current-password">
     <span asp-validation-for="Password" class="text-danger"></span>
 </div>

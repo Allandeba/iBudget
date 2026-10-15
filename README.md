@@ -1,81 +1,88 @@
 # iBudget
 
-| **Redes Sociais** | **Linguagens** | **Versão do .NET** | **Último Commit** |
-| ----------------- | -------------- | ------------------- | ------------------ |
-| [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/allan-debastiani/) | ![GitHub language count](https://img.shields.io/github/languages/count/allandeba/iBudget) ![GitHub top language](https://img.shields.io/github/languages/top/allandeba/iBudget) | ![GitHub target](https://img.shields.io/badge/.NET%20Core-7.0-green) | ![GitHub last commit](https://img.shields.io/github/last-commit/allandeba/iBudget) |
+Projeto de portfólio para gerenciar orçamentos comerciais, feito com .NET 8, ASP.NET Core MVC, Razor e PostgreSQL.
 
-## Visão Geral
+[Experimentar a demonstração](https://ibudget.allandeba.dev.br) · [LinkedIn](https://www.linkedin.com/in/allan-debastiani/)
 
-Seja bem-vindo ao iBudget, um aplicativo intuitivo para gestão de orçamentos que possibilita a sua organização e manipulação, mantendo históricos de alterações, gerenciando cadastros de pessoas, itens e orçamentos. 
+## Funcionalidades
 
-O sistema oferece suporte à geração de orçamentos em formato PDF e permite o compartilhamento direto através do WhatsApp.
+- Cadastro de pessoas com contatos e documentos, além de itens com imagens e catálogo visual.
+- Orçamentos com quantidades, descontos e histórico de alterações.
+- Cadastro da empresa e geração de PDF com Syncfusion.
+- Compartilhamento de um link para baixar o PDF pelo WhatsApp, com confirmação de envio pelo usuário.
 
-Os dados são resetados diariamente para manter um ambiente de teste consistente.
+Comece por Pessoas, depois cadastre os Itens e crie os Orçamentos. Os links para imprimir e baixar orçamentos podem ser acessados sem login.
 
-**Para experimentar o sistema, acesse: [ibudget.allandeba.dev.br](https://ibudget.allandeba.dev.br)**
-- *Ao acessar o sistema, já será preenchido o usuário e senha para acessar a aplicação, não sendo possível incluir novos usuários* 
+## Tecnologias
 
+Os controllers recebem as requisições, Business reúne as regras de negócio e Repository acessa o banco com Entity Framework Core/Npgsql. As telas usam Razor, Bootstrap, jQuery e Select2. Bogus gera dados fictícios; ImageSharp trata imagens. Os testes usam xUnit e Selenium.
 
-## Tecnologias Utilizadas
+## Executar localmente
 
-- **Banco de Dados:** PostgreSQL
-- **Framework:** .Net Core 7.0
-- **Geração de PDF:** Syncfusion
-- **Geração de Dados Falsos:** Bogus
-- **Testes Unitários:** xUnit
-- **Conteinerização:** Docker
-- **Hospedagem:** Servidor VPS Linux
-- **Arquitetura:** MVC
-- **ORM:** Entity Framework
-- **Paginação:** X.PageList
-- **UI:** Bootstrap
+Para rodar localmente, você precisa de:
 
-## 💻 Pré-requisitos debug aplicação
+- SDK e runtimes .NET/ASP.NET Core 8.
+- PostgreSQL 14 ou superior com a extensão `unaccent` e permissão para aplicar migrações.
+- Licença Syncfusion (gratuita).
+- Internet para obter imagens fictícias do Picsum.
 
-Para efetuar o debug da aplicação com todas as funcionalidade se faz necessário informar os seguintes campos no arquivo "appsettings.Development.json":
+> **Use um banco exclusivo e descartável.** Os perfis locais usam `Development`. Nesse ambiente, o serviço de reset executa `DROP TABLE ... CASCADE` ao iniciar e a cada oito horas, e recria os dados de exemplo. A aplicação também bloqueia a edição da empresa.
 
-```json
-"ConnectionStrings": {
-  "DB_CONNECTION": "Host=#;Database=#;Username=#;Password=#",
-  "SYNC_FUSION_LICENSING": "",
-  "USER_PASSWORD": ""
-}
-DB_CONNECTION: String de conexão com o banco de dados. O sistema está configurado atualmente com uma base remota hospedada na ElephantSQL para testes.
-SYNC_FUSION_LICENSING: Licença da Syncfusion necessária para a impressão correta do PDF.
-USER_PASSWORD: Senha para a criação do usuário administrador.
+Na raiz do repositório, configure os valores locais com user secrets:
+
+```powershell
+dotnet user-secrets set "ConnectionStrings:DB_CONNECTION" "Host=localhost;Database=ibudget_demo;Username=ibudget;Password=<senha-do-banco>" --project src/iBudget.csproj
+dotnet user-secrets set "ConnectionStrings:SYNC_FUSION_LICENSING" "<licenca-syncfusion>" --project src/iBudget.csproj
+dotnet user-secrets set "ConnectionStrings:USER_PASSWORD" "<senha-local-do-usuario>" --project src/iBudget.csproj
+
+dotnet restore iBudget.sln
+dotnet build iBudget.sln --no-restore
+dotnet run --project src/iBudget.csproj --launch-profile http
 ```
 
-## 🚀 Instalando <iBudget>
+Abra [localhost:5105](http://localhost:5105). O perfil `https` usa [localhost:7186](https://localhost:7186) e exige certificado de desenvolvimento confiável.
 
-Para instalar o <iBudget>, siga estas etapas:
+`USER_PASSWORD` define a senha do usuário inicial quando não há login cadastrado. Em Development, apenas o usuário `admin` vem preenchido. Informe a senha cadastrada; a aplicação não envia `USER_PASSWORD` ao HTML. Alterar essa variável não modifica a senha de um usuário já existente.
 
-macOS:
+A aplicação consulta `ConnectionStrings` e depois as variáveis `DB_CONNECTION`, `SYNC_FUSION_LICENSING` e `USER_PASSWORD`. Ela também carrega o arquivo `.env`, ignorado pelo Git, e aplica as migrações ao iniciar.
 
-```
-1. dotnet build
-2. Acesse a pasta gerada em: ./bin/Debug/net7.0/runtimes/osx/
-3. Extraia o arquivo Chromium.zip
-4. dotnet run
-```
+A geração de PDF usa `Syncfusion.HtmlToPdfConverter.Net.Linux`. Valide a exportação em Linux com as dependências do [Dockerfile](Dockerfile). Em Development, os PDFs recebem uma marca d’água de teste.
 
-Linux, Windows:
+### Acesso à demonstração
 
-```
-1. dotnet build
-2. dotnet run
+A demonstração vem desabilitada. Para ativá-la, pare a aplicação e execute no mesmo terminal:
+
+```powershell
+$env:Demo__Enabled = 'true'
+dotnet run --project src/iBudget.csproj --launch-profile http
 ```
 
-## ☕ Usando <iBudget>
+Em `Development`, clique em **Explorar demonstração** para entrar como "Visitante", sem informar senha. A sessão dura até oito horas e não se renova com o uso. Os visitantes compartilham os mesmos dados, por isso use informações fictícias. O servidor bloqueia o cadastro de contas e as alterações da empresa.
 
+No container, configure `Demo__Enabled=true` e `ASPNETCORE_ENVIRONMENT=Development` somente com um banco descartável. A demonstração não funciona em Production ou Staging. Ao desativar a opção, o servidor rejeita as sessões demo na próxima requisição autenticada.
+
+## Testes
+
+A suíte inclui testes unitários e HTTP. Os testes HTTP usam um banco em memória, sem PostgreSQL, imagens externas ou serviço de reset:
+
+```powershell
+dotnet test test/iBudget.UnitTest/iBudget.UnitTest.csproj
 ```
-Caso não houver dados no banco, siga estes passos para gerar um orçamento:
-1. Adicione uma nova pessoa
-2. Adicione novos itens
-3. Crie um novo orçamento, selecionando uma pessoa e os itens que o compõem
-4. No modo de depuração, o registro da empresa é bloqueado para edição
-5. Imprima/Envie o Orçamento
-5.1. O compartilhamento via WhatsApp é feito por meio de um link de download direto no WhatsApp da pessoa
+
+Para rodar os testes Selenium, instale o Chrome e deixe a aplicação em execução em Development, com a demonstração habilitada conforme a seção anterior. Em outro terminal, execute:
+
+```powershell
+$env:ASPNETCORE_ENVIRONMENT = 'Development'
+$env:IBUDGET_TEST_URL = 'http://127.0.0.1:5105/Login'
+dotnet test test/iBudget.AutomatedTest/iBudget.AutomatedTest.csproj
 ```
 
-Aprecie a facilidade de gerenciar orçamentos com o iBudget!
+Se a demonstração estiver desligada, o helper Selenium preenche `Constants.DefaultUsername` e a variável `USER_PASSWORD` do executor de testes. Essa senha precisa corresponder à senha cadastrada no banco de homologação. No GitHub Actions, configure o secret `USER_PASSWORD`, repassado ao passo de testes; o arquivo de ambiente do container não é compartilhado com o executor. Com Demo ligado, Selenium não precisa dessa senha.
 
+**Os testes Selenium alteram dados.** Confira o `.env`, pois ele pode sobrescrever as variáveis acima. Sem uma URL explícita, a fixture usa localhost em Development e a homologação remota nos demais ambientes. Para verificar o projeto localmente, prefira os comandos por projeto em vez de rodar `dotnet test` na solução inteira.
+
+## Publicação e validação
+
+Um push em `main` aciona o [workflow](.github/workflows/ibudget.yml): ele compila o projeto, executa os testes unitários e implanta em homologação. Depois dos testes Selenium, implanta em produção. Os secrets do GitHub guardam os endereços, as credenciais e os caminhos dos arquivos de ambiente.
+
+O Dockerfile usa .NET 8, a porta HTTP `80` e as dependências Linux para gerar PDFs. Informe a conexão com o banco e a licença ao executar o container.

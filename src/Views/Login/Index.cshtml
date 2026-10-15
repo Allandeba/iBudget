@@ -1,9 +1,13 @@
 ﻿@model LoginModel
 
+@inject DemoAccess DemoAccess
+
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = DemoAccess.IsEnabled ? "Experimente o iBudget" : "Login";
 }
 
+@if (!DemoAccess.IsEnabled)
+{
 <script type="application/javascript">
     $(document).ready(function() {
         setIpAddress();
@@ -20,10 +24,39 @@
         });
     }
 </script>
+}
+
+@section Scripts
+{
+    @if (DemoAccess.IsEnabled)
+    {
+        <script src="~/js/demoLogin.js" defer asp-append-version="true"></script>
+    }
+}
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-4">
+        <div class="@(DemoAccess.IsEnabled ? "col-12 col-md-6 col-lg-5" : "col-12 col-md-4")">
+
+            @if (DemoAccess.IsEnabled)
+            {
+                <form asp-controller="Login" asp-action="Demo" method="post" id="formDemo" class="mt-4">
+                    <h1 class="h3 mb-3">Experimente o iBudget</h1>
+                    <p id="demoDescription">Explore um sistema de orçamentos com dados de exemplo. Não precisa criar conta nem informar senha.</p>
+
+                    @if (ViewData["DemoError"] is string error)
+                    {
+                        <p id="demoError" class="text-danger-emphasis" role="alert">@error</p>
+                    }
+
+                    <button id="demoLoginButton" class="btn btn-primary btn-lg w-100 my-3" type="submit"
+                            aria-describedby="demoDescription demoNotice">Explorar demonstração</button>
+                    <p id="demoLoginStatus" class="visually-hidden" role="status" aria-live="polite"></p>
+                    <p id="demoNotice" class="small text-body-secondary">Os dados são compartilhados e reiniciados periodicamente. Use apenas informações fictícias.</p>
+                </form>
+            }
+            else
+            {
 
             @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "needs-validation", id = "formLogin" }))
             {
@@ -44,6 +77,7 @@
                 <div id="submit" class="text-end mb-4">
                     <button class="btn btn-primary btn-lg" type="submit">Entrar</button>
                 </div>
+            }
             }
         </div>
     </div>

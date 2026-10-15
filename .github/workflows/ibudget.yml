@@ -119,6 +119,8 @@ jobs:
         run: dotnet build ./test/iBudget.AutomatedTest/iBudget.AutomatedTest.csproj --no-restore
 
       - name: Run Automated Tests
+        env:
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
         run: dotnet test ./test/iBudget.AutomatedTest/iBudget.AutomatedTest.csproj --no-build --verbosity normal
 
   updateDockerContainerProduction:
