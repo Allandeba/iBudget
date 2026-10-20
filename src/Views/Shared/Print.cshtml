@@ -5,6 +5,41 @@
     ViewData["Title"] = "Print - " + Model.ProposalId;
 }
 
+<style>
+    .pdf-watermark {
+        display: none;
+    }
+
+    @@media print {
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .pdf-watermark {
+            position: fixed;
+            top: 45%;
+            left: -20%;
+            z-index: 9999;
+            display: block;
+            width: 140%;
+            color: red;
+            font: bold 20px Helvetica, Arial, sans-serif;
+            text-align: center;
+            opacity: 0.6;
+            transform: rotate(-40deg);
+            pointer-events: none;
+        }
+    }
+</style>
+
+@if (ViewBag.ShowPdfWatermark == true)
+{
+    <div class="pdf-watermark" aria-hidden="true">
+        Arquivo exclusivamente dedicado para testes. Não tem validade alguma!
+    </div>
+}
+
 <div class="container-fluid bg-white">
 
     <header class="header-img bg-dark py-5 mb-2">

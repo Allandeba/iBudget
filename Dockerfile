@@ -1,6 +1,7 @@
 ARG ARCH=amd64
 ARG VERSION=8.0
-# Ubuntu 22.04 retains the native dependencies required by Syncfusion Blink.
+ARG PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT=120000
+# Ubuntu 22.04 is supported by Playwright and .NET 8.
 ARG TAG=$VERSION-jammy-$ARCH
 
 FROM mcr.microsoft.com/dotnet/sdk:$VERSION-jammy AS build
@@ -17,23 +18,29 @@ RUN --mount=type=secret,id=sixlabors_license,required=true \
     -p:SixLaborsLicenseFile=/run/secrets/sixlabors_license
 
 FROM mcr.microsoft.com/dotnet/aspnet:$TAG
+ARG PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT
 WORKDIR /app
 ENV ASPNETCORE_HTTP_PORTS=80
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 
-# Syncfusion
+# Playwright installer uses PowerShell only while building the image. Chromium and
+# its Linux dependencies remain in the final image.
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
-        libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
-        libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
-        libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 \
-        libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 \
-        libnss3 libgbm1 \
-    && apt-get autoclean \
-    && apt-get autoremove -y \
-    && rm -rf /var/cache/apk/* \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/*
+        wget apt-transport-https software-properties-common \
+    && wget -q https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O /tmp/packages-microsoft-prod.deb \
+    && dpkg -i /tmp/packages-microsoft-prod.deb \
+    && apt-get update \
+    && apt-get install -yq --no-install-recommends powershell
 
 COPY --from=build /app/out .
+
+RUN PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT=$PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT \
+        pwsh ./playwright.ps1 install --with-deps --only-shell chromium \
+    && apt-get purge -y powershell packages-microsoft-prod wget apt-transport-https software-properties-common \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/*
 
 EXPOSE 80 443
 

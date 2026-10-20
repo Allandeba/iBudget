@@ -2,6 +2,7 @@
 using System.Web;
 using iBudget.Business;
 using iBudget.DAO.Entities;
+using iBudget.Interfaces;
 using iBudget.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,12 @@ namespace iBudget.Controllers;
 public class ProposalController : BaseController
 {
     private readonly ProposalBusiness _business;
+    private readonly IPdfRenderer _pdfRenderer;
 
-    public ProposalController(ProposalBusiness business)
+    public ProposalController(ProposalBusiness business, IPdfRenderer pdfRenderer)
     {
         _business = business;
+        _pdfRenderer = pdfRenderer;
     }
 
     public async Task<IActionResult> Index(int? pageNumber)
@@ -75,8 +78,9 @@ public class ProposalController : BaseController
     }
 
     [AllowAnonymous]
-    public async Task<IActionResult> Print(Guid id)
+    public async Task<IActionResult> Print(Guid id, bool pdf = false)
     {
+        ViewBag.ShowPdfWatermark = pdf && SystemManager.IsDevelopment;
         ViewBag.Company = await _business.GetCompany();
         var proposal = await _business.GetPrintByGUIDAsync(id);
         return View(proposal);
@@ -86,15 +90,14 @@ public class ProposalController : BaseController
     public async Task<IActionResult> ExportToPDF(Guid id)
     {
         var url = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
-        url = $"{url}/{ControllerContext.RouteData.Values["controller"]}/{nameof(Print)}/{id}";
+        url = $"{url}/{ControllerContext.RouteData.Values["controller"]}/{nameof(Print)}/{id}?pdf=true";
 
         var company = await _business.GetCompany();
         if (company == null)
             return NotFound();
 
-        ExportToPDFModel exportPDF = new();
         return File(
-            exportPDF.GetPDF(url),
+            await _pdfRenderer.RenderAsync(url, HttpContext.RequestAborted),
             MediaTypeNames.Application.Pdf,
             "Proposal.pdf"
         );

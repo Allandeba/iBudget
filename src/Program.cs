@@ -4,6 +4,7 @@ using iBudget.Business;
 using iBudget.Controllers;
 using iBudget.DAO;
 using iBudget.Framework;
+using iBudget.Interfaces;
 using iBudget.Models;
 using iBudget.Repository;
 using Microsoft.AspNetCore.Authentication;
@@ -11,7 +12,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
-using Syncfusion.Licensing;
 
 namespace iBudget;
 
@@ -24,7 +24,14 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.Configure<DemoOptions>(builder.Configuration.GetSection(DemoOptions.SectionName));
+        builder.Services
+            .AddOptions<PdfOptions>()
+            .Bind(builder.Configuration.GetSection(PdfOptions.SectionName))
+            .Validate(options => options.NavigationTimeoutSeconds > 0, "O timeout do PDF deve ser positivo.")
+            .Validate(options => options.MaxConcurrentPages > 0, "A concorrência do PDF deve ser positiva.")
+            .ValidateOnStart();
         builder.Services.AddSingleton<DemoAccess>();
+        builder.Services.AddSingleton<IPdfRenderer, PlaywrightPdfRenderer>();
         builder.Services.AddSingleton(TimeProvider.System);
 
         builder.Services.Configure<ForwardedHeadersOptions>(options =>
@@ -67,7 +74,6 @@ public class Program
         });
 
         SystemManager.IsDevelopment = builder.Environment.IsDevelopment();
-        string syncfusionKey;
         string connectionString;
 
         connectionString = builder.Configuration.GetConnectionString("DB_CONNECTION");
@@ -75,14 +81,6 @@ public class Program
             connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION");
         if (string.IsNullOrEmpty(connectionString))
             throw new Exception("Configuração de banco de dados não encontrada");
-
-        syncfusionKey = builder.Configuration.GetConnectionString("SYNC_FUSION_LICENSING");
-        if (string.IsNullOrEmpty(syncfusionKey))
-            syncfusionKey = Environment.GetEnvironmentVariable("SYNC_FUSION_LICENSING");
-        if (string.IsNullOrEmpty(syncfusionKey))
-            throw new Exception("Chave Syncfusion não encontrada");
-
-        SyncfusionLicenseProvider.RegisterLicense(syncfusionKey);
 
         _ = builder.Services.AddDbContext<ApplicationDBContext>(
             options => options.UseNpgsql(connectionString)

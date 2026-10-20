@@ -47,8 +47,7 @@ public sealed class DemoApplicationFactory : WebApplicationFactory<Program>
         builder.ConfigureHostConfiguration(configuration => configuration.AddInMemoryCollection(
             new Dictionary<string, string>
             {
-                ["ConnectionStrings:DB_CONNECTION"] = "Host=unused;Database=isolated_tests",
-                ["ConnectionStrings:SYNC_FUSION_LICENSING"] = "isolated-tests"
+                ["ConnectionStrings:DB_CONNECTION"] = "Host=unused;Database=isolated_tests"
             }));
         return base.CreateHost(builder);
     }
@@ -61,7 +60,6 @@ public sealed class DemoApplicationFactory : WebApplicationFactory<Program>
             new Dictionary<string, string>
             {
                 ["ConnectionStrings:DB_CONNECTION"] = "Host=unused;Database=isolated_tests",
-                ["ConnectionStrings:SYNC_FUSION_LICENSING"] = "isolated-tests",
                 ["Demo:Enabled"] = _enabled?.ToString()
             }));
 
