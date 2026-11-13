@@ -105,7 +105,7 @@ $env:IBUDGET_TEST_URL = 'http://127.0.0.1:5105/Login'
 dotnet test test/iBudget.AutomatedTest/iBudget.AutomatedTest.csproj
 ```
 
-Se a demonstração estiver desligada, o helper Selenium preenche `Constants.DefaultUsername` e a variável `USER_PASSWORD` do executor de testes. Essa senha precisa corresponder à senha cadastrada no banco de homologação. No GitHub Actions, configure o secret `USER_PASSWORD`, repassado ao passo de testes; o arquivo de ambiente do container não é compartilhado com o executor. Com Demo ligado, Selenium não precisa dessa senha.
+Se a demonstração estiver desligada, o helper Selenium preenche `Constants.DefaultUsername` e a variável `USER_PASSWORD` do executor de testes. Essa senha precisa corresponder à senha cadastrada no banco isolado de testes; o arquivo de ambiente do container não é compartilhado com o executor. Com Demo ligado, Selenium não precisa dessa senha. Não execute Selenium contra a produção.
 
 **Os testes Selenium alteram dados.** Confira o `.env`, pois ele pode sobrescrever as variáveis acima. Sem uma URL explícita, a fixture usa localhost em Development e a homologação remota nos demais ambientes. Para verificar o projeto localmente, prefira os comandos por projeto em vez de rodar `dotnet test` na solução inteira.
 
@@ -113,6 +113,8 @@ A validação da data de criação de pessoas usa `America/Sao_Paulo`, independe
 
 ## Publicação e validação
 
-Um push em `main` aciona o [workflow](.github/workflows/ibudget.yml): ele compila o projeto, executa os testes unitários e implanta em homologação. Depois dos testes Selenium, implanta em produção. Os secrets do GitHub guardam os endereços, as credenciais e os caminhos dos arquivos de ambiente.
+Um push em `main` entrega um evento assinado de GitHub ao webhook do recurso, que constrói a imagem e exige a aprovação dos testes antes de iniciar a stack atualizada. Previews permanecem desativados. Segredos reais ficam nas environments privadas do Coolify, fora do Git, de argumentos de build e do runtime quando forem exclusivos da compilação. Um build rejeitado não irá substituir o runtime anterior.
 
-O Dockerfile usa .NET 8, a porta HTTP `80` e instala somente o Chromium headless necessário para gerar PDFs. Informe a conexão com o banco ao executar o container.
+O segredo BuildKit obrigatório é `SIXLABORS_LICENSE_KEY`, com o mesmo nome da variável cadastrada no Coolify. Configure `is_buildtime=true`, `is_runtime=false` e habilite **Use Build Secrets**. Não coloque o valor em ARG, ENV, Compose, Git ou arquivos dentro do contexto. O build usa a licença somente pelo mount de segredo; ela não deve aparecer nos containers publicados.
+
+A aplicação escuta HTTP na porta interna `80`. A conexão de banco é configuração de runtime.

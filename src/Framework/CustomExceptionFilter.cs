@@ -11,10 +11,15 @@ namespace iBudget.Framework;
 public class CustomExceptionFilter : IExceptionFilter
 {
     private readonly IModelMetadataProvider _modelMetadataProvider;
+    private readonly IConfiguration _configuration;
+    private readonly ILogger<CustomExceptionFilter> _logger;
 
-    public CustomExceptionFilter(IModelMetadataProvider modelMetadataProvider)
+    public CustomExceptionFilter(IModelMetadataProvider modelMetadataProvider,
+        IConfiguration configuration, ILogger<CustomExceptionFilter> logger)
     {
         _modelMetadataProvider = modelMetadataProvider;
+        _configuration = configuration;
+        _logger = logger;
     }
 
     public void OnException(ExceptionContext context)
@@ -33,7 +38,16 @@ public class CustomExceptionFilter : IExceptionFilter
         }
         else
         {
-            result.ViewData.Add(Constants.ThrowException, context.Exception);
+            if (_configuration.GetValue<bool>("Deployment:PublicDemo"))
+            {
+                _logger.LogError(context.Exception, "Falha não tratada na demonstração pública.");
+                result.StatusCode = StatusCodes.Status500InternalServerError;
+                result.ViewData.Add(Constants.ThrowDBException, "Ocorreu uma falha inesperada. Tente novamente.");
+            }
+            else
+            {
+                result.ViewData.Add(Constants.ThrowException, context.Exception);
+            }
         }
 
         context.ExceptionHandled = false;

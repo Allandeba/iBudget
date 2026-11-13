@@ -122,6 +122,20 @@ public class Program
         _ = app.UseAuthentication();
         _ = app.UseAuthorization();
 
+        _ = app.MapGet("/health", async (ApplicationDBContext context, CancellationToken cancellationToken) =>
+        {
+            try
+            {
+                var ready = await context.Database.CanConnectAsync(cancellationToken)
+                    && await context.Login.AnyAsync(cancellationToken);
+                return ready ? Results.Json(new { status = "ready" }) : Results.StatusCode(503);
+            }
+            catch
+            {
+                return Results.StatusCode(503);
+            }
+        }).AllowAnonymous();
+
         _ = app.MapControllerRoute(
             "default",
             "{controller=Home}/{action=Index}/{id?}"

@@ -1,0 +1,102 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      secrets:
+        - SIXLABORS_LICENSE_KEY
+    restart: unless-stopped
+    mem_limit: 1g
+    cpus: 0.5
+    expose:
+      - "80"
+    environment:
+      ASPNETCORE_URLS: http://+:80
+      ASPNETCORE_ENVIRONMENT: Development
+      Demo__Enabled: "true"
+      Deployment__PublicDemo: "true"
+      AllowedHosts: localhost;127.0.0.1;web;ibudget.allandeba.dev.br
+      Pdf__MaxConcurrentPages: "1"
+      IBUDGET_DB_PASSWORD: ${IBUDGET_DB_PASSWORD-}
+      ConnectionStrings__DB_CONNECTION: Host=postgres;Port=5432;Database=ibudget;Username=ibudget_app;Password=${IBUDGET_DB_PASSWORD-}
+      ConnectionStrings__USER_PASSWORD: ${IBUDGET_USER_PASSWORD-}
+    entrypoint:
+      - /bin/sh
+      - -ec
+      - |
+        : "$${IBUDGET_DB_PASSWORD:?IBUDGET_DB_PASSWORD is required}"
+        : "$${ConnectionStrings__USER_PASSWORD:?IBUDGET_USER_PASSWORD is required}"
+        exec dotnet iBudget.dll
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - data-protection:/app/data-protection
+    networks:
+      - default
+      - database
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, --show-error, --max-time, "3", "http://127.0.0.1:80/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 120s
+
+  postgres:
+    image: postgres:17-alpine@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24
+    restart: unless-stopped
+    mem_limit: 512m
+    cpus: 0.25
+    environment:
+      POSTGRES_USER: ibudget_bootstrap
+      POSTGRES_DB: ibudget
+      POSTGRES_PASSWORD: ${IBUDGET_POSTGRES_PASSWORD-}
+      IBUDGET_DB_USER: ibudget_app
+      IBUDGET_DB_PASSWORD: ${IBUDGET_DB_PASSWORD-}
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    entrypoint:
+      - /bin/sh
+      - -ec
+      - |
+        : "$${POSTGRES_PASSWORD:?IBUDGET_POSTGRES_PASSWORD is required}"
+        : "$${IBUDGET_DB_PASSWORD:?IBUDGET_DB_PASSWORD is required}"
+        exec docker-entrypoint.sh "$$@"
+      - --
+    command: [postgres]
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./deploy/postgres/init-app.sh:/docker-entrypoint-initdb.d/10-init-app.sh:ro
+    networks:
+      - database
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          test -n "$${IBUDGET_DB_PASSWORD}" &&
+          test "$$(PGPASSWORD="$${IBUDGET_DB_PASSWORD}" PGCONNECT_TIMEOUT=3
+          psql --host=127.0.0.1 --username="$${IBUDGET_DB_USER}"
+          --dbname="$${POSTGRES_DB}" --no-password --no-psqlrc --tuples-only --no-align
+          --set=ON_ERROR_STOP=1
+          --command="SELECT 1 FROM pg_database d JOIN pg_roles r ON r.rolname = current_user
+          WHERE d.datname = current_database() AND d.datdba = r.oid
+          AND NOT r.rolsuper AND NOT r.rolcreatedb AND NOT r.rolcreaterole
+          AND NOT r.rolreplication AND NOT r.rolbypassrls
+          AND EXISTS (SELECT FROM pg_namespace WHERE nspname = 'public' AND nspowner = r.oid)
+          AND EXISTS (SELECT FROM pg_extension WHERE extname = 'unaccent')
+          AND public.unaccent('ação') = 'acao'")" = 1
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+networks:
+  database:
+    internal: true
+volumes:
+  postgres:
+  data-protection:
+
+secrets:
+  SIXLABORS_LICENSE_KEY:
+    environment: SIXLABORS_LICENSE_KEY
